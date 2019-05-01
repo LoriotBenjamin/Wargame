@@ -7,14 +7,18 @@ public class Hexagone {
 	int type;
 	double bonusDefense;
 	int coutDeDeplacement;
+	int x;
+	int y;
 	ArrayList <Hexagone> listeVoisin = new ArrayList();
 	
 	
-	public Hexagone(int type, double bonusDefense, int coutDeDeplacement) {
+	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,int x,int y) {
 		
 		this.type = type;
 		this.bonusDefense = bonusDefense;
 		this.coutDeDeplacement = coutDeDeplacement;
+		this.x = x;
+		this.y = y;
 
 	}
 	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,ArrayList <Hexagone> listeVoisin ) { // deuxiéme constructeur utile seulement si on connait la liste des voisins à voir 
@@ -27,6 +31,17 @@ public class Hexagone {
 	}
 	
 	
+	public void ajoutHexagoneVoisin(Hexagone h){
+		listeVoisin.add(h);
+	}
+	
+	public void afficheVoisin(){
+		for(Hexagone h: this.listeVoisin){
+			System.out.println("Valeur i: "+String.valueOf(h.x));
+			System.out.println("Valeur j: "+String.valueOf(h.y));
+		}
+	}
+
 	
 	////////////////////////Getter and Setter /////////////////////////
 	
@@ -53,13 +68,7 @@ public class Hexagone {
 	public void setCoutDeDeplacement(int coutDeDeplacement) {
 		this.coutDeDeplacement = coutDeDeplacement;
 	}
-	@Override
-	public String toString() {
-		return "Hexagone [type=" + type + ", bonusDefense=" + bonusDefense
-				+ ", coutDeDeplacement=" + coutDeDeplacement + ", listeVoisin="
-				+ listeVoisin + "]";
-	}
-
+	
 
 	
 	

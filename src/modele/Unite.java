@@ -12,6 +12,7 @@ public class Unite {
 	int x;
 	int y;
 	
+	
 	public Unite(int typeUnite,int attaque, int defense, int pv,
 			int ptDeDeplacement, int vision, int porte, int x, int y) {
 

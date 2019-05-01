@@ -23,7 +23,7 @@ public class MainOfGame {
 		//Interface I =new Interface();
 		Data.initMap(); // pour test
 		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
-		
+		Data.initListeVoisin();
 		
 		
 	}
