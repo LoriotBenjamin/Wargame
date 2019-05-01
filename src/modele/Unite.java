@@ -2,7 +2,7 @@ package modele;
 
 public class Unite {
 	
-	int typeUnite;
+	int typeUnite; // peut être remplacé par un .getClass() supprimant cette variable mais un peu plus long dans les tests que des comparaisons avec un int je pense 
 	int attaque;
 	int defense;
 	int pv;
@@ -12,7 +12,7 @@ public class Unite {
 	int x;
 	int y;
 	
-	public Unite(int typeUnite, int attaque, int defense, int pv,
+	public Unite(int typeUnite,int attaque, int defense, int pv,
 			int ptDeDeplacement, int vision, int porte, int x, int y) {
 
 		this.typeUnite = typeUnite;
@@ -36,8 +36,6 @@ public class Unite {
 			System.out.println("Pas de point de déplacement ");
 		}
 	}
-	
-	
 	
 	
 	
@@ -84,14 +82,6 @@ public class Unite {
 		this.y = y;
 	}
 
-	public int getTypeUnite() {
-		return typeUnite;
-	}
-
-	public void setTypeUnite(int typeUnite) {
-		this.typeUnite = typeUnite;
-	}
-
 	public int getAttaque() {
 		return attaque;
 	}
@@ -114,6 +104,14 @@ public class Unite {
 
 	public void setPorte(int porte) {
 		this.porte = porte;
+	}
+
+	public int getTypeUnite() {
+		return typeUnite;
+	}
+
+	public void setTypeUnite(int typeUnite) {
+		this.typeUnite = typeUnite;
 	}
 	
 	

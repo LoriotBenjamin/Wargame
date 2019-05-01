@@ -17,7 +17,7 @@ public class Hexagone {
 		this.coutDeDeplacement = coutDeDeplacement;
 
 	}
-	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,ArrayList <Hexagone> listeVoisin ) { // deuxiéme constructeur utile? 
+	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,ArrayList <Hexagone> listeVoisin ) { // deuxiéme constructeur utile seulement si on connait la liste des voisins à voir 
 		
 		this.type = type;
 		this.bonusDefense = bonusDefense;
@@ -52,6 +52,12 @@ public class Hexagone {
 
 	public void setCoutDeDeplacement(int coutDeDeplacement) {
 		this.coutDeDeplacement = coutDeDeplacement;
+	}
+	@Override
+	public String toString() {
+		return "Hexagone [type=" + type + ", bonusDefense=" + bonusDefense
+				+ ", coutDeDeplacement=" + coutDeDeplacement + ", listeVoisin="
+				+ listeVoisin + "]";
 	}
 
 

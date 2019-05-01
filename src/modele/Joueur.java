@@ -10,11 +10,15 @@ public class Joueur {
 	
 	
 	
-	public Joueur(int numeroJoueur, String pseudo, ArrayList<Unite> listeUnite) {
+	public Joueur(int numeroJoueur, String pseudo) {
 		
 		this.numeroJoueur = numeroJoueur;
 		this.pseudo = pseudo;
-		this.listeUnite = listeUnite;
+		
+		
+		listeUnite.add(new Guerrier());
+		listeUnite.add(new Guerrier()); // ajout de 2 guerriers pour tester
+		
 	}
 
 
