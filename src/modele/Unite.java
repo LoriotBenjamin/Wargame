@@ -1,5 +1,7 @@
 package modele;
 
+import controleur.Data;
+
 public class Unite {
 	
 	int typeUnite; // peut être remplacé par un .getClass() supprimant cette variable mais un peu plus long dans les tests que des comparaisons avec un int je pense 
@@ -36,6 +38,15 @@ public class Unite {
 		}else{
 			System.out.println("Pas de point de déplacement ");
 		}
+	}
+	
+	public void calculDegats(int attaque,double bonusDefense) {
+		double degats=(attaque-(this.defense*(1+bonusDefense)))*Data.getDoubleAleaBorne(0.5,1.5);
+		this.pv-=(int)degats;
+		if(this.pv<0) {
+			this.pv=0;
+		}
+		
 	}
 	
 	

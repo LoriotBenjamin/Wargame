@@ -57,6 +57,11 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 		System.out.println("Point 3 3");
 		map[3][3].afficheVoisin();
 	}
+	
+	public static double getDoubleAleaBorne(double min, double max) {
+		double res=(Math.random()*((max-min)+1))+min;
+		return res;
+	}
 
 	
 	
