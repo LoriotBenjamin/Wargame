@@ -13,10 +13,11 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 	
 	public static final int PLAINE = 10;
 	public static final int FORET = 11;
-	public static final int VILLE = 13;
+	public static final int VILLAGE = 13;
 	public static final int RIVIERE = 14;
 	public static final int MONTAGNE = 15;
 	public static final int MER = 16;
+	public static final int DESERT = 17;
 	
 	public static final int mapLongueur = 10;
 	public static final int mapLargeur = 10;
