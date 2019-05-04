@@ -19,8 +19,8 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 	public static final int MER = 16;
 	public static final int DESERT = 17;
 	
-	public static final int mapLongueur = 10;
-	public static final int mapLargeur = 10;
+	public static int mapLongueur = 10;
+	public static int mapLargeur = 10;
 		
 	public static Hexagone map [][]= new Hexagone[10][10];
 	
