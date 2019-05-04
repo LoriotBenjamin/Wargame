@@ -25,29 +25,29 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 	public static Hexagone map [][]= new Hexagone[10][10];
 	
 	
-	public static void initMap(){
-		for (int i =0; i < mapLargeur; i++){
-			for(int j=0; j < mapLongueur;j++)
-				map[i][j]= new Plaine(i,j);	// initialise une map remplie de plaine. 
-				//System.out.println(map[i][j].toString()); 
+	public static void initMap(){			// initialise une map remplie de plaine. 
+		for (int i =0; i < mapLongueur; i++){
+			for(int j=0; j < mapLargeur;j++)
+				map[i][j]= new Plaine(i,j);	
 		}
 	}
 	
-	public static void initListeVoisin(){
+	public static void initListeVoisin(){	// ajoute à chaque hexagone la liste des hexagones voisins 
+		//( serait peut être plus pertinent dans la classe hexagone)
 		
-		for (int i =0; i < mapLargeur; i++){
-			for(int j=0; j < mapLongueur;j++){
-				if(i+2 < mapLargeur )
+		for (int i =0; i < mapLongueur; i++){
+			for(int j=0; j < mapLargeur;j++){
+				if(i+2 < mapLongueur )
 					map[i][j].ajoutHexagoneVoisin(map[i+2][j]);
-				if(i+1 < mapLargeur && j+1 < mapLongueur)
+				if(i+1 < mapLongueur && j+1 < mapLargeur)
 					map[i][j].ajoutHexagoneVoisin(map[i+1][j+1]);
-				if(i-1 >= 0 && j+1 < mapLongueur)
+				if(i-1 >= 0 && j+1 < mapLargeur)
 					map[i][j].ajoutHexagoneVoisin(map[i-1][j+1]);
 				if(i-2 >= 0 )
 					map[i][j].ajoutHexagoneVoisin(map[i-2][j]);
 				if(i-1 >= 0 && j-1 >= 0)
 					map[i][j].ajoutHexagoneVoisin(map[i-1][j-1]);
-				if(i+1 < mapLargeur && j-1 >= 0)
+				if(i+1 < mapLongueur && j-1 >= 0)
 					map[i][j].ajoutHexagoneVoisin(map[i+1][j-1]);
 			}
 		}

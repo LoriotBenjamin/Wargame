@@ -49,7 +49,66 @@ public class Unite {
 		
 	}
 	
+public MyHashMap deplacementPossible (Hexagone h){
+		
+		MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap();  
+		MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
+		
 	
+		Hexagone hexagoneCourant = h; 
+		//deplacementPossible.put(hexagoneCourant, ptDeDeplacement);
+		pointAExplorer.put(hexagoneCourant,ptDeDeplacement);
+		
+		
+		if( ptDeDeplacement != 0){ // si jamais un jour on donne la possibilité d'enlever des points de déplacement évite les tours de boucle inutile
+			
+			while(!pointAExplorer.isEmpty()){
+				
+				hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on récupére le premier element de la liste
+	
+				for(Hexagone v : hexagoneCourant.listeVoisin){	// on parcourt la liste de ses voisins 
+					
+					if(deplacementPossible.containsKey(v)) {
+						
+						if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
+						// si le cout actuel est moins grand que l'ancien coût.
+							
+							deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+							if(pointAExplorer.containsKey(v))
+								pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+							else
+								pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+						}
+					}
+					if(pointAExplorer.containsKey(v)) {
+						
+						if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
+						// si le cout actuel est moins grand que l'ancien coût.
+							pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+							
+						}
+					}
+					if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && !pointAExplorer.containsKey(v) && !deplacementPossible.containsKey(v) ){	
+					// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
+						pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+						
+					}
+					
+				
+				}	// fin du parcours des voisins
+				if(!deplacementPossible.containsKey(hexagoneCourant))
+					deplacementPossible.put(hexagoneCourant,pointAExplorer.get(hexagoneCourant)); 
+				pointAExplorer.remove(hexagoneCourant);
+		
+			
+			} // fin de la boucle principal
+		}else{
+			System.out.println("Pas de point de deplacement"); 
+		}
+		
+		return deplacementPossible;
+		
+	}
 	
 	
 	//////////////////////// Getter and Setter /////////////////////////
