@@ -8,11 +8,14 @@ public class Unite {
 	int attaque;
 	int defense;
 	int pv;
+	int pvMax;
 	int ptDeDeplacement;
+	int ptDeDeplacementMax;
 	int vision;
 	int porte;
 	int x;
 	int y;
+	boolean estAttaquee;
 	
 	
 	public Unite(int typeUnite,int attaque, int defense, int pv,
@@ -22,11 +25,14 @@ public class Unite {
 		this.attaque = attaque;
 		this.defense = defense;
 		this.pv = pv;
+		this.pvMax = pv;
 		this.ptDeDeplacement = ptDeDeplacement;
+		this.ptDeDeplacementMax = ptDeDeplacement;
 		this.vision = vision;
 		this.porte = porte;
 		this.x = x;
 		this.y = y;
+		this.estAttaquee = false;
 	}
 	
 	public void deplacer(int _x, int _y){	
@@ -108,6 +114,20 @@ public MyHashMap deplacementPossible (Hexagone h){
 		
 		return deplacementPossible;
 		
+	}
+
+	public void attaque(Unite unite) {
+		//si attaque possible
+		unite.calculDegats(this.attaque, Data.map[x][y].getBonusDefense());
+	}
+	
+	public void soin(double taux) {
+		if(this.ptDeDeplacement == this.ptDeDeplacementMax && this.estAttaquee == false) {
+			this.pv+=(int)this.pv*taux;
+			if(this.pv>this.pvMax) {
+				this.pv=this.pvMax;
+			}
+		}
 	}
 	
 	

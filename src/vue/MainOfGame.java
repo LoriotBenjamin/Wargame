@@ -28,7 +28,10 @@ public class MainOfGame {
 		
 		Guerrier guerrier=new Guerrier();
 		Mage mage= new Mage();
-		guerrier.calculDegats(mage.getAttaque(), Data.map[0][0].getBonusDefense());
+		System.out.println("PV = " + guerrier.getPv());
+		mage.attaque(guerrier);
+		System.out.println("PV = " + guerrier.getPv());
+		guerrier.soin(0.1);
 		System.out.println("PV = " + guerrier.getPv());
 		
 	}
