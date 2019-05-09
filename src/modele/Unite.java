@@ -136,7 +136,7 @@ public class Unite {
 
 	public void attaque(Unite unite) {
 		//si attaque possible
-		unite.calculDegats(this.attaque, Data.map[x][y].getBonusDefense()); 
+		unite.calculDegats(this.attaque, Data.map[unite.x][unite.y].getBonusDefense());
 	}
 	
 	public void soin(double taux) {

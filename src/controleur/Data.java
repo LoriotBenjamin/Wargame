@@ -1,5 +1,6 @@
 package controleur;
 
+import modele.Foret;
 import modele.Hexagone;
 import modele.Mer;
 import modele.Plaine;
@@ -31,6 +32,8 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 			for(int j=0; j < mapLargeur;j++)
 				if((i == 1 && j == 1) || ( i == 2 && j == 0))
 					map[i][j]= new Mer(i,j);	// ajout de deux hexa de mer pour tester
+				else if(i == 4 && j==4)
+					map[i][j]= new Foret(i,j);
 				else
 					map[i][j]= new Plaine(i,j);	
 		}
