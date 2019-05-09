@@ -68,6 +68,24 @@ public class Hexagone {
 	public void setCoutDeDeplacement(int coutDeDeplacement) {
 		this.coutDeDeplacement = coutDeDeplacement;
 	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public ArrayList<Hexagone> getListeVoisin() {
+		return listeVoisin;
+	}
+	public void setListeVoisin(ArrayList<Hexagone> listeVoisin) {
+		this.listeVoisin = listeVoisin;
+	}
 	
 
 	

@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.Hexagone;
+import modele.Mer;
 import modele.Plaine;
 
 public class Data {	// à renommer/refaire classe de dépannage pour tester 
@@ -28,7 +29,10 @@ public class Data {	// à renommer/refaire classe de dépannage pour tester
 	public static void initMap(){			// initialise une map remplie de plaine. 
 		for (int i =0; i < mapLongueur; i++){
 			for(int j=0; j < mapLargeur;j++)
-				map[i][j]= new Plaine(i,j);	
+				if((i == 1 && j == 1) || ( i == 2 && j == 0))
+					map[i][j]= new Mer(i,j);	// ajout de deux hexa de mer pour tester
+				else
+					map[i][j]= new Plaine(i,j);	
 		}
 	}
 	
