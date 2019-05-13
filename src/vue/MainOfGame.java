@@ -40,7 +40,7 @@ public class MainOfGame {
 		//guerrier.verifierSiDeplacementPossible(3,3);	// possible
 		guerrier.verifierSiDeplacementPossible(1,1);
 		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
-		guerrier.verifierSiDeplacementPossible(3,3);
+		guerrier.verifierSiDeplacementPossible(4,0);
 		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
 		
 	}

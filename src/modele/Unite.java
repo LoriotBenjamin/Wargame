@@ -67,7 +67,6 @@ public class Unite {
 		        		break;
 		        	}
 		        } 
-			
 		}
 		
 		
@@ -112,7 +111,7 @@ public class Unite {
 								
 							}
 						}
-						if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && !pointAExplorer.containsKey(v) && !deplacementPossible.containsKey(v) && v.type != Data.MER ){	
+						if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && v.type != Data.MER ){	
 						// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
 							pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 							
