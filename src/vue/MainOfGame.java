@@ -34,6 +34,15 @@ public class MainOfGame {
 		guerrier.soin(0.1);
 		System.out.println("PV = " + guerrier.getPv());
 		
+		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
+		guerrier.verifierSiDeplacementPossible(8,8);	// impossible car 3 point de deplacement
+		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
+		//guerrier.verifierSiDeplacementPossible(3,3);	// possible
+		guerrier.verifierSiDeplacementPossible(1,1);
+		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
+		guerrier.verifierSiDeplacementPossible(4,0);
+		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
+		
 	}
 
 	}
