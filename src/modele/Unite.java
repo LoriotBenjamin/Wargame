@@ -40,14 +40,6 @@ public class Unite {
 	}
 	
 	
-	public void calculDegats(int attaque,double bonusDefense) {
-		double degats=(attaque-(this.defense*(1+bonusDefense)))*Data.getDoubleAleaBorne(0.5,1.5);
-		this.pv-=(int)degats;
-		if(this.pv<0) {
-			this.pv=0;
-		}
-		
-	}
 	public void verifierSiDeplacementPossible(int _x,int _y){ // avertir la vue si la position de l'unite change
 		HashMap <Hexagone,Integer> deplacementPossible = CalculDeplacementPossible();
 		
@@ -133,9 +125,19 @@ public class Unite {
 			
 		}
 
-	public void attaque(Unite unite) {
+	public void attaquer(Unite unite) {
 		//si attaque possible
-		unite.calculDegats(this.attaque, Data.map[unite.x][unite.y].getBonusDefense());
+		unite.calculDegats(attaque);
+	}
+	
+	public void calculDegats(int attaque) {
+		double bonusDefense = Data.map[x][y].getBonusDefense();
+		double degats=(attaque-(defense*(1+bonusDefense)))*Data.getDoubleAleaBorne(0.5,1.5);
+		pv-=(int)degats;
+		if(pv<0) {
+			pv=0;
+		}
+		
 	}
 	
 	public void soin(double taux) {
