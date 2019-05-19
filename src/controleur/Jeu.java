@@ -113,11 +113,8 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 				
 			hexagoneCourant = (Hexagone) AExplorer.getFirstKey(); // on récupére le premier element de la liste
 			for(Hexagone v : hexagoneCourant.getListeVoisin()){	// on parcourt la liste de ses voisins 
-				if(!nofog.contains(v) && AExplorer.get(hexagoneCourant)+1 <= unite.getVision()) {
-					if((!AExplorer.containsKey(v)) || (AExplorer.get(v) > AExplorer.get(hexagoneCourant)+1))
-						AExplorer.put(v, AExplorer.get(hexagoneCourant)+1);
-				}
-				
+				if(!nofog.contains(v) && !AExplorer.containsKey(v) && AExplorer.get(hexagoneCourant)+1 <= unite.getVision())
+					AExplorer.put(v, AExplorer.get(hexagoneCourant)+1);
 			
 			}	// fin du parcours des voisins
 			if(!nofog.contains(hexagoneCourant))
