@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import controleur.Data;
+import controleur.Jeu;
 
 public class Unite {
 	
@@ -65,7 +65,7 @@ public class Unite {
 	}
 	
 	public MyHashMap CalculDeplacementPossible (){ // donne tout les hexagones possible dans la range de l'unite et les points de deplacement restant si elle s'y dirige
-			Hexagone h = Data.map[x][y];	// hexagone ou se situe l'unite 
+			Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
 			MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap();  
 			MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
 			
@@ -103,7 +103,7 @@ public class Unite {
 								
 							}
 						}
-						if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && v.type != Data.MER ){	
+						if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && v.type != Jeu.MER ){	
 						// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
 							pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 							
@@ -131,8 +131,8 @@ public class Unite {
 	}
 	
 	public void calculDegats(int attaque) {
-		double bonusDefense = Data.map[x][y].getBonusDefense();
-		double degats=(attaque-(defense*(1+bonusDefense)))*Data.getDoubleAleaBorne(0.5,1.5);
+		double bonusDefense = Jeu.map[x][y].getBonusDefense();
+		double degats=(attaque-(defense*(1+bonusDefense)))*getDoubleAleaBorne(0.5,1.5);
 		pv-=(int)degats;
 		if(pv<0) {
 			pv=0;
@@ -147,6 +147,11 @@ public class Unite {
 				this.pv=this.pvMax;
 			}
 		}
+	}
+	
+	public double getDoubleAleaBorne(double min, double max) {
+		double res=(Math.random()*((max-min)+1))+min;
+		return res;
 	}
 	
 	

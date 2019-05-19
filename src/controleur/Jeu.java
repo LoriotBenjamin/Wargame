@@ -79,11 +79,6 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 	public static void ajouter_joueur(Joueur joueur) {
 		joueurs.add(joueur);
 	}
-	
-	public static double getDoubleAleaBorne(double min, double max) {
-		double res=(Math.random()*((max-min)+1))+min;
-		return res;
-	}
 
 	public static ArrayList<Hexagone>  sans_brouillard(Joueur joueur){
 		HashSet<Hexagone> nonfog = new HashSet<Hexagone>();
