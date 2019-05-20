@@ -23,6 +23,9 @@ public class Joueur {
 
 
 	
+	public void setUnite (Unite u){
+		this.listeUnite.add(u);
+	}
 	
 	////////////////////////Getter and Setter /////////////////////////
 	public int getNumeroJoueur() {
@@ -58,6 +61,8 @@ public class Joueur {
 	public void setListeUnite(ArrayList<Unite> listeUnite) {
 		this.listeUnite = listeUnite;
 	}
+	
+
 
 
 }

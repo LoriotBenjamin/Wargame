@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -68,8 +69,11 @@ public class Unite {
 			Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
 			MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap();  
 			MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
-			
-		
+			ArrayList <Hexagone> caseVisible= Jeu.vision(this);
+			/*for(Hexagone hex : caseVisible){
+				System.out.println("coord en x: "+hex.x);
+				System.out.println("coord en y: "+hex.y);
+			}*/
 			Hexagone hexagoneCourant = h; 
 			//deplacementPossible.put(hexagoneCourant, ptDeDeplacement);
 			pointAExplorer.put(hexagoneCourant,ptDeDeplacement);
@@ -81,36 +85,38 @@ public class Unite {
 					
 					hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on récupére le premier element de la liste
 		
-					for(Hexagone v : hexagoneCourant.listeVoisin){	// on parcourt la liste de ses voisins 
-						
-						if(deplacementPossible.containsKey(v)) {
+					for(Hexagone v : hexagoneCourant.listeVoisin){	// on parcourt la liste de ses voisins
+							if(v.type != Jeu.MER && caseVisible.contains(v) ){
 							
-							if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
-							// si le cout actuel est moins grand que l'ancien coût.
+							if(deplacementPossible.containsKey(v)) {	// si il est déja dans la liste des déplacements possible
 								
-								deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
-								if(pointAExplorer.containsKey(v))
+								if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
+								// si le cout actuel est moins grand que l'ancien coût.
+									
+									deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+									if(pointAExplorer.containsKey(v))
+										pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+									else
+										pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+								}
+							}
+							if(pointAExplorer.containsKey(v)) {	// si il est déja en attente d'exploration
+								
+								if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
+								// si le cout actuel est moins grand que l'ancien coût.
 									pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
-								else
-									pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+									
+								}
 							}
-						}
-						if(pointAExplorer.containsKey(v)) {
-							
-							if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
-							// si le cout actuel est moins grand que l'ancien coût.
-								pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+							if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant)){	
+							// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
+								pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 								
 							}
-						}
-						if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant) && v.type != Jeu.MER ){	
-						// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
-							pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 							
-						}
 						
-					
-					}	// fin du parcours des voisins
+						}	
+					}// fin du parcours des voisins
 					if(!deplacementPossible.containsKey(hexagoneCourant))
 						deplacementPossible.put(hexagoneCourant,pointAExplorer.get(hexagoneCourant)); 
 					pointAExplorer.remove(hexagoneCourant);

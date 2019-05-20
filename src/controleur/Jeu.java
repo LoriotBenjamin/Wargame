@@ -76,15 +76,15 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 		map[3][3].afficheVoisin();
 	}
 	
-	public static void ajouter_joueur(Joueur joueur) {
+	public static void ajouterJoueur(Joueur joueur) {
 		joueurs.add(joueur);
 	}
 
-	public static ArrayList<Hexagone>  sans_brouillard(Joueur joueur){
+	public static ArrayList<Hexagone>  sansBrouillard(Joueur joueur){
 		HashSet<Hexagone> nonfog = new HashSet<Hexagone>();
 		ArrayList<Hexagone> list = new ArrayList<Hexagone>();
 		for(Unite unite : joueur.getListeUnite()) {
-			nonfog.addAll(Vision(unite));
+			nonfog.addAll(vision(unite));
 		}
 		Iterator<Hexagone> i = nonfog.iterator();
 		while(i.hasNext()) {
@@ -94,7 +94,7 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 		return list;
 	}
 	
-	public static ArrayList<Hexagone> Vision (Unite unite){ // donne tout les hexagones visibles par l'unit�
+	public static ArrayList<Hexagone> vision (Unite unite){ // donne tout les hexagones visibles par l'unit�
 		Hexagone h = Jeu.map[unite.getX()][unite.getY()];	// hexagone ou se situe l'unite 
 		ArrayList <Hexagone> nofog = new ArrayList();  
 		MyHashMap <Hexagone,Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
