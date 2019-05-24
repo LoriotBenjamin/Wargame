@@ -34,7 +34,7 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 	public static int mapLongueur = 10;
 	public static int mapLargeur = 10;
 		
-	public static ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
+	public static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 	public static Hexagone map [][]= new Hexagone[10][10];
 	
 	
@@ -76,9 +76,6 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 		map[3][3].afficheVoisin();
 	}
 	
-	public static void ajouterJoueur(Joueur joueur) {
-		joueurs.add(joueur);
-	}
 
 	public static ArrayList<Hexagone>  sansBrouillard(Joueur joueur){
 		HashSet<Hexagone> nonfog = new HashSet<Hexagone>();
@@ -122,6 +119,35 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 		return nofog;
 		
 	}
+	
+	/*
+	 *  compare la position de toutes les unités avec les coordonées rentré si une unité ennemie
+	 *  est sur la position demandé retourne true sinon false
+	 *  !! je ne sais pas si je dois la poser ici 
+	 */
+	public static boolean comparePosUniteAndTeamWithCoord (int x, int y,int numeroJoueur){
+		
+		for (Joueur j : Jeu.listeJoueurs){
+			if(j.getNumeroJoueur() != numeroJoueur){// petite optimisation ne regarde pas l'equipe du joueur evite 1 tour de boucle inutile
+				for(Unite u : j.getListeUnite()){
+					if(u.getX() == x && u.getY() == y)
+						return true; 
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public static Unite getUniteByNumeroJoueurAndCoord (int x, int y, int numeroJoueur){
+		ArrayList <Unite> uniteDuJoueur = Jeu.listeJoueurs.get(numeroJoueur).getListeUnite();
+		for(Unite u: uniteDuJoueur){
+			if(u.getX() == x && u.getY() == y)
+				return u;
+		}
+		return null;
+	}
+
 	
 	
 }

@@ -3,6 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import controleur.Jeu;
@@ -21,6 +22,7 @@ public class Unite {
 	int x;
 	int y;
 	boolean estAttaquee;
+	ArrayList <Unite> ennemieAttaquable = new ArrayList<Unite>();
 	
 	
 	public Unite(int typeUnite,int attaque, int defense, int pv,
@@ -42,7 +44,8 @@ public class Unite {
 	
 	
 	public void verifierSiDeplacementPossible(int _x,int _y){ // avertir la vue si la position de l'unite change
-		HashMap <Hexagone,Integer> deplacementPossible = CalculDeplacementPossible();
+		
+		HashMap <Hexagone,Integer> deplacementPossible = calculDeplacementPossible();
 		
 		if(!deplacementPossible.isEmpty()){
 			
@@ -64,12 +67,19 @@ public class Unite {
 		
 		
 	}
-	
-	public MyHashMap CalculDeplacementPossible (){ // donne tout les hexagones possible dans la range de l'unite et les points de deplacement restant si elle s'y dirige
+
+	/*
+	 * retourne un tableau avec en premier position la liste des déplacements possibles et les points de mouvement restant 
+	 * et en deuxiéme la liste des ennemis attaquable au corp à corp (si un tile de mer sépare deux unités peut on attaquer quand même? ligne de vue?) . 
+	 */
+	public MyHashMap calculDeplacementPossible (){ // donne tout les hexagones possible dans la range de l'unite et les points de deplacement restant si elle s'y dirige
 			Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
-			MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap();  
-			MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
+			MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();  
+			MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant 
 			ArrayList <Hexagone> caseVisible= Jeu.vision(this);
+			ArrayList <Unite> ennemiAttaquable = new ArrayList<Unite>();
+			
+		
 			/*for(Hexagone hex : caseVisible){
 				System.out.println("coord en x: "+hex.x);
 				System.out.println("coord en y: "+hex.y);
@@ -87,33 +97,34 @@ public class Unite {
 		
 					for(Hexagone v : hexagoneCourant.listeVoisin){	// on parcourt la liste de ses voisins
 							if(v.type != Jeu.MER && caseVisible.contains(v) ){
-							
-							if(deplacementPossible.containsKey(v)) {	// si il est déja dans la liste des déplacements possible
 								
-								if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
-								// si le cout actuel est moins grand que l'ancien coût.
+								if(deplacementPossible.containsKey(v)) {	// si il est déja dans la liste des déplacements possible
 									
-									deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
-									if(pointAExplorer.containsKey(v))
+									if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
+									// si le cout actuel est moins grand que l'ancien coût.
+										
+										deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+										if(pointAExplorer.containsKey(v))
+											pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+										else
+											pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+									}
+								}
+								if(pointAExplorer.containsKey(v)) {	// si il est déja en attente d'exploration
+									
+									if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
+									// si le cout actuel est moins grand que l'ancien coût.
 										pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
-									else
-										pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+										
+									}
 								}
-							}
-							if(pointAExplorer.containsKey(v)) {	// si il est déja en attente d'exploration
+								if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant)){	
+								// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
+									pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 								
-								if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
-								// si le cout actuel est moins grand que l'ancien coût.
-									pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 									
 								}
-							}
-							if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant)){	
-							// si le cout de deplacement est inferieur ou egal à la distance restante et qu'il n'est pas déja dans une des listes
-								pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
 								
-							}
-							
 						
 						}	
 					}// fin du parcours des voisins
@@ -126,6 +137,10 @@ public class Unite {
 			}else{
 				System.out.println("Pas de point de deplacement"); 
 			}
+			
+			
+			
+			
 			
 			return deplacementPossible;
 			
