@@ -93,7 +93,6 @@ public class Hexagone {
 		this.listeVoisin = listeVoisin;
 	}
 	
-
 	
 	
 

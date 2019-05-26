@@ -28,7 +28,7 @@ public class MainOfGame {
 		Jeu.initListeVoisin();
 		
 		MainJFrame mainFrame = new MainJFrame();
-		mainFrame.
+		mainFrame.getFrame().setVisible(true);
 		
 		Guerrier guerrier=new Guerrier();
 		Mage mage= new Mage();
