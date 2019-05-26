@@ -23,7 +23,18 @@ public class MainJFrame {
 	/**
 	 * Launch the application.
 	 */
-
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainJFrame window = new MainJFrame();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -37,8 +48,7 @@ public class MainJFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 1200, 600);
+		frame.setBounds(100, 100, 1300, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -47,7 +57,7 @@ public class MainJFrame {
 		frame.getContentPane().add(scrollPane);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1184, 21);
+		menuBar.setBounds(0, 0, 1300, 21);
 		frame.getContentPane().add(menuBar);
 		
 		JMenu mnFichier = new JMenu("Fichier");
@@ -56,12 +66,15 @@ public class MainJFrame {
 		JMenuItem mntmEnregistrer = new JMenuItem("Enregistrer");
 		mnFichier.add(mntmEnregistrer);
 		
+		JMenuItem mntmRetourMenu = new JMenuItem("Retour Menu");
+		mnFichier.add(mntmRetourMenu);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(1048, 21, 136, 591);
+		panel.setBounds(1048, 21, 236, 591);
 		frame.getContentPane().add(panel);
 		
 		JButton btnNewButton = new JButton("Fin de tour");
-		btnNewButton.setBounds(10, 484, 116, 23);
+		btnNewButton.setBounds(73, 486, 116, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -70,35 +83,27 @@ public class MainJFrame {
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Attaque :");
-		lblNewLabel.setBounds(10, 379, 65, 14);
+		lblNewLabel.setBounds(10, 379, 91, 14);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Defense :");
-		lblNewLabel_1.setBounds(10, 354, 65, 14);
+		JLabel lblNewLabel_1 = new JLabel("D\u00E9fense :");
+		lblNewLabel_1.setBounds(10, 354, 129, 14);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Vision :");
-		lblNewLabel_2.setBounds(10, 404, 46, 14);
+		lblNewLabel_2.setBounds(10, 404, 91, 14);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblPv = new JLabel("PV max : ");
-		lblPv.setBounds(10, 329, 46, 14);
+		lblPv.setBounds(10, 329, 91, 14);
 		panel.add(lblPv);
 		
 		JLabel lblPointDeVie = new JLabel("PV restant : ");
-		lblPointDeVie.setBounds(10, 304, 76, 14);
+		lblPointDeVie.setBounds(10, 304, 116, 14);
 		panel.add(lblPointDeVie);
 		
-		JLabel lblPointDeDeplacement = new JLabel("PM : ");
-		lblPointDeDeplacement.setBounds(10, 435, 116, 14);
+		JLabel lblPointDeDeplacement = new JLabel("Point de mouvement : ");
+		lblPointDeDeplacement.setBounds(10, 435, 158, 14);
 		panel.add(lblPointDeDeplacement);
 	}
-
-	public JFrame getFrame() {
-		return frame;
-	}
-	/*
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}*/
 }
