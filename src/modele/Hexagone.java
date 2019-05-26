@@ -30,6 +30,12 @@ public class Hexagone {
 
 	}
 	
+	//debug
+	@Override
+	public String toString() {
+		return " "+type+" ";
+	}
+	
 	
 	public void ajoutHexagoneVoisin(Hexagone h){
 		listeVoisin.add(h);

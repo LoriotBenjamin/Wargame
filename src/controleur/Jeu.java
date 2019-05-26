@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
+import modele.Desert;
 import modele.Foret;
 import modele.Hexagone;
 import modele.Joueur;
 import modele.Mer;
+import modele.Montagne;
 import modele.MyHashMap;
 import modele.Plaine;
+import modele.Riviere;
 import modele.Unite;
+import modele.Village;
 
 public class Jeu {	// Ã  renommer/refaire classe de dÃ©pannage pour tester 
 	
@@ -25,47 +31,130 @@ public class Jeu {	// Ã  renommer/refaire classe de dÃ©pannage pour tester
 	
 	public static final int PLAINE = 10;
 	public static final int FORET = 11;
-	public static final int VILLAGE = 13;
-	public static final int RIVIERE = 14;
-	public static final int MONTAGNE = 15;
-	public static final int MER = 16;
-	public static final int DESERT = 17;
+	public static final int VILLAGE = 12;
+	public static final int RIVIERE = 13;
+	public static final int MONTAGNE = 14;
+	public static final int MER = 15;
+	public static final int DESERT = 16;
 	
-	public static int mapLongueur = 10;
-	public static int mapLargeur = 10;
+	public static int mapLigne = 9;
+	public static int mapColonne = 11;
 		
 	public static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
-	public static Hexagone map [][]= new Hexagone[10][10];
+	public static Hexagone map [][]= new Hexagone[mapLigne][mapColonne];
 	
 	
-	public static void initMap(){			// initialise une map remplie de plaine. 
-		for (int i =0; i < mapLongueur; i++){
-			for(int j=0; j < mapLargeur;j++)
-				if((i == 2 && j == 0))
-					map[i][j]= new Mer(i,j);	// ajout de deux hexa de mer pour tester
-				else if(i == 4 && j==4)
-					map[i][j]= new Foret(i,j);
-				else
-					map[i][j]= new Plaine(i,j);	
+	public static void initMap(){			// initialise une map aléatoire par regroupement de terrains 
+		List<List<Integer>> listeMap = new ArrayList<List<Integer>>();
+		List<Integer> lignePossible = new ArrayList<Integer>();
+		List<Integer> terrains = new ArrayList<Integer>();
+		
+		for(int i=0;i<mapLigne;i++) { //récupère toutes les positions possibles
+			List<Integer> listeLigne = new ArrayList<Integer>();
+			for(int j=0;j<mapColonne;j++) {
+				listeLigne.add(j);
+			}
+			listeMap.add(listeLigne);
+			lignePossible.add(i);
+		}
+		
+		for(int i=PLAINE;i<=DESERT;i++) { //récupère tous les terrains possibles
+			terrains.add(i);
+		}
+		
+		while(lignePossible.isEmpty() == false) { //tant que la map n'est pas remplie
+			Integer ligne = getElementAleatoire(lignePossible); //ligne aléatoire
+			Integer colonne = getElementAleatoire(listeMap.get(ligne)); //colonne aléatoire
+			Integer terrain = getElementAleatoire(terrains); //terrain aléatoire
+			
+			int cpt = 0;
+			
+			while(cpt<=6) { //met le même terrain pour l'hexagone aléatoire et ces voisins
+				if(ligne>=0 && colonne>=0 && ligne<mapLigne && colonne<mapColonne
+						&& lignePossible.contains(ligne) && listeMap.get(ligne).contains(colonne)) {
+					switch(terrain) {
+					case PLAINE:
+						map[ligne][colonne]= new Plaine(ligne,colonne);
+						break;
+					case FORET:
+						map[ligne][colonne]= new Foret(ligne,colonne);
+						break;
+					case VILLAGE:
+						map[ligne][colonne]= new Village(ligne,colonne);
+						break;
+					case RIVIERE:
+						map[ligne][colonne]= new Riviere(ligne,colonne);
+						break;
+					case MONTAGNE:
+						map[ligne][colonne]= new Montagne(ligne,colonne);
+						break;
+					case MER:
+						map[ligne][colonne]= new Mer(ligne,colonne);
+						break;
+					case DESERT:
+						map[ligne][colonne]= new Desert(ligne,colonne);
+						break;
+					}
+					
+					listeMap.get(ligne).remove(colonne);
+					if(listeMap.get(ligne).isEmpty()) {
+						lignePossible.remove(ligne);
+					}
+				}
+				cpt++;
+				switch(cpt) {
+				case 1:
+					colonne++; //hexagone à droite
+					break;
+				case 2:
+					colonne-=2; //hexagone à gauche
+					break;
+				case 3:
+					ligne--; //hexagone en haut à gauche
+					break;
+				case 4:
+					colonne++; //hexagone en haut à droite
+					break;
+				case 5:
+					ligne+=2; //hexagone en bas à droite
+					break;
+				case 6:
+					colonne--; //hexagone en bas à gauche
+					break;
+				}
+			}
+		}
+		
+		for(int i=0;i<mapLigne;i++) {
+			for(int j=0;j<mapColonne;j++) {
+				System.out.print(map[i][j]);
+			}
+			System.out.println();
 		}
 	}
+	
+	public static int getElementAleatoire(List<Integer> liste) //récupére un élément aléatoire d'une liste d'entiers
+    { 
+        Random alea = new Random(); 
+        return liste.get(alea.nextInt(liste.size())); 
+    }
 	
 	public static void initListeVoisin(){	// ajoute Ã  chaque hexagone la liste des hexagones voisins 
 		//( serait peut Ãªtre plus pertinent dans la classe hexagone)
 		
-		for (int i =0; i < mapLongueur; i++){
-			for(int j=0; j < mapLargeur;j++){
-				if(i+2 < mapLongueur )
+		for (int i =0; i < mapLigne; i++){
+			for(int j=0; j < mapColonne;j++){
+				if(i+2 < mapLigne )
 					map[i][j].ajoutHexagoneVoisin(map[i+2][j]);
-				if(i+1 < mapLongueur && j+1 < mapLargeur)
+				if(i+1 < mapLigne && j+1 < mapColonne)
 					map[i][j].ajoutHexagoneVoisin(map[i+1][j+1]);
-				if(i-1 >= 0 && j+1 < mapLargeur)
+				if(i-1 >= 0 && j+1 < mapColonne)
 					map[i][j].ajoutHexagoneVoisin(map[i-1][j+1]);
 				if(i-2 >= 0 )
 					map[i][j].ajoutHexagoneVoisin(map[i-2][j]);
 				if(i-1 >= 0 && j-1 >= 0)
 					map[i][j].ajoutHexagoneVoisin(map[i-1][j-1]);
-				if(i+1 < mapLongueur && j-1 >= 0)
+				if(i+1 < mapLigne && j-1 >= 0)
 					map[i][j].ajoutHexagoneVoisin(map[i+1][j-1]);
 			}
 		}
