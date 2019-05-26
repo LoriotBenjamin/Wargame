@@ -6,6 +6,7 @@ import modele.Guerrier;
 import modele.Joueur; // à retirer d'ici 
 import modele.Mage;
 import controleur.Jeu;
+import controleur.MainJFrame;
 
 public class MainOfGame {
 
@@ -25,6 +26,9 @@ public class MainOfGame {
 		Jeu.initMap(); // pour test
 		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
 		Jeu.initListeVoisin();
+		
+		MainJFrame mainFrame = new MainJFrame();
+		mainFrame.
 		
 		Guerrier guerrier=new Guerrier();
 		Mage mage= new Mage();

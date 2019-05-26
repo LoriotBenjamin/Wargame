@@ -106,4 +106,12 @@ public class MainJFrame {
 		lblPointDeDeplacement.setBounds(10, 435, 158, 14);
 		panel.add(lblPointDeDeplacement);
 	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+	/*
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}*/
 }
