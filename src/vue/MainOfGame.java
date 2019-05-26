@@ -27,8 +27,12 @@ public class MainOfGame {
 		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
 		Jeu.initListeVoisin();
 		
-		MainJFrame mainFrame = new MainJFrame();
-		mainFrame.getFrame().setVisible(true);
+		try {
+			MainJFrame mainFrame = new MainJFrame();
+			mainFrame.getFrame().setVisible(true);
+		}catch(Exception e) {
+			
+		}
 		
 		Guerrier guerrier=new Guerrier();
 		Mage mage= new Mage();
