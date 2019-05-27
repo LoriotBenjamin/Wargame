@@ -1,5 +1,10 @@
 package controleur;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +27,12 @@ import modele.Riviere;
 import modele.Unite;
 import modele.Village;
 
-public class Jeu implements Serializable {	// à renommer/refaire classe de dépannage pour tester 
+public class Jeu implements Serializable {	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 42317779892167959L;
 	
 	public static final int GUERRIER = 1;
 	public static final int MAGE = 2;
@@ -43,6 +53,14 @@ public class Jeu implements Serializable {	// à renommer/refaire classe de dép
 		
 	public static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
 	public static Hexagone map [][]= new Hexagone[mapLigne][mapColonne];	
+	
+	
+	
+	public Jeu(Hexagone[][] map,ArrayList listeJoueurs){
+		this.listeJoueurs = listeJoueurs;
+		this.map = map; 
+		
+	}
 	
 	public static void initMap(){			// initialise une map aléatoire par regroupement de terrains 
 		List<List<Integer>> listeMap = new ArrayList<List<Integer>>();
@@ -137,6 +155,10 @@ public class Jeu implements Serializable {	// à renommer/refaire classe de dép
         Random alea = new Random(); 
         return liste.get(alea.nextInt(liste.size())); 
     }
+	
+	/** 
+	 * Initialise la liste des voisins de chaque case de la map 
+	 */
 	
 	public static void initListeVoisin(){	// ajoute à chaque hexagone la liste des hexagones voisins 
 		//( serait peut être plus pertinent dans la classe hexagone)
@@ -255,7 +277,28 @@ public class Jeu implements Serializable {	// à renommer/refaire classe de dép
 		}
 		return null;
 	}
+	
+	public static  void save (){
+		
+		File fichier =  new File("tmp/game.ser") ;
 
+		 // ouverture d'un flux sur un fichier
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(fichier));
+			Jeu game = new Jeu(Jeu.map,Jeu.listeJoueurs);
+			oos.writeObject(game);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+				
+
+		
+	}
 	
 	
 }

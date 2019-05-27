@@ -58,7 +58,7 @@ public class MainOfGame {
 		guerrier.verifierSiDeplacementPossible(5,0);
 		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
 		
-		
+		Jeu.save();
 		
 	}
 

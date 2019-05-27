@@ -1,5 +1,6 @@
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,7 +9,12 @@ import java.util.Map;
 
 import controleur.Jeu;
 
-public class Unite {
+public class Unite implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2569571978178827188L;
 	
 	int typeUnite; // peut être remplacé par un .getClass() supprimant cette variable mais un peu plus long dans les tests que des comparaisons avec un int je pense 
 	int attaque;

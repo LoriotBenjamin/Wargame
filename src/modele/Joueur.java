@@ -1,9 +1,14 @@
 package modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 916267121420154488L;
 	int numeroJoueur;
 	String pseudo;
 	ArrayList <Unite> listeUnite = new ArrayList(); 
