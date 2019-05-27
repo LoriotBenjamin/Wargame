@@ -1,5 +1,6 @@
 package controleur;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,7 +22,7 @@ import modele.Riviere;
 import modele.Unite;
 import modele.Village;
 
-public class Jeu {	// à renommer/refaire classe de dépannage pour tester 
+public class Jeu implements Serializable {	// à renommer/refaire classe de dépannage pour tester 
 	
 	public static final int GUERRIER = 1;
 	public static final int MAGE = 2;
@@ -142,18 +143,35 @@ public class Jeu {	// à renommer/refaire classe de dépannage pour tester
 		
 			for (int i =0; i < mapLigne; i++){
 				for(int j=0; j < mapColonne;j++){
-					if(i+2 < mapLigne )
-						map[i][j].ajoutHexagoneVoisin(map[i+2][j]);
-					if(i+1 < mapLigne && j+1 < mapColonne)
-						map[i][j].ajoutHexagoneVoisin(map[i+1][j+1]);
-					if(i-1 >= 0 && j+1 < mapColonne)
-						map[i][j].ajoutHexagoneVoisin(map[i-1][j+1]);
-					if(i-2 >= 0 )
-						map[i][j].ajoutHexagoneVoisin(map[i-2][j]);
-					if(i-1 >= 0 && j-1 >= 0)
-						map[i][j].ajoutHexagoneVoisin(map[i-1][j-1]);
-					if(i+1 < mapLigne && j-1 >= 0)
-						map[i][j].ajoutHexagoneVoisin(map[i+1][j-1]);
+					if( i%2 != 0){
+						if(i+1< mapLigne )
+							map[i][j].ajoutHexagoneVoisin(map[i+1][j]);
+						if(j+1 < mapColonne)
+							map[i][j].ajoutHexagoneVoisin(map[i][j+1]);
+						if(i-1 >= 0 && j+1 < mapColonne)
+							map[i][j].ajoutHexagoneVoisin(map[i-1][j+1]);
+						if(i-1 >= 0 )
+							map[i][j].ajoutHexagoneVoisin(map[i-1][j]);
+						if(i-1 >= 0 && j-1 >= 0)
+							map[i][j].ajoutHexagoneVoisin(map[i-1][j-1]);
+						if( j-1 >= 0)
+							map[i][j].ajoutHexagoneVoisin(map[i][j-1]);
+					}else{
+						
+						if(i+1< mapLigne )
+							map[i][j].ajoutHexagoneVoisin(map[i+1][j]);
+						if(i+1< mapLigne && j+1 < mapColonne)
+							map[i][j].ajoutHexagoneVoisin(map[i+1][j+1]);
+						if(j+1 < mapColonne)
+							map[i][j].ajoutHexagoneVoisin(map[i][j+1]);
+						if(i-1 >= 0 )
+							map[i][j].ajoutHexagoneVoisin(map[i-1][j]);
+						if(j-1 >= 0)
+							map[i][j].ajoutHexagoneVoisin(map[i][j-1]);
+						if(i+1< mapLigne && j-1 >= 0)
+							map[i][j].ajoutHexagoneVoisin(map[i+1][j-1]);
+						
+					}
 			}
 		}
 		
