@@ -24,7 +24,9 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
-		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
+		//Joueur j1 = new Joueur(1, "jean"); // juste pour tester
+		//Jeu.listeJoueurs.add(j1);
+		Jeu.chargerPartie("save");
 		Jeu.initListeVoisin();
 		try{
 			MainJFrame mainFrame = new MainJFrame();
@@ -37,11 +39,11 @@ public class MainOfGame {
 		
 		Guerrier guerrier=new Guerrier();
 		Mage mage= new Mage();
-		System.out.println("PV = " + guerrier.getPv());
-		mage.attaquer(guerrier);
-		System.out.println("PV = " + guerrier.getPv());
-		guerrier.soin(0.1);
-		System.out.println("PV = " + guerrier.getPv());
+		System.out.println("PV = " + Jeu.listeJoueurs.get(0).getListeUnite().get(0).getPv());
+		mage.attaquer(Jeu.listeJoueurs.get(0).getListeUnite().get(0));
+		System.out.println("PV = " + Jeu.listeJoueurs.get(0).getListeUnite().get(0).getPv());
+		Jeu.listeJoueurs.get(0).getListeUnite().get(0).soin(0.1);
+		System.out.println("PV = " + Jeu.listeJoueurs.get(0).getListeUnite().get(0).getPv());
 		
 		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
 		guerrier.verifierSiDeplacementPossible(8,8);	// impossible car 3 point de deplacement
@@ -59,6 +61,7 @@ public class MainOfGame {
 		System.out.println("pos x:"+guerrier.getX()+" y: "+guerrier.getY()+" ptDeDeplacementRestant: "+guerrier.getPtDeDeplacement());
 		
 		Jeu.save();
+		Jeu.sauvegarderPartie("save");
 		
 	}
 

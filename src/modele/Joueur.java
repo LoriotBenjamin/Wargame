@@ -25,6 +25,14 @@ public class Joueur implements Serializable{
 		listeUnite.add(new Guerrier()); // ajout de 2 guerriers pour tester
 		
 	}
+	
+	public Joueur(int numeroJoueur, String pseudo, ArrayList<Unite> listeunite) {
+		
+		this.numeroJoueur = numeroJoueur;
+		this.pseudo = pseudo;
+		this.listeUnite = listeunite;
+		
+	}
 
 
 	

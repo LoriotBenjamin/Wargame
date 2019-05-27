@@ -1,8 +1,11 @@
 package controleur;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import modele.Desert;
 import modele.Foret;
@@ -298,6 +302,125 @@ public class Jeu implements Serializable {
 				
 
 		
+	}
+	
+	public static void sauvegarderPartie(String saveName) {
+		final File saveFile = new File("./" + saveName);
+		try {
+			if(!saveFile.exists()) {
+				System.out.println("Fichier inexistant");
+				saveFile.createNewFile();
+			}
+			final FileWriter save = new FileWriter(saveFile);
+			try {
+				int x,y;
+				for(y=0;y<mapLigne;y++) {
+					for(x=0;x<mapColonne;x++) {
+						save.write(Integer.toString(map[y][x].getType()));
+						if(x<mapColonne-1) {
+							save.write("\t");
+						}
+					}
+					save.write("\n");
+				}
+				save.write(listeJoueurs.size() + "\n");
+				for(Joueur joueur : listeJoueurs){
+					save.write(joueur.getPseudo() + "\n");
+					for(Unite unite : joueur.getListeUnite()) {
+						save.write(Integer.toString(unite.getTypeUnite()) + "\t");
+						save.write(Integer.toString(unite.getAttaque()) + "\t");
+						save.write(Integer.toString(unite.getDefense()) + "\t");
+						save.write(Integer.toString(unite.getPv()) + "\t");
+						save.write(Integer.toString(unite.getPvMax()) + "\t");
+						save.write(Integer.toString(unite.getPtDeDeplacement()) + "\t");
+						save.write(Integer.toString(unite.getPtDeDeplacementMax()) + "\t");
+						save.write(Integer.toString(unite.getVision()) + "\t");
+						save.write(Integer.toString(unite.getPorte()) + "\t");
+						save.write(Integer.toString(unite.getX()) + "\t");
+						save.write(Integer.toString(unite.getY()) + "\n");
+					}
+					save.write("\n");
+				}
+			} finally {
+				save.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Impossible de creer le fichier");
+		}
+	}
+	
+	public static void chargerPartie(String fichier) {
+		final File saveFile = new File("./" + fichier);
+		try {
+			final FileReader save = new FileReader(saveFile);
+			final BufferedReader br = new BufferedReader(save);
+			try {
+				int ligne, colonne;
+				for(ligne=0;ligne<mapLigne;ligne++) {
+					String lignelue = br.readLine();
+					StringTokenizer tok=new StringTokenizer(lignelue,"\t");
+					for(colonne=0;colonne<mapColonne;colonne++) {
+						switch(Integer.parseInt(tok.nextToken())){
+						case PLAINE:
+							map[ligne][colonne]= new Plaine(ligne,colonne);
+							break;
+						case FORET:
+							map[ligne][colonne]= new Foret(ligne,colonne);
+							break;
+						case VILLAGE:
+							map[ligne][colonne]= new Village(ligne,colonne);
+							break;
+						case RIVIERE:
+							map[ligne][colonne]= new Riviere(ligne,colonne);
+							break;
+						case MONTAGNE:
+							map[ligne][colonne]= new Montagne(ligne,colonne);
+							break;
+						case MER:
+							map[ligne][colonne]= new Mer(ligne,colonne);
+							break;
+						case DESERT:
+							map[ligne][colonne]= new Desert(ligne,colonne);
+							break;
+						}
+					}
+				}
+				int playerCount = Integer.parseInt(br.readLine());
+				for(int p=1;p<=playerCount;p++){
+					System.out.println(p);
+					String nom = br.readLine();
+					String infoUnite = br.readLine();
+					ArrayList<Unite> unites = new ArrayList<Unite>();
+					while(!(infoUnite.isEmpty())) {
+						StringTokenizer tok=new StringTokenizer(infoUnite,"\t");
+						switch(Integer.parseInt(tok.nextToken())){
+						case GUERRIER:
+							unites.add(new Unite(GUERRIER, Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+							break;
+						case PRETRE:
+							unites.add(new Unite(PRETRE, Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+							break;
+						case MAGE:
+							unites.add(new Unite(MAGE, Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+							break;
+						case ARCHER:
+							unites.add(new Unite(ARCHER, Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+							break;
+						case CHEVALIER:
+							unites.add(new Unite(CHEVALIER, Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+							break;
+						}
+						infoUnite = br.readLine();
+					}
+					Joueur player = new Joueur(p, nom, unites);
+					listeJoueurs.add(player);
+				}
+			} finally {
+				save.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Impossible de creer le fichier");
+		}
 	}
 	
 	

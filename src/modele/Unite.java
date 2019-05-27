@@ -48,6 +48,23 @@ public class Unite implements Serializable {
 		this.estAttaquee = false;
 	}
 	
+	public Unite(int typeUnite,int attaque, int defense, int pv, int pvMax,
+			int ptDeDeplacement, int ptDeDeplacementMax, int vision, int porte, int x, int y) {
+
+		this.typeUnite = typeUnite;
+		this.attaque = attaque;
+		this.defense = defense;
+		this.pv = pv;
+		this.pvMax = pvMax;
+		this.ptDeDeplacement = ptDeDeplacement;
+		this.ptDeDeplacementMax = ptDeDeplacementMax;
+		this.vision = vision;
+		this.porte = porte;
+		this.x = x;
+		this.y = y;
+		this.estAttaquee = false;
+	}
+	
 	
 	public void verifierSiDeplacementPossible(int _x,int _y){ // avertir la vue si la position de l'unite change
 		
@@ -199,6 +216,10 @@ public class Unite implements Serializable {
 	public void setPv(int pv) {
 		this.pv = pv;
 	}
+	
+	public int getPvMax() {
+		return pvMax;
+	}
 
 	public int getPtDeDeplacement() {
 		return ptDeDeplacement;
@@ -206,6 +227,10 @@ public class Unite implements Serializable {
 
 	public void setPtDeDeplacement(int ptDeDeplacement) {
 		this.ptDeDeplacement = ptDeDeplacement;
+	}
+	
+	public int getPtDeDeplacementMax() {
+		return ptDeDeplacementMax;
 	}
 
 	public int getX() {
