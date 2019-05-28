@@ -2,98 +2,230 @@ package modele;
 
 import java.util.ArrayList;
 
+/**
+ * Hexagone est la classe représentant une case en forme d'hexagone du plateau
+ * de jeu. Un hexagone est caractérisé par :
+ * <ul>
+ * <li>Son type qui est un entier entre 10 et 16 représentant un type de
+ * terrain</li>
+ * <li>Son bonus de défense qui est différent pour chaque type de terrain</li>
+ * <li>Son coût de déplacement qui est différent pour chaque type de
+ * terrain</li>
+ * <li>Ses coordonnées sur le plateau : x et y</li>
+ * <li>Sa liste d'hexagones voisins
+ * </ul>
+ * @author Solenn
+ *
+ */
 public class Hexagone {
-	
-	int type;
-	double bonusDefense;
-	int coutDeDeplacement;
-	int x;
-	int y;
-	ArrayList <Hexagone> listeVoisin = new ArrayList();
-	
-	
-	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,int x,int y) {
-		
-		this.type = type;
-		this.bonusDefense = bonusDefense;
-		this.coutDeDeplacement = coutDeDeplacement;
-		this.x = x;
-		this.y = y;
+    /**
+     * Le type de l'Hexagone. C'est un entier compris entre 10 et 16 représentant les différents types de terrains.
+     * @see Hexagone#getType()
+     * @see Hexagone#setType(int)
+     */
+    private int type;
+    /**
+     * Le bonus de défense d'un Hexagone.
+     * @see Hexagone#getBonusDefense()
+     * @see Hexagone#setBonusDefense(double)
+     */
+    private double bonusDefense;
+    /**
+     * Le coût de déplacement d'un Hexagone.
+     * @see Hexagone#getCoutDeDeplacement()
+     * @see Hexagone#setCoutDeDeplacement(int)
+     */
+    private int coutDeDeplacement;
+    /**
+     * Le numéro de ligne d'un Hexagone.
+     * @see Hexagone#getX()
+     * @see Hexagone#setX(int)
+     */
+    private int x;
+    /**
+     * Le numéro de colonne d'un Hexagone.
+     * @see Hexagone#getY()
+     * @see Hexagone#setY(int)
+     */
+    private int y;
+    /**
+     * La liste des voisins d'un Hexagone.
+     * @see Hexagone#getListeVoisin()
+     * @see Hexagone#setListeVoisin(ArrayList)
+     */
+    private ArrayList<Hexagone> listeVoisin = new ArrayList<Hexagone>();
 
-	}
-	public Hexagone(int type, double bonusDefense, int coutDeDeplacement,ArrayList <Hexagone> listeVoisin ) { // deuxiÃ©me constructeur utile seulement si on connait la liste des voisins Ã  voir 
-		
-		this.type = type;
-		this.bonusDefense = bonusDefense;
-		this.coutDeDeplacement = coutDeDeplacement;
-		this.listeVoisin = listeVoisin; 
+    /**
+     * Constructeur Hexagone.
+     * @param type
+     *      Type de l'hexagone.
+     * @param bonusDefense
+     *      Bonus défense de l'hexagone.
+     * @param coutDeDeplacement
+     *      Coût de déplacement de l'hexagone.
+     * @param x
+     *      Numéro de ligne de l'hexagone.
+     * @param y
+     *      Numéro de colonne de l'hexagone.
+     */
+    public Hexagone(final int type, final double bonusDefense, final int coutDeDeplacement, final int x, final int y) {
+        this.type = type;
+        this.bonusDefense = bonusDefense;
+        this.coutDeDeplacement = coutDeDeplacement;
+        this.x = x;
+        this.y = y;
+    }
+    /**
+     * Constructeur Hexagone.
+     * @param type
+     *      Type de l'hexagone.
+     * @param bonusDefense
+     *      Bonus de défense de l'hexagone.
+     * @param coutDeDeplacement
+     *      Coût de déplacement de l'hexagone.
+     * @param listeVoisin
+     *      Liste des voisins de l'hexagone.
+     */
+    public Hexagone(final int type, final double bonusDefense, final int coutDeDeplacement,
+            final ArrayList<Hexagone> listeVoisin) {
+        // deuxieme constructeur utile seulement si on connait la liste des voisins a  voir
+        //A SUPPRIMER SI NON UTILISE
 
-	}
-	
-	//debug
-	@Override
-	public String toString() {
-		return " "+type+" ";
-	}
-	
-	
-	public void ajoutHexagoneVoisin(Hexagone h){
-		listeVoisin.add(h);
-	}
-	
-	public void afficheVoisin(){
-		for(Hexagone h: this.listeVoisin){
-			System.out.println("Valeur i: "+String.valueOf(h.x));
-			System.out.println("Valeur j: "+String.valueOf(h.y));
-		}
-	}
+        this.type = type;
+        this.bonusDefense = bonusDefense;
+        this.coutDeDeplacement = coutDeDeplacement;
+        this.listeVoisin = listeVoisin;
 
-	
-	////////////////////////Getter and Setter /////////////////////////
-	
-	public int getType() {
-		return type;
-	}
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    // debug
+    //A SUPPRIMER QUAND ON AURA LA VUE
+    @Override
+    public final String toString() {
+        return " " + type + " ";
+    }
 
-	public double getBonusDefense() {
-		return bonusDefense;
-	}
+    /**
+     * Ajoute un hexagone à la liste des voisins.
+     * @param h
+     *      Hexagone à ajouter.
+     * @see Hexagone#listeVoisin
+     */
+    public void ajoutHexagoneVoisin(final Hexagone h) {
+        listeVoisin.add(h);
+    }
 
-	public void setBonusDefense(double bonusDefense) {
-		this.bonusDefense = bonusDefense;
-	}
+    /**
+     * A SUPPRIMER PLUS TARD.
+     */
+    public void afficheVoisin() {
+        for (Hexagone h : this.listeVoisin) {
+            System.out.println("Valeur i: " + String.valueOf(h.x));
+            System.out.println("Valeur j: " + String.valueOf(h.y));
+        }
+    }
 
-	public int getCoutDeDeplacement() {
-		return coutDeDeplacement;
-	}
+    //////////////////////// Getter and Setter /////////////////////////
+    /**
+     * Retourne le type de l'hexagone.
+     * @return le type de l'hexagone.
+     */
+    public int getType() {
+        return type;
+    }
 
-	public void setCoutDeDeplacement(int coutDeDeplacement) {
-		this.coutDeDeplacement = coutDeDeplacement;
-	}
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	public ArrayList<Hexagone> getListeVoisin() {
-		return listeVoisin;
-	}
-	public void setListeVoisin(ArrayList<Hexagone> listeVoisin) {
-		this.listeVoisin = listeVoisin;
-	}
-	
-	
-	
+    /**
+     * Met à jour le type de l'hexagone.
+     * @param type
+     *      Le nouveau type de l'hexagone.
+     */
+    public void setType(final int type) {
+        this.type = type;
+    }
+
+    /**
+     * Retourne le bonus de défense de l'hexagone.
+     * @return le bonus de défense de l'hexagone.
+     */
+    public double getBonusDefense() {
+        return bonusDefense;
+    }
+
+    /**
+     * Met à jour le bonus de défense de l'hexagone.
+     * @param bonusDefense
+     *      Le nouveau bonus de défense de l'hexagone.
+     */
+    public void setBonusDefense(final double bonusDefense) {
+        this.bonusDefense = bonusDefense;
+    }
+
+    /**
+     * Retourne le coût de déplacement de l'hexagone.
+     * @return le coût de déplacement de l'hexagone.
+     */
+    public int getCoutDeDeplacement() {
+        return coutDeDeplacement;
+    }
+
+    /**
+     * Met à jour le coût de déplacement de l'hexagone.
+     * @param coutDeDeplacement
+     *      Le nouveau coût de déplacement de l'hexagone.
+     */
+    public void setCoutDeDeplacement(final int coutDeDeplacement) {
+        this.coutDeDeplacement = coutDeDeplacement;
+    }
+
+    /**
+     * Retourne le numéro de ligne de l'hexagone.
+     * @return le numéro de ligne de l'hexagone.
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Met à jour le numéro de ligne de l'hexagone.
+     * @param x
+     *      Le nouveau numéro de ligne de l'hexagone.
+     */
+    public void setX(final int x) {
+        this.x = x;
+    }
+
+    /**
+     * Retourne le numéro de colonne de l'hexagone.
+     * @return le numéro de colonne de l'hexagone.
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * Met à jour le numéro de colonne de l'hexagone.
+     * @param y
+     *      Le nouveau numéro de colonne de l'hexagone.
+     */
+    public void setY(final int y) {
+        this.y = y;
+    }
+
+    /**
+     * Retourne la liste des voisins de l'hexagone.
+     * @return la liste des voisins de l'hexagone.
+     */
+    public ArrayList<Hexagone> getListeVoisin() {
+        return listeVoisin;
+    }
+
+    /**
+     * Met à jour la liste des voisins de l'hexagone.
+     * @param listeVoisin
+     *      La nouvelle liste des voisins de l'hexagone.
+     */
+    public void setListeVoisin(final ArrayList<Hexagone> listeVoisin) {
+        this.listeVoisin = listeVoisin;
+    }
 
 }
