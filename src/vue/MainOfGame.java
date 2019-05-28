@@ -25,9 +25,9 @@ public class MainOfGame {
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
 		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
-		Jeu.listeJoueurs.add(j1);
+		Jeu.getListeJoueurs().add(j1);
 		Joueur j2 = new Joueur(1, "Baptiste"); // juste pour tester
-		Jeu.listeJoueurs.add(j2);
+		Jeu.getListeJoueurs().add(j2);
 		//Jeu.chargerPartie("save");
 		Jeu.initListeVoisin();
 		try{
@@ -39,8 +39,8 @@ public class MainOfGame {
 		}
 	
 		
-		Guerrier guerrier1=(Guerrier) Jeu.listeJoueurs.get(0).getListeUnite().get(0);
-		Guerrier guerrier2=(Guerrier) Jeu.listeJoueurs.get(1).getListeUnite().get(0);
+		Guerrier guerrier1=(Guerrier) Jeu.getListeJoueurs().get(0).getListeUnite().get(0);
+		Guerrier guerrier2=(Guerrier) Jeu.getListeJoueurs().get(1).getListeUnite().get(0);
 
 		guerrier2.setX(1);
 		guerrier2.setY(0);
