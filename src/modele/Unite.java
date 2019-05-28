@@ -64,31 +64,55 @@ public class Unite implements Serializable {
 		this.y = y;
 		this.estAttaquee = false;
 	}
+
 	
+	public void attendreSecondClic() {
+		//Récupérer les coordonnées du second clic et les transformer en coordonnées map
+		int x=0, y=0;
+		secondClic(x, y);
+	}
 	
-	public void verifierSiDeplacementPossible(int _x,int _y){ // avertir la vue si la position de l'unite change
+	public void secondClic(int _x,int _y){ // avertir la vue si la position de l'unite change
+		System.out.println("Test : X: " + _x + " Y: " + _y);
 		
 		HashMap <Hexagone,Integer> deplacementPossible = calculDeplacementPossible();
+		ArrayList<Hexagone> aPorteDAttaque = aPorte();
 		
 		if(!deplacementPossible.isEmpty()){
 			
 			Iterator iterator = deplacementPossible.entrySet().iterator();
-		    	while (iterator.hasNext()) {
-		        	Map.Entry mapEntry = (Map.Entry) iterator.next();
-		        	Hexagone h = (Hexagone) mapEntry.getKey();
-		        	if(_x ==h.getX() && _y == h.getY()){	
-		        		// surement ici ou a la fin de la fonction prevenir la vue 
-		        		// a voir comment nous allons realiser l'algo si c'est ici que l'on 
-		        		// regarde si il y a une unite ennemi sur la case cible 
-		        		this.x= _x ;
-		        		this.y = _y; 
-		        		this.ptDeDeplacement = (Integer) mapEntry.getValue();
-		        		break;
-		        	}
-		        } 
+		    totality : while (iterator.hasNext()) {
+		       	Map.Entry mapEntry = (Map.Entry) iterator.next();
+		       	Hexagone h = (Hexagone) mapEntry.getKey();
+		       	if(_x ==h.getX() && _y == h.getY()){
+		       		//La case a été trouvée
+		       		for(Joueur j : Jeu.listeJoueurs) {
+		       			for(Unite u : j.getListeUnite()) {
+		       				if(_x == u.getX() && _y == u.getY()) {
+		       					//Une unité est sur la case
+		       					System.out.println("Unité présente");
+		       					if(j.listeUnite.contains(this)){
+		       						//L'unité est alliée
+		       						u.attendreSecondClic();
+		       					} else {
+		       						if(aPorteDAttaque.contains(h)){
+		       							//L'unité est à porté
+		       							attaquer(u);
+		       						}
+		       					}
+       							break totality;
+		       				}
+		       			}
+		       		}
+		       		//Il n'y a pas d'unité sur la case
+   					System.out.println("Pas d'unité");
+			       	this.x= _x ;
+			       	this.y = _y; 
+			       	this.ptDeDeplacement = (Integer) mapEntry.getValue();
+		       		break totality;
+		       		}
+		       	}
 		}
-		
-		
 	}
 
 	/*
@@ -161,25 +185,53 @@ public class Unite implements Serializable {
 				System.out.println("Pas de point de deplacement"); 
 			}
 			
-			
-			
-			
-			
 			return deplacementPossible;
 			
 		}
 
+	public ArrayList<Hexagone> aPorte (){ // donne tout les hexagones visibles par l'unitï¿½
+		Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
+		ArrayList <Hexagone> aPorte = new ArrayList();  
+		MyHashMap <Hexagone,Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
+		
+	
+		Hexagone hexagoneCourant = h; 
+		aPorte.add(hexagoneCourant);
+		AExplorer.put(hexagoneCourant,0);
+		
+		while(!AExplorer.isEmpty()){
+				
+			hexagoneCourant = (Hexagone) AExplorer.getFirstKey(); // on rÃ©cupÃ©re le premier element de la liste
+			for(Hexagone v : hexagoneCourant.getListeVoisin()){	// on parcourt la liste de ses voisins 
+				if(!aPorte.contains(v) && !AExplorer.containsKey(v) && AExplorer.get(hexagoneCourant)+1 <= porte)
+					AExplorer.put(v, AExplorer.get(hexagoneCourant)+1);
+			
+			}	// fin du parcours des voisins
+			if(!aPorte.contains(hexagoneCourant))
+				aPorte.add(hexagoneCourant);
+			AExplorer.remove(hexagoneCourant);
+	
+		
+		} // fin de la boucle principal
+		
+		return aPorte;
+		
+	}
+	
 	public void attaquer(Unite unite) {
 		//si attaque possible
 		unite.calculDegats(attaque);
+		ptDeDeplacement = 0;
 	}
 	
 	public void calculDegats(int attaque) {
+		estAttaquee = true;
 		double bonusDefense = Jeu.map[x][y].getBonusDefense();
 		double degats=(attaque-(defense*(1+bonusDefense)))*getDoubleAleaBorne(0.5,1.5);
 		pv-=(int)degats;
 		if(pv<0) {
 			pv=0;
+			//Retirer l'unité du jeu?
 		}
 		
 	}
