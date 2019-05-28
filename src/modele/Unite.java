@@ -205,12 +205,12 @@ public class Unite implements Serializable {
 		       	Hexagone h = (Hexagone) mapEntry.getKey();
 		       	if(_x ==h.getX() && _y == h.getY()){
 		       		//La case a été trouvée
-		       		for(Joueur j : Jeu.listeJoueurs) {
+		       		for(Joueur j : Jeu.getListeJoueurs()) {
 		       			for(Unite u : j.getListeUnite()) {
 		       				if(_x == u.getX() && _y == u.getY()) {
 		       					//Une unité est sur la case
 		       					System.out.println("Unité présente");
-		       					if(j.listeUnite.contains(this)){
+		       					if(j.getListeUnite().contains(this)){
 		       						//L'unité est alliée
 		       						u.attendreSecondClic();
 		       					} else {
@@ -240,7 +240,7 @@ public class Unite implements Serializable {
 	 * et en deuxiÃ©me la liste des ennemis attaquable au corp Ã  corp (si un tile de mer sÃ©pare deux unitÃ©s peut on attaquer quand mÃªme? ligne de vue?) . 
 	 */
 	public MyHashMap calculDeplacementPossible (){ // donne tout les hexagones possible dans la range de l'unite et les points de deplacement restant si elle s'y dirige
-			Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
+			Hexagone h = Jeu.getMap()[x][y];	// hexagone ou se situe l'unite 
 			MyHashMap <Hexagone,Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();  
 			MyHashMap <Hexagone,Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant 
 			ArrayList <Hexagone> caseVisible= Jeu.vision(this);
@@ -262,32 +262,32 @@ public class Unite implements Serializable {
 					
 					hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on rÃ©cupÃ©re le premier element de la liste
 		
-					for(Hexagone v : hexagoneCourant.listeVoisin){	// on parcourt la liste de ses voisins
-							if(v.type != Jeu.MER && caseVisible.contains(v) ){
+					for(Hexagone v : hexagoneCourant.getListeVoisin()){	// on parcourt la liste de ses voisins
+							if(v.getType() != Jeu.MER && caseVisible.contains(v) ){
 								
 								if(deplacementPossible.containsKey(v)) {	// si il est dÃ©ja dans la liste des dÃ©placements possible
 									
-									if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > deplacementPossible.get(v)){
+									if(pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement() > deplacementPossible.get(v)){
 									// si le cout actuel est moins grand que l'ancien coÃ»t.
 										
-										deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+										deplacementPossible.replace(v, pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement());
 										if(pointAExplorer.containsKey(v))
-											pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+											pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement());
 										else
-											pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+											pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement());
 									}
 								}
 								if(pointAExplorer.containsKey(v)) {	// si il est dÃ©ja en attente d'exploration
 									
-									if(pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement > pointAExplorer.get(v)){
+									if(pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement() > pointAExplorer.get(v)){
 									// si le cout actuel est moins grand que l'ancien coÃ»t.
-										pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+										pointAExplorer.replace(v, pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement());
 										
 									}
 								}
-								if (v.coutDeDeplacement <= pointAExplorer.get(hexagoneCourant)){	
+								if (v.getCoutDeDeplacement() <= pointAExplorer.get(hexagoneCourant)){	
 								// si le cout de deplacement est inferieur ou egal Ã  la distance restante et qu'il n'est pas dÃ©ja dans une des listes
-									pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.coutDeDeplacement);
+									pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant)-v.getCoutDeDeplacement());
 								
 									
 								}
@@ -311,7 +311,7 @@ public class Unite implements Serializable {
 
     //JAVADOC A FAIRE
 	public ArrayList<Hexagone> aPorte (){ // donne tout les hexagones visibles par l'unitï¿½
-		Hexagone h = Jeu.map[x][y];	// hexagone ou se situe l'unite 
+		Hexagone h = Jeu.getMap()[x][y];	// hexagone ou se situe l'unite 
 		ArrayList <Hexagone> aPorte = new ArrayList();  
 		MyHashMap <Hexagone,Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant 
 		
@@ -358,7 +358,7 @@ public class Unite implements Serializable {
     public void calculDegats(final int attaque) {
         final double borneInf = 0.5;
         final double borneSup = 1.5;
-        double bonusDefense = Jeu.map[x][y].getBonusDefense();
+        double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
         pv -= (int) degats;
         if (pv < 0) {
@@ -565,15 +565,5 @@ public class Unite implements Serializable {
         this.typeUnite = typeUnite;
     }
 
-} int getTypeUnite() {
-		return typeUnite;
-	}
-
-	public void setTypeUnite(int typeUnite) {
-		this.typeUnite = typeUnite;
-	}
-	
-	
-	
-
 }
+
