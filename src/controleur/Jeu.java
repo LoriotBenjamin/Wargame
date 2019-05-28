@@ -52,6 +52,8 @@ public class Jeu implements Serializable {
 	public static final int MER = 15;
 	public static final int DESERT = 16;
 	
+	public static final double SOIN = 0.1;
+	
 	public static int mapLigne = 9;
 	public static int mapColonne = 11;
 		
@@ -66,12 +68,12 @@ public class Jeu implements Serializable {
 		
 	}
 	
-	public static void initMap(){			// initialise une map aléatoire par regroupement de terrains 
+	public static void initMap(){			// initialise une map aleatoire par regroupement de terrains 
 		List<List<Integer>> listeMap = new ArrayList<List<Integer>>();
 		List<Integer> lignePossible = new ArrayList<Integer>();
 		List<Integer> terrains = new ArrayList<Integer>();
 
-		for(int i=0;i<mapLigne;i++) { //récupère toutes les positions possibles
+		for(int i=0;i<mapLigne;i++) { //recupere toutes les positions possibles
 			List<Integer> listeLigne = new ArrayList<Integer>();
 			for(int j=0;j<mapColonne;j++) {
 				listeLigne.add(j);
@@ -80,18 +82,18 @@ public class Jeu implements Serializable {
 			lignePossible.add(i);
 		}
 
-		for(int i=PLAINE;i<=DESERT;i++) { //récupère tous les terrains possibles
+		for(int i=PLAINE;i<=DESERT;i++) { //recupere tous les terrains possibles
 			terrains.add(i);
 		}
 
 		while(lignePossible.isEmpty() == false) { //tant que la map n'est pas remplie
-			Integer ligne = getElementAleatoire(lignePossible); //ligne aléatoire
-			Integer colonne = getElementAleatoire(listeMap.get(ligne)); //colonne aléatoire
-			Integer terrain = getElementAleatoire(terrains); //terrain aléatoire
+			Integer ligne = getElementAleatoire(lignePossible); //ligne aleatoire
+			Integer colonne = getElementAleatoire(listeMap.get(ligne)); //colonne aleatoire
+			Integer terrain = getElementAleatoire(terrains); //terrain aleatoire
 
 			int cpt = 0;
 
-			while(cpt<=6) { //met le même terrain pour l'hexagone aléatoire et ces voisins
+			while(cpt<=6) { //met le meme terrain pour l'hexagone aleatoire et ces voisins
 				if(ligne>=0 && colonne>=0 && ligne<mapLigne && colonne<mapColonne
 						&& lignePossible.contains(ligne) && listeMap.get(ligne).contains(colonne)) {
 					switch(terrain) {
@@ -126,22 +128,22 @@ public class Jeu implements Serializable {
 				cpt++;
 				switch(cpt) {
 				case 1:
-					colonne++; //hexagone à droite
+					colonne++; //hexagone a� droite
 					break;
 				case 2:
-					colonne-=2; //hexagone à gauche
+					colonne-=2; //hexagone a� gauche
 					break;
 				case 3:
-					ligne--; //hexagone en haut à gauche
+					ligne--; //hexagone en haut a� gauche
 					break;
 				case 4:
-					colonne++; //hexagone en haut à droite
+					colonne++; //hexagone en haut a� droite
 					break;
 				case 5:
-					ligne+=2; //hexagone en bas à droite
+					ligne+=2; //hexagone en bas a� droite
 					break;
 				case 6:
-					colonne--; //hexagone en bas à gauche
+					colonne--; //hexagone en bas a� gauche
 					break;
 				}
 			}
@@ -154,7 +156,7 @@ public class Jeu implements Serializable {
 			System.out.println();
 		}
 	}
-	public static int getElementAleatoire(List<Integer> liste) //récupére un élément aléatoire d'une liste d'entiers
+	public static int getElementAleatoire(List<Integer> liste) //recup�ere un element aleatoire d'une liste d'entiers
     { 
         Random alea = new Random(); 
         return liste.get(alea.nextInt(liste.size())); 

@@ -28,7 +28,7 @@ public class Unite implements Serializable {
 	int x;
 	int y;
 	boolean estAttaquee;
-	ArrayList <Unite> ennemieAttaquable = new ArrayList<Unite>();
+	ArrayList <Unite> ennemiAttaquable = new ArrayList<Unite>();
 	
 	
 	public Unite(int typeUnite,int attaque, int defense, int pv,
