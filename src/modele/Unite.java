@@ -164,6 +164,11 @@ public class Unite implements Serializable {
         this.y = y;
         this.estAttaquee = false;
     }
+    
+    //EN ATTENDANT LA VUE
+    public String toString() {
+        return "Type: "+typeUnite+" PV: "+pv+" / "+pvMax+" PtDepl: "+ptDeDeplacement+" / "+ptDeDeplacementMax+" position: "+x+" "+y;
+    }
 
     // JAVADOC A FAIRE
     public void attendreSecondClic() {
@@ -352,7 +357,11 @@ public class Unite implements Serializable {
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
         pv -= (int) degats;
         if (pv < 0) {
-            pv = 0;
+            for(Joueur joueur : Jeu.getListeJoueurs()) {
+                if(joueur.getListeUnite().remove(this)) { //supprime l'unité morte
+                    return;
+                }
+            }
         }
 
     }

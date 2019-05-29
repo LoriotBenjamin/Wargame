@@ -140,9 +140,14 @@ public class Jeu implements Serializable {
         }
 
         while (!lignePossible.isEmpty()) { // tant que la map n'est pas remplie
-            Integer ligne = getElementAleatoire(lignePossible); // ligne aleatoire
-            Integer colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
-            Integer terrain = getElementAleatoire(terrains); // terrain aleatoire
+            Integer ligne;
+            Integer colonne;
+            Integer terrain;
+            do {
+                ligne = getElementAleatoire(lignePossible); // ligne aleatoire
+                colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
+                terrain = getElementAleatoire(terrains); // terrain aleatoire
+            } while(terrain == MER && (ligne == 0 || colonne == 0 || ligne == MAPLIGNE-1 || colonne == MAPCOLONNE-1));
 
             final int nbVoisin = 6;
             for (int cpt = 0; cpt <= nbVoisin; cpt++) { // met le meme terrain pour l'hexagone aleatoire et ces voisins
@@ -166,6 +171,7 @@ public class Jeu implements Serializable {
                         break;
                     case MER:
                         map[ligne][colonne] = new Mer(ligne, colonne);
+                        cpt=6; //on ne fait pas des groupements de mer sinon déplacement difficile
                         break;
                     case DESERT:
                         map[ligne][colonne] = new Desert(ligne, colonne);
@@ -316,7 +322,7 @@ public class Jeu implements Serializable {
 
     }
 
-    //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE JOUEUR (JE PENSE)
+    //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE JOUEUR (JE PENSE) + A SUPPRIMER EN FIN DE PROJET SI NON UTILISEE
     /*
      * compare la position de toutes les unites avec les coordonees rentrees si une
      * unite ennemie est sur la position demandee, retourne true sinon false !! je

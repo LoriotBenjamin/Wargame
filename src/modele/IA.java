@@ -34,8 +34,11 @@ public class IA extends Joueur {
      */
     public void jouerTour() {
         for (Unite unite : this.getListeUnite()) {
+            Unite adversaire = null; //sauvegarde l'unité adverse en cas d'attaque pour décider si fuite après ou non
+           
             MyHashMap<Hexagone, Integer> deplacementPossible = unite.calculDeplacementPossible();
             Iterator<?> iterator = deplacementPossible.entrySet().iterator();
+            
             totality: while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 Hexagone hexagone = (Hexagone) mapEntry.getKey();
@@ -43,30 +46,52 @@ public class IA extends Joueur {
                 for(Joueur joueur : Jeu.getListeJoueurs()) {
                     if(joueur!=this) {
                         for(Unite uniteAdverse : joueur.getListeUnite()) {
-                            if(aPorteeDAttaque.contains(Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()])) {
+                            if(uniteAdverse.getX() != hexagone.getX() && uniteAdverse.getY() != hexagone.getY() 
+                                    && aPorteeDAttaque.contains(Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()])) {
                                 //unité à portée d'attaque trouvée
                                 unite.setX(hexagone.getX());
                                 unite.setY(hexagone.getY());
                                 unite.setPtDeDeplacement((Integer) mapEntry.getValue());
+                                System.out.println("Attaque de "+joueur.getPseudo());
+                                System.out.println(unite);
+                                System.out.println("sur "+uniteAdverse);
                                 unite.attaquer(uniteAdverse);
+                                System.out.println("Résultat :");
+                                System.out.println(unite);
+                                System.out.println(uniteAdverse);
+                                
+                                adversaire = uniteAdverse;
+                                
+                                deplacementPossible = unite.calculDeplacementPossible();
+                                
                                 break totality;
                             }
                         }
                     }
                 }
             }
-            if(unite.getPv() == unite.getPvMax()) {//si pas d'attaque possible et pas de soin possible alors déplacement aléatoire
+            if(!deplacementPossible.isEmpty() && 
+                    ((adversaire != null && adversaire.getPorte() >= unite.getPorte()) 
+                            || unite.getPv() >= (int) (0.75*unite.getPvMax()))) {
+              //si portée adverse > à portée unité ou plus de 75% de PV restant alors déplacement aléatoire
                 Object[] tabDeplacementPossible = deplacementPossible.keySet().toArray();
                 Object key = tabDeplacementPossible[new Random().nextInt(tabDeplacementPossible.length)];
                 Hexagone hexagone = (Hexagone) key;
                 unite.setX(hexagone.getX());
                 unite.setY(hexagone.getY());
                 unite.setPtDeDeplacement((Integer) deplacementPossible.get(key));
+                System.out.println("Déplacement sans attaquer :");
+                System.out.println(unite);
             }
             else {
+                System.out.println("Soin :");
+                System.out.println(unite);
                 unite.soin(Jeu.SOIN);
+                System.out.println(unite);
             }
         }
+        for (Unite unite : this.getListeUnite()) {
+            unite.setPtDeDeplacement(unite.getPtDeDeplacementMax());
+        }
     }
-
 }

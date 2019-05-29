@@ -2,7 +2,10 @@ package vue;
 
 import java.awt.EventQueue;
 
+import modele.Archer;
+import modele.Chevalier;
 import modele.Guerrier;
+import modele.IA;
 import modele.Joueur; // à retirer d'ici 
 import modele.Mage;
 import controleur.Jeu;
@@ -24,9 +27,9 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
-		Joueur j1 = new Joueur(1, "jean"); // juste pour tester
+		IA j1 = new IA(1, "IA1"); // juste pour tester
 		Jeu.getListeJoueurs().add(j1);
-		Joueur j2 = new Joueur(1, "Baptiste"); // juste pour tester
+		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
 		//Jeu.chargerPartie("save");
 		Jeu.initListeVoisin();
@@ -37,9 +40,58 @@ public class MainOfGame {
 		}catch(Exception e){
 			
 		}
+		
+		for(Joueur joueur : Jeu.getListeJoueurs()) {
+		    Archer archer = new Archer();
+		    
+		    Chevalier chevalier = new Chevalier();
+		    
+		    Guerrier guerrier = new Guerrier();
+		    
+		    if(joueur == j1) {
+		        archer.setX(0);
+		        archer.setY(0);
+		        chevalier.setX(0);
+                chevalier.setY(1);
+                guerrier.setX(0);
+                guerrier.setY(2);
+		    } else {
+		        archer.setX(8);
+                archer.setY(10);
+                chevalier.setX(8);
+                chevalier.setY(9);
+                guerrier.setX(8);
+                guerrier.setY(8); 
+		    }
+		    joueur.getListeUnite().add(archer);
+		    joueur.getListeUnite().add(chevalier);
+		    joueur.getListeUnite().add(guerrier);
+		}
+		
+		for(int cpt=0;cpt<10;cpt++) {
+		    for(Joueur joueur : Jeu.getListeJoueurs()) {
+		        System.out.println();
+		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {
+		            for (int j = 0; j < Jeu.MAPCOLONNE; j++) {
+		                System.out.print(Jeu.getMap()[i][j]);
+		            }
+		            System.out.println();
+		        }
+		        
+		        joueur.jouerTour();
+		        
+		        System.out.println();
+		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {
+                    for (int j = 0; j < Jeu.MAPCOLONNE; j++) {
+                        System.out.print(Jeu.getMap()[i][j]);
+                    }
+                    System.out.println();
+                }
+		    }
+		}
 	
 		
-		Guerrier guerrier1=(Guerrier) Jeu.getListeJoueurs().get(0).getListeUnite().get(0);
+		/*Guerrier guerrier1=(Guerrier) Jeu.getListeJoueurs().get(0).getListeUnite().get(0);
 		Guerrier guerrier2=(Guerrier) Jeu.getListeJoueurs().get(1).getListeUnite().get(0);
 
 		guerrier2.setX(1);
@@ -66,7 +118,7 @@ public class MainOfGame {
 		System.out.println("pos x:"+guerrier1.getX()+" y: "+guerrier1.getY()+" ptDeDeplacementRestant: "+guerrier1.getPtDeDeplacement());
 		
 		Jeu.save();
-		Jeu.sauvegarderPartie("save");
+		Jeu.sauvegarderPartie("save");*/
 		
 	}
 

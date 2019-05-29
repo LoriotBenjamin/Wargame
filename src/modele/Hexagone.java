@@ -2,6 +2,8 @@ package modele;
 
 import java.util.ArrayList;
 
+import controleur.Jeu;
+
 /**
  * Hexagone est la classe représentant une case en forme d'hexagone du plateau
  * de jeu. Un hexagone est caractérisé par :
@@ -102,7 +104,41 @@ public class Hexagone {
     //A SUPPRIMER QUAND ON AURA LA VUE
     @Override
     public final String toString() {
-        return " " + type + " ";
+        String string = "";
+        switch(type) {
+        case Jeu.PLAINE:
+            string+="Plaine ";
+            break;
+        case Jeu.FORET:
+            string+="Forêt ";
+            break;
+        case Jeu.VILLAGE:
+            string+="Vill ";
+            break;
+        case Jeu.RIVIERE:
+            string+="Riv ";
+            break;
+        case Jeu.MONTAGNE:
+            string+="Mont ";
+            break;
+        case Jeu.MER:
+            string+="Mer ";
+            break;
+        case Jeu.DESERT:
+            string+="Désert ";
+            break;
+        default:
+            break;
+              
+        }
+        for(Joueur joueur : Jeu.getListeJoueurs()) {
+            for(Unite unite : joueur.getListeUnite()) {
+                if(unite.getX() == x && unite.getY() == y) {
+                    string+= unite.getTypeUnite()+" "+joueur.getPseudo()+" ";
+                }
+            }
+        }
+        return string+"\t\t\t";
     }
 
     /**

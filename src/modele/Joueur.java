@@ -50,8 +50,8 @@ public class Joueur implements Serializable {
         this.pseudo = pseudo;
 
         //A MODIFIER
-        listeUnite.add(new Guerrier());
-        listeUnite.add(new Guerrier()); // ajout de 2 guerriers pour tester
+        //listeUnite.add(new Guerrier());
+        //listeUnite.add(new Guerrier()); // ajout de 2 guerriers pour tester
     }
 
     /**
@@ -78,6 +78,10 @@ public class Joueur implements Serializable {
      */
     public void setUnite(final Unite u) {
         this.listeUnite.add(u);
+    }
+    
+    public void jouerTour() {
+        
     }
 
     //////////////////////// Getter and Setter /////////////////////////
