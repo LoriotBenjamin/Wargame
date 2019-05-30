@@ -70,8 +70,8 @@ public class MainJFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				state = true;
 				mouse = e.getPoint();
+				Jeu.setEvent(true);
 			}
 
 			@Override
@@ -142,11 +142,8 @@ public class MainJFrame {
 	}
 	
 	public Point getClicPos() {
-		if(state == true) {
-			state = false;
-			return mouse;
-		}else
-			return new Point(-1,-1);
+		System.out.println(mouse);
+		return mouse;
 	}
 	/*
 	public void setFrame(JFrame frame) {

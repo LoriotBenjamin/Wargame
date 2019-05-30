@@ -92,6 +92,10 @@ public class Jeu {
      */
     private static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
     /**
+     * Simple indicateur
+     */
+    private static boolean event = false;
+    /**
      * Plateau de jeu.
      */
     private static Hexagone[][] map = new Hexagone[MAPLIGNE][MAPCOLONNE];
@@ -389,6 +393,21 @@ public class Jeu {
     }
 
     ////////////GETTERS AND SETTERS /////////////////
+    /**
+     * Retourne l'indicateur.
+     * @return l'indicateur.
+     */
+    public static boolean getEvent() {
+        return event;
+    }
+
+    /**
+     * Met à jour l'indicateur.
+     * @param le nouvel indicateur
+     */
+    public static void setEvent(final boolean event) {
+        Jeu.event = event;
+    }
     /**
      * Retourne la liste des joueurs de la partie.
      * @return la liste des joueurs de la partie.

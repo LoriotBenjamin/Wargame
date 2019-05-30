@@ -169,13 +169,18 @@ public class Unite {
 
     // JAVADOC A FAIRE
     public void selected() {
-        Point mouse;
+    	System.out.println("Salut\n");
+        Point mouse = new Point(-1,-1);
     	int hX = -1;
     	int hY = -1;
     	do {
 	        do {
-	        	mouse = Jeu.getFrame().getClicPos();
-	        	System.out.println(mouse);
+	        	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
+		    	if(Jeu.getEvent()) {
+				    mouse = Jeu.getFrame().getClicPos();
+				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
+		    		Jeu.setEvent(false);
+		    	}
 	        }while(mouse.x == -1 && mouse.y == -1);
 	        int X = mouse.y;
 	        int Y = mouse.x;
@@ -195,6 +200,7 @@ public class Unite {
 	        }
 	        System.out.println(hX + " " + hY);
     	}while(hX < 0 || hY < 0 || hX >= Jeu.MAPLIGNE || hY >= Jeu.MAPCOLONNE);
+    	System.out.println("CASE CLIQUEE LIGNE: "+hX+" COLONNE: "+hY);
         secondClic(hX, hY);
     }
 
@@ -205,26 +211,32 @@ public class Unite {
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
         ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
 
-        if (!deplacementPossible.isEmpty()) {
+        totality: if (!deplacementPossible.isEmpty()) {
 
-            Iterator<Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
-            totality: while (iterator.hasNext()) {
+            Iterator iterator = deplacementPossible.entrySet().iterator();
+            while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 Hexagone h = (Hexagone) mapEntry.getKey();
                 if (_x == h.getX() && _y == h.getY()) {
                     // La case a été trouvée
+    		    	System.out.println("CASE TROUVEE");
                     for (Joueur j : Jeu.getListeJoueurs()) {
                         for (Unite u : j.getListeUnite()) {
                             if (_x == u.getX() && _y == u.getY()) {
                                 // Une unité est sur la case
+                		    	System.out.println("CASE OCCUPEE");
                                 if (j.getListeUnite().contains(this)) {
                                     // L'unité est alliée
+                    		    	System.out.println("UNITE ALLIEE");
                                 	if(typeUnite == Jeu.PRETRE && aPorteDAttaque.contains(h)) {
+                        		    	System.out.println("SOIN");
                                 		//Soigner l'unité
                                 	}else
                                 		u.selected();
                                 } else {
+                    		    	System.out.println("UNITE ENNEMIE");
                                     if (aPorteDAttaque.contains(h)) {
+                        		    	System.out.println("TAPER");
                                         // L'unité est à porté
                                         attaquer(u);
                                     }
@@ -233,13 +245,16 @@ public class Unite {
                             }
                         }
                     }
+    		    	System.out.println("CASE VIDE");
                     // Il n'y a pas d'unité sur la case
                     this.x = _x;
                     this.y = _y;
                     this.ptDeDeplacement = (Integer) mapEntry.getValue();
+    		    	System.out.println("JE SUIS EN "+x+" "+y);
                     break totality;
                 }
             }
+            System.out.println("CASE TROP LOIN");
         }
     }
 

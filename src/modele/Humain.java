@@ -25,20 +25,24 @@ public class Humain extends Joueur {
     	int dep = 0;
     	do {
     		//Attente de l'impossibilité pour le joueur de continuer son tour
-	    	boolean selected = false;
-	    	do {
+	    	selection : do {
 	    		//Attente d'un clic sur une unité alliée
-		    	Point mouse;
 		    	int hX = -1;
 		    	int hY = -1;
-		    	selected = false;
 		    	do {
+			    	Point mouse = new Point(-1,-1);
 		    		//Attante d'un clic sur un hexagone
+			    	System.out.println("\nJ'attend");
 				    do {
 				    	//Attente d'un cic dans la fenetre du plateau
-				       	mouse = Jeu.getFrame().getClicPos();
-				       	System.out.println(mouse);
+				    	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
+				    	if(Jeu.getEvent()) {
+						    mouse = Jeu.getFrame().getClicPos();
+						    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
+				    		Jeu.setEvent(false);
+				    	}
 				    }while(mouse.x == -1 && mouse.y == -1);
+				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
 			        int X = mouse.y;
 			        int Y = mouse.x;
 			        find : for(int ligne=0;ligne<Jeu.MAPLIGNE;ligne++) {
@@ -56,14 +60,17 @@ public class Humain extends Joueur {
 			        	}
 			        }
 		    	}while(hX < 0 || hY < 0 || hX >= Jeu.MAPLIGNE || hY >= Jeu.MAPCOLONNE);
+		    	System.out.println("CASE CLIQUEE LIGNE: "+hX+" COLONNE: "+hY);
 		    	for(Unite u : listeUnite) {
 	        		if(u.getX() == hX && u.getY() == hY) {
+	        			System.out.println("UNITE TROUVEE");
 	        			u.selected();
-	        			selected = true;
+	        			break selection;
 	        		}
 	        		dep+=u.getPtDeDeplacement();
 	        	}
-	    	}while(!selected);
+		    	System.out.println("CASE VIDE");
+	    	}while(true);
     	}while(dep > 0);
     }
 }
