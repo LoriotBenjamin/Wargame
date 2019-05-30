@@ -170,13 +170,17 @@ public class Unite {
         Point mouse = new Point(-1,-1);
     	int hX = -1;
     	int hY = -1;
-    	do {
+    	totality : do {
 	        do {
 	        	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
-		    	if(Jeu.getEvent()) {
+	        	if(Jeu.getSkipFlag()) {
+		    		Jeu.setSkipFlag(false);
+		    		break totality;
+		    	}
+		    	if(Jeu.getClicFlag()) {
 				    mouse = Jeu.getFrame().getClicPos();
 				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
-		    		Jeu.setEvent(false);
+		    		Jeu.setClicFlag(false);
 		    	}
 	        }while(mouse.x == -1 && mouse.y == -1);
 	        int X = mouse.y;

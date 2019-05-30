@@ -29,18 +29,11 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
-		IA j1 = new IA(1, "J1"); // juste pour tester
+		Humain j1 = new Humain(1, "J1"); // juste pour tester
 		Jeu.getListeJoueurs().add(j1);
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
 		//Jeu.chargerPartie("save");
-		/*try{
-			MainJFrame mainFrame = new MainJFrame();
-			mainFrame.getFrame().setVisible(true);
-			
-		}catch(Exception e){
-			
-		}*/
 		
 		/*for(Joueur joueur : Jeu.getListeJoueurs()) {
 		    Archer archer = new Archer();
@@ -118,8 +111,8 @@ public class MainOfGame {
 		guerrier1.secondClic(5,0);
 		System.out.println("pos x:"+guerrier1.getX()+" y: "+guerrier1.getY()+" ptDeDeplacementRestant: "+guerrier1.getPtDeDeplacement());
 		
-		Jeu.save();
-		Jeu.sauvegarderPartie("save");*/
+		Jeu.save();*/
+		Jeu.sauvegarderPartie("save");
 		
 	}
 

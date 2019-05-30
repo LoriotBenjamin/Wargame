@@ -88,15 +88,19 @@ public class Jeu {
     /**
      * Nombre de colonne du plateau.
      */
-    public static final int MAPCOLONNE = 12;
+    public static final int MAPCOLONNE = 19;
     /**
      * Liste des joueurs participant à la partie.
      */
     private static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
     /**
-     * Simple indicateur
+     * Simple indicateur de clic
      */
-    private static boolean event = false;
+    private static boolean clicFlag = false;
+    /**
+     * Simple indicateur de passage de tour
+     */
+    private static boolean skipFlag = false;
     /**
      * Plateau de jeu.
      */
@@ -417,23 +421,39 @@ public class Jeu {
         } catch (IOException e) {
             System.out.println("Impossible de creer le fichier");
         }
+        initVoisins();
     }
 
     ////////////GETTERS AND SETTERS /////////////////
     /**
-     * Retourne l'indicateur.
-     * @return l'indicateur.
+     * Retourne l'indicateur de clic.
+     * @return l'indicateur de clic.
      */
-    public static boolean getEvent() {
-        return event;
+    public static boolean getClicFlag() {
+        return clicFlag;
     }
 
     /**
-     * Met à jour l'indicateur.
-     * @param le nouvel indicateur
+     * Met à jour l'indicateur de passage de tour.
+     * @param le nouvel indicateur de passage de tour
      */
-    public static void setEvent(final boolean event) {
-        Jeu.event = event;
+    public static void setSkipFlag(final boolean skipFlag) {
+        Jeu.skipFlag = skipFlag;
+    }
+    /**
+     * Retourne l'indicateur de passage de tour.
+     * @return l'indicateur de passage de tour.
+     */
+    public static boolean getSkipFlag() {
+        return skipFlag;
+    }
+
+    /**
+     * Met à jour l'indicateur de clic.
+     * @param le nouvel indicateur de clic
+     */
+    public static void setClicFlag(final boolean clicFlag) {
+        Jeu.clicFlag = clicFlag;
     }
     /**
      * Retourne la liste des joueurs de la partie.

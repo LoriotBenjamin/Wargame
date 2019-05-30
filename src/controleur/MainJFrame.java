@@ -71,7 +71,7 @@ public class MainJFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				mouse = e.getPoint();
-				Jeu.setEvent(true);
+				Jeu.setClicFlag(true);
 			}
 
 			@Override
@@ -107,6 +107,7 @@ public class MainJFrame {
 		btnNewButton.setBounds(73, 486, 116, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Jeu.setSkipFlag(true);
 			}
 		});
 		panel.setLayout(null);

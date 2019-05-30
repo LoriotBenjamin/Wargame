@@ -4,7 +4,7 @@ import controleur.Jeu;
 import java.awt.Point;
 
 /**
- * Humain est la classe représentant un joueur humain.
+ * Humain est la classe reprï¿½sentant un joueur humain.
  * @author Solenn
  * @see Joueur
  */
@@ -13,7 +13,7 @@ public class Humain extends Joueur {
     /**
      * Constructeur Humain.
      * @param numeroJoueur
-     *      Le numéro du joueur.
+     *      Le numï¿½ro du joueur.
      * @param pseudo
      *      Le pseudo du joueur.
      */
@@ -23,10 +23,10 @@ public class Humain extends Joueur {
     
     public void jouerTour() {
     	int dep = 0;
-    	do {
-    		//Attente de l'impossibilité pour le joueur de continuer son tour
+    	totality : do {
+    		//Attente de l'impossibilitï¿½ pour le joueur de continuer son tour
 	    	selection : do {
-	    		//Attente d'un clic sur une unité alliée
+	    		//Attente d'un clic sur une unitï¿½ alliï¿½e
 		    	int hX = -1;
 		    	int hY = -1;
 		    	do {
@@ -36,10 +36,14 @@ public class Humain extends Joueur {
 				    do {
 				    	//Attente d'un cic dans la fenetre du plateau
 				    	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
-				    	if(Jeu.getEvent()) {
+				    	if(Jeu.getSkipFlag()) {
+				    		Jeu.setSkipFlag(false);
+				    		break totality;
+				    	}
+				    	if(Jeu.getClicFlag()) {
 						    mouse = Jeu.getFrame().getClicPos();
 						    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
-				    		Jeu.setEvent(false);
+				    		Jeu.setClicFlag(false);
 				    	}
 				    }while(mouse.x == -1 && mouse.y == -1);
 				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
