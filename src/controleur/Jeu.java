@@ -134,8 +134,8 @@ public class Jeu {
                 ligne = getElementAleatoire(lignePossible); // ligne aleatoire
                 colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
                 terrain = getElementAleatoire(terrains); // terrain aleatoire
-            } while(terrain == MER && (ligne <= 1 || colonne <= 1 || ligne >= MAPLIGNE-2 || colonne >= MAPCOLONNE-2));
-
+            } while(terrain == MER && (ligne <= 6 || ligne >= MAPLIGNE-7) && (colonne <= 4 || colonne >= MAPCOLONNE-5));
+            //pas de mer dans les zones de depart
             final int nbVoisin = 6;
             for (int cpt = 0; cpt <= nbVoisin; cpt++) { // met le meme terrain pour l'hexagone aleatoire et ces voisins
                 if (ligne >= 0 && colonne >= 0 && ligne < MAPLIGNE && colonne < MAPCOLONNE
