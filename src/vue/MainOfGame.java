@@ -34,7 +34,6 @@ public class MainOfGame {
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
 		//Jeu.chargerPartie("save");
-		Jeu.initListeVoisin();
 		/*try{
 			MainJFrame mainFrame = new MainJFrame();
 			mainFrame.getFrame().setVisible(true);
