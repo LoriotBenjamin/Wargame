@@ -183,7 +183,7 @@ public class Unite implements Serializable {
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x,this.y);
+        ArrayList<Hexagone> aPorteDAttaque = aPorte();
 
         if (!deplacementPossible.isEmpty()) {
 
@@ -197,7 +197,6 @@ public class Unite implements Serializable {
                         for (Unite u : j.getListeUnite()) {
                             if (_x == u.getX() && _y == u.getY()) {
                                 // Une unité est sur la case
-                                System.out.println("Unité présente");
                                 if (j.getListeUnite().contains(this)) {
                                     // L'unité est alliée
                                     u.attendreSecondClic();
@@ -212,7 +211,6 @@ public class Unite implements Serializable {
                         }
                     }
                     // Il n'y a pas d'unité sur la case
-                    System.out.println("Pas d'unité");
                     this.x = _x;
                     this.y = _y;
                     this.ptDeDeplacement = (Integer) mapEntry.getValue();
@@ -229,14 +227,14 @@ public class Unite implements Serializable {
      * ennemis attaquable au corp Ã  corp (si un tile de mer sÃ©pare deux unitÃ©s
      * peut on attaquer quand mÃªme? ligne de vue?) .
      */
-    public MyHashMap calculDeplacementPossible() { // donne tout les hexagones possible dans la range de l'unite et les
+    public MyHashMap<Hexagone, Integer> calculDeplacementPossible() { // donne tout les hexagones possible dans la range de l'unite et les
                                                    // points de deplacement restant si elle s'y dirige
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
         MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
                                                                                           // deplacement restant
         ArrayList<Hexagone> caseVisible = Jeu.vision(this);
-        ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
+        //ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
 
         /*
          * for(Hexagone hex : caseVisible){ System.out.println("coord en x: "+hex.x);
@@ -255,7 +253,16 @@ public class Unite implements Serializable {
                                                                            // liste
 
                 for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                    if (v.getType() != Jeu.MER && caseVisible.contains(v)) {
+                	boolean libre = true;
+                    test : for(Joueur j : Jeu.getListeJoueurs()) {
+                    	for(Unite u: j.getListeUnite()) {
+                    		if(u.getX()==v.getX() && u.getY()==v.getY()) {
+                    			libre=false;
+                    			break test;
+                    		}
+                    	}
+                    }
+                    if (v.getType() != Jeu.MER && caseVisible.contains(v) && libre) {
 
                         if (deplacementPossible.containsKey(v)) { // si il est dÃ©ja dans la liste des dÃ©placements
                                                                   // possible
@@ -307,7 +314,7 @@ public class Unite implements Serializable {
     }
 
     // JAVADOC A FAIRE
-    public ArrayList<Hexagone> aPorte(int x, int y) { // donne tout les hexagones visibles par l'unitï¿½
+    public ArrayList<Hexagone> aPorte() { // donne tout les hexagones visibles par l'unitï¿½
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         ArrayList<Hexagone> aPorte = new ArrayList();
         MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant
@@ -356,7 +363,7 @@ public class Unite implements Serializable {
         double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
         pv -= (int) degats;
-        if (pv < 0) {
+        if (pv <= 0) {
             for(Joueur joueur : Jeu.getListeJoueurs()) {
                 if(joueur.getListeUnite().remove(this)) { //supprime l'unité morte
                     return;
