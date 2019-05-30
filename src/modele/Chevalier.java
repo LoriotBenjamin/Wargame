@@ -3,14 +3,14 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Chevalier est la classe représentant une unité de Chevalier. Ses caractéristiques sont :
+ * Chevalier est la classe reprï¿½sentant une unitï¿½ de Chevalier. Ses caractï¿½ristiques sont :
  * <ul>
  * <li>Attaque : 20</li>
- * <li>Défense : 6</li>
+ * <li>Dï¿½fense : 6</li>
  * <li>PV : 40</li>
- * <li>Déplacement : 6</li>
+ * <li>Dï¿½placement : 6</li>
  * <li>Vision : 2</li>
- * <li>Portée : 1</li>
+ * <li>Portï¿½e : 1</li>
  * </ul>
  * @author Solenn
  * @see Unite
@@ -22,7 +22,7 @@ public class Chevalier extends Unite {
      */
     private static final int ATTAQUE = 20;
     /**
-     * Valeur de la défense du Chevalier.
+     * Valeur de la dï¿½fense du Chevalier.
      */
     private static final int DEFENSE = 6;
     /**
@@ -30,7 +30,7 @@ public class Chevalier extends Unite {
      */
     private static final int PV = 40;
     /**
-     * Valeur du déplacement du Chevalier.
+     * Valeur du dï¿½placement du Chevalier.
      */
     private static final int DEPLACEMENT = 6;
     /**
@@ -38,15 +38,15 @@ public class Chevalier extends Unite {
      */
     private static final int VISION = 2;
     /**
-     * Valeur de la portée du Chevalier.
+     * Valeur de la portï¿½e du Chevalier.
      */
     private static final int PORTEE = 1;
 
     /**
      * Constructeur Chevalier avec ses constantes.
      */
-    public Chevalier() {
-        super(Jeu.CHEVALIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0);
+    public Chevalier(int equipe) {
+        super(Jeu.CHEVALIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
     }
 
 }

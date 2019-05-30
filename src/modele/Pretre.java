@@ -3,14 +3,14 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Prêtre est la classe représentant une unité de Prêtre. Ses caractéristiques sont :
+ * Prï¿½tre est la classe reprï¿½sentant une unitï¿½ de Prï¿½tre. Ses caractï¿½ristiques sont :
  * <ul>
  * <li>Attaque : 6</li>
- * <li>Défense : 2</li>
+ * <li>Dï¿½fense : 2</li>
  * <li>PV : 30</li>
- * <li>Déplacement : 4</li>
+ * <li>Dï¿½placement : 4</li>
  * <li>Vision : 2</li>
- * <li>Portée : 1</li>
+ * <li>Portï¿½e : 1</li>
  * </ul>
  * @author Solenn
  * @see Unite
@@ -18,38 +18,38 @@ import controleur.Jeu;
  */
 public class Pretre extends Unite {
     /**
-     * Valeur de l'attaque du Prêtre.
+     * Valeur de l'attaque du Prï¿½tre.
      */
     private static final int ATTAQUE = 6;
     /**
-     * Valeur de la défense du Prêtre.
+     * Valeur de la dï¿½fense du Prï¿½tre.
      */
     private static final int DEFENSE = 2;
     /**
-     * Valeur des PV du Prêtre.
+     * Valeur des PV du Prï¿½tre.
      */
     private static final int PV = 30;
     /**
-     * Valeur du déplacement du Prêtre.
+     * Valeur du dï¿½placement du Prï¿½tre.
      */
     private static final int DEPLACEMENT = 4;
     /**
-     * Valeur de la vision du Prêtre.
+     * Valeur de la vision du Prï¿½tre.
      */
     private static final int VISION = 2;
     /**
-     * Valeur de la portée du Prêtre.
+     * Valeur de la portï¿½e du Prï¿½tre.
      */
     private static final int PORTEE = 1;
     /**
-     * Valeur du soin du Prêtre.
+     * Valeur du soin du Prï¿½tre.
      */
     private static final double SOIN = 0.3;
 
     /**
-     * Constructeur Prêtre avec ses constantes.
+     * Constructeur Prï¿½tre avec ses constantes.
      */
-    public Pretre() {
-        super(Jeu.PRETRE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0);
+    public Pretre(int equipe) {
+        super(Jeu.PRETRE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
     }
 }

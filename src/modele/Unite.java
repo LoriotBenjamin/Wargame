@@ -10,113 +10,123 @@ import java.util.Map.Entry;
 import controleur.Jeu;
 
 /**
- * Unité est la classe représentant un type de personnage. Ses caractéristiques
+ * Unitï¿½ est la classe reprï¿½sentant un type de personnage. Ses caractï¿½ristiques
  * sont :
  * <ul>
- * <li>Son type, qui est un entier entre 1 et 5 représentant chacun un type
- * différent</li>
+ * <li>Son type, qui est un entier entre 1 et 5 reprï¿½sentant chacun un type
+ * diffï¿½rent</li>
  * <li>Ses points d'attaque</li>
- * <li>Ses points de défense</li>
+ * <li>Ses points de dï¿½fense</li>
  * <li>Ses points de vie ou PV restants</li>
  * <li>Ses PV maximum</li>
- * <li>Ses points de déplacement restants</li>
- * <li>Ses points de déplacement maximum</li>
+ * <li>Ses points de dï¿½placement restants</li>
+ * <li>Ses points de dï¿½placement maximum</li>
  * <li>Ses points de vision</li>
- * <li>Sa portée</li>
- * <li>Ses coordonnées sur le plateau</li>
+ * <li>Sa portï¿½e</li>
+ * <li>Ses coordonnï¿½es sur le plateau</li>
  * </ul>
  * @author Solenn
  *
  */
 public class Unite {
     /**
-     * Type de l'unité représenté par un entier entre 1 et 5.
+     * Type de l'unitï¿½ reprï¿½sentï¿½ par un entier entre 1 et 5.
      * @see Unite#getTypeUnite()
      * @see Unite#setTypeUnite(int)
      */
     private int typeUnite; // peut etre remplace par un .getClass() supprimant cette variable mais un peu
     // plus long dans les tests que des comparaisons avec un int je pense
     /**
-     * Points d'attaque de l'unité.
+     * Points d'attaque de l'unitï¿½.
      * @see Unite#getAttaque()
      * @see Unite#setAttaque(int)
      */
     private int attaque;
     /**
-     * Points de défense de l'unité.
+     * Points de dï¿½fense de l'unitï¿½.
      * @see Unite#getDefense()
      * @see Unite#setDefense(int)
      */
     private int defense;
     /**
-     * Points de vie restant de l'unité.
+     * Points de vie restant de l'unitï¿½.
      * @see Unite#getPv()
      * @see Unite#setPv(int)
      */
     private int pv;
     /**
-     * Points de vie maximum de l'unité.
+     * Points de vie maximum de l'unitï¿½.
      * @see Unite#getPvMax()
      */
     private int pvMax;
     /**
-     * Points de déplacement restant de l'unité.
+     * Points de dï¿½placement restant de l'unitï¿½.
      * @see Unite#getPtDeDeplacement()
      * @see Unite#setPtDeDeplacement(int)
      */
     private int ptDeDeplacement;
     /**
-     * Points de déplacement maximum de l'unité par tour.
+     * Points de dï¿½placement maximum de l'unitï¿½ par tour.
      * @see Unite#getPtDeDeplacementMax()
      */
     private int ptDeDeplacementMax;
     /**
-     * Points de vision de l'unité.
+     * Points de vision de l'unitï¿½.
      * @see Unite#getVision()
      * @see Unite#setVision(int)
      */
     private int vision;
     /**
-     * Portée des attaques de l'unité.
+     * Portï¿½e des attaques de l'unitï¿½.
      * @see Unite#getPorte()
      * @see Unite#setPorte(int)
      */
     private int porte;
     /**
-     * Numéro de ligne de l'unité.
+     * Numï¿½ro de ligne de l'unitï¿½.
      * @see Unite#getX()
      * @see Unite#setX(int)
      */
     private int x;
     /**
-     * Numéro de colonne de l'unité.
+     * Numï¿½ro de colonne de l'unitï¿½.
      * @see Unite#getY()
      * @see Unite#setY(int)
      */
     private int y;
     /**
-     * Permet de savoir si l'unitée a été attaquée pendant le tour ou non.
+     * Permet de savoir si l'unitï¿½e a ï¿½tï¿½ attaquï¿½e pendant le tour ou non.
      */
     private boolean estAttaquee;
     /**
-     * Liste des ennemis attaquable par l'unité.
+     * Liste des ennemis attaquable par l'unitï¿½.
      */
+    
+    /**
+     * equipe de l'unite
+     */
+    private int equipe;
+    
     private ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
 
+
     /**
-     * Constructeur Unité.
-     * @param typeUnite       Le type de l'unité.
-     * @param attaque         Les points d'attaque de l'unité.
-     * @param defense         Les points de défense de l'unité.
-     * @param pv              Les points de vie de l'unité.
-     * @param ptDeDeplacement Les points de déplacement de l'unité.
-     * @param vision          La vision de l'unité.
-     * @param porte           La portée de l'unité.
-     * @param x               Le numéro de ligne de l'unité.
-     * @param y               Le numéro de colonne de l'unité.
+     * Constructeur Unitï¿½.
+     * @param typeUnite          Type de l'unitï¿½.
+     * @param attaque            Points d'attaque de l'unitï¿½.
+     * @param defense            Points de dï¿½fense de l'unitï¿½.
+     * @param pv                 Points de vie restant de l'unitï¿½.
+     * @param pvMax              Points de vie maximum de l'unitï¿½.
+     * @param ptDeDeplacement    Points de dï¿½placement restant de l'unitï¿½.
+     * @param ptDeDeplacementMax Points de dï¿½placement maximum de l'unitï¿½.
+     * @param vision             Vision de l'unitï¿½.
+     * @param porte              Portï¿½e d'attaque de l'unitï¿½.
+     * @param x                  Numï¿½ro de ligne de l'unitï¿½.
+     * @param y                  Numï¿½ro de colonne de l'unitï¿½.
+     * @param equipe			 Numero de l'equipe de l'unite
      */
     public Unite(final int typeUnite, final int attaque, final int defense, final int pv, final int ptDeDeplacement,
-            final int vision, final int porte, final int x, final int y) {
+            final int vision, final int porte, final int x, final int y,final int equipe) {
         this.typeUnite = typeUnite;
         this.attaque = attaque;
         this.defense = defense;
@@ -129,39 +139,10 @@ public class Unite {
         this.x = x;
         this.y = y;
         this.estAttaquee = false;
+        this.equipe = equipe;
     }
 
-    /**
-     * Constructeur Unité.
-     * @param typeUnite          Type de l'unité.
-     * @param attaque            Points d'attaque de l'unité.
-     * @param defense            Points de défense de l'unité.
-     * @param pv                 Points de vie restant de l'unité.
-     * @param pvMax              Points de vie maximum de l'unité.
-     * @param ptDeDeplacement    Points de déplacement restant de l'unité.
-     * @param ptDeDeplacementMax Points de déplacement maximum de l'unité.
-     * @param vision             Vision de l'unité.
-     * @param porte              Portée d'attaque de l'unité.
-     * @param x                  Numéro de ligne de l'unité.
-     * @param y                  Numéro de colonne de l'unité.
-     */
-    public Unite(final int typeUnite, final int attaque, final int defense, final int pv, final int pvMax,
-            final int ptDeDeplacement, final int ptDeDeplacementMax, final int vision, final int porte, final int x,
-            final int y) {
-        this.typeUnite = typeUnite;
-        this.attaque = attaque;
-        this.defense = defense;
-        this.pv = pv;
-        this.pvMax = pvMax;
-        this.ptDeDeplacement = ptDeDeplacement;
-        this.ptDeDeplacementMax = ptDeDeplacementMax;
-        this.vision = vision;
-        this.porte = porte;
-        this.x = x;
-        this.y = y;
-        this.estAttaquee = false;
-    }
-    
+ 
     //EN ATTENDANT LA VUE
     public String toString() {
         return "Type: "+typeUnite+" PV: "+pv+" / "+pvMax+" PtDepl: "+ptDeDeplacement+" / "+ptDeDeplacementMax+" position: "+x+" "+y;
@@ -218,26 +199,26 @@ public class Unite {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 Hexagone h = (Hexagone) mapEntry.getKey();
                 if (_x == h.getX() && _y == h.getY()) {
-                    // La case a été trouvée
+                    // La case a ï¿½tï¿½ trouvï¿½e
     		    	System.out.println("CASE TROUVEE");
                     for (Joueur j : Jeu.getListeJoueurs()) {
                         for (Unite u : j.getListeUnite()) {
                             if (_x == u.getX() && _y == u.getY()) {
-                                // Une unité est sur la case
+                                // Une unitï¿½ est sur la case
                 		    	System.out.println("CASE OCCUPEE");
                                 if (j.getListeUnite().contains(this)) {
-                                    // L'unité est alliée
+                                    // L'unitï¿½ est alliï¿½e
                     		    	System.out.println("UNITE ALLIEE");
                                 	if(typeUnite == Jeu.PRETRE && aPorteDAttaque.contains(h)) {
                         		    	System.out.println("SOIN");
-                                		//Soigner l'unité
+                                		//Soigner l'unitï¿½
                                 	}else
                                 		u.selected();
                                 } else {
                     		    	System.out.println("UNITE ENNEMIE");
                                     if (aPorteDAttaque.contains(h)) {
                         		    	System.out.println("TAPER");
-                                        // L'unité est à porté
+                                        // L'unitï¿½ est ï¿½ portï¿½
                                         attaquer(u);
                                     }
                                 }
@@ -246,7 +227,7 @@ public class Unite {
                         }
                     }
     		    	System.out.println("CASE VIDE");
-                    // Il n'y a pas d'unité sur la case
+                    // Il n'y a pas d'unitï¿½ sur la case
                     this.x = _x;
                     this.y = _y;
                     this.ptDeDeplacement = (Integer) mapEntry.getValue();
@@ -258,98 +239,155 @@ public class Unite {
         }
     }
 
-    // JAVADOC A FAIRE + CORRIGER WARNINGS
-    /*
-     * retourne un tableau avec en premier position la liste des dÃ©placements
-     * possibles et les points de mouvement restant et en deuxiÃ©me la liste des
-     * ennemis attaquable au corp Ã  corp (si un tile de mer sÃ©pare deux unitÃ©s
-     * peut on attaquer quand mÃªme? ligne de vue?) .
+    /**
+     *  Retourne la liste des deplacements possible 
+     *  avec les points de mouvement restant une fois la case atteinte
+     *  remplis aussi la liste des ennemis attaquables en passant 
+     *  
+     * @return MyHashMap<Hexagone, Integer>
      */
     public MyHashMap<Hexagone, Integer> calculDeplacementPossible() { // donne tout les hexagones possible dans la range de l'unite et les
-                                                   // points de deplacement restant si elle s'y dirige
-        Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
-        MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
-        MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
-                                                                                          // deplacement restant
-        ArrayList<Hexagone> caseVisible = this.vision();
-        //ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
+		        // points de deplacement restant si elle s'y dirige
+		Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
+		MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
+		MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant
+		
+		Joueur joueurCourant = this.getPlayerWhoControlMe();
+		ArrayList<Hexagone> caseVisible = joueurCourant.sansBrouillard();
+		//ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
+		
+		/*
+		* for(Hexagone hex : caseVisible){ System.out.println("coord en x: "+hex.x);
+		* System.out.println("coord en y: "+hex.y); }
+		*/
+		Hexagone hexagoneCourant = h;
+		// deplacementPossible.put(hexagoneCourant, ptDeDeplacement);
+		pointAExplorer.put(hexagoneCourant, ptDeDeplacement);
+		
+		if (ptDeDeplacement != 0) { // si jamais un jour on donne la possibilitÃ© d'enlever des points de
+			// dÃ©placement Ã©vite les tours de boucle inutile
+			
+			while (!pointAExplorer.isEmpty()) {
+			
+				hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on rÃ©cupÃ©re le premier element de la
+				                                // liste
+				
+				for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
+					
+					boolean libre = true;
+					test : for(Joueur j : Jeu.getListeJoueurs()) {
+					if(joueurCourant !=j){
+						for(Unite u: j.getListeUnite()) {
+							if(u.getX()==v.getX() && u.getY()==v.getY()) {
+								libre=false;
+								System.out.println("distance :"+this.getDistanceBetweenTwoPosition(this.x, this.y, u.getX(), u.getY()));
+								if( (!ennemiAttaquable.contains(u)) && this.getDistanceBetweenTwoPosition(this.x, this.y, u.getX(), u.getY()) <= this.porte ) {
+									this.ennemiAttaquable.add(u);
+								}
+								break test;
+							}
+						}
+					}
+					}
+					
+					if (v.getType() != Jeu.MER && caseVisible.contains(v) && libre ) {
+					
+					if (deplacementPossible.containsKey(v)) { // si il est dÃ©ja dans la liste des dÃ©placements
+					                       // possible
+					
+						if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > deplacementPossible
+						.get(v)) {
+							// si le cout actuel est moins grand que l'ancien coÃ»t.
+							
+							deplacementPossible.replace(v,
+							pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+							if (pointAExplorer.containsKey(v))
+								pointAExplorer.replace(v,pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+							else
+								pointAExplorer.put(v,pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+						}
+						}
+						else if (pointAExplorer.containsKey(v)) { // si il est dÃ©ja en attente d'exploration
+						
+							if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > pointAExplorer
+							.get(v)) {
+								// si le cout actuel est moins grand que l'ancien coÃ»t.
+								pointAExplorer.replace(v,
+								pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+								
+							}
+						}
+						else if (v.getCoutDeDeplacement() <= pointAExplorer.get(hexagoneCourant)) {
+						// si le cout de deplacement est inferieur ou egal Ã  la distance restante et
+						// qu'il n'est pas dÃ©ja dans une des listes
+							pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+						
+						}
+					
+					}
+				} // fin du parcours des voisins
+				if (!deplacementPossible.containsKey(hexagoneCourant))
+					deplacementPossible.put(hexagoneCourant, pointAExplorer.get(hexagoneCourant));
+				pointAExplorer.remove(hexagoneCourant);
+			
+			} // fin de la boucle principal
+		} else {
+		System.out.println("Pas de point de deplacement");
+		}
+		
+		return deplacementPossible;
 
-        /*
-         * for(Hexagone hex : caseVisible){ System.out.println("coord en x: "+hex.x);
-         * System.out.println("coord en y: "+hex.y); }
-         */
-        Hexagone hexagoneCourant = h;
-        // deplacementPossible.put(hexagoneCourant, ptDeDeplacement);
-        pointAExplorer.put(hexagoneCourant, ptDeDeplacement);
-
-        if (ptDeDeplacement != 0) { // si jamais un jour on donne la possibilitÃ© d'enlever des points de
-                                    // dÃ©placement Ã©vite les tours de boucle inutile
-
-            while (!pointAExplorer.isEmpty()) {
-
-                hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on rÃ©cupÃ©re le premier element de la
-                                                                           // liste
-
-                for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                	boolean libre = true;
-                    test : for(Joueur j : Jeu.getListeJoueurs()) {
-                    	for(Unite u: j.getListeUnite()) {
-                    		if(u.getX()==v.getX() && u.getY()==v.getY()) {
-                    			libre=false;
-                    			break test;
-                    		}
-                    	}
-                    }
-                    if (v.getType() != Jeu.MER && caseVisible.contains(v) && libre) {
-
-                        if (deplacementPossible.containsKey(v)) { // si il est dÃ©ja dans la liste des dÃ©placements
-                                                                  // possible
-
-                            if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > deplacementPossible
-                                    .get(v)) {
-                                // si le cout actuel est moins grand que l'ancien coÃ»t.
-
-                                deplacementPossible.replace(v,
-                                        pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-                                if (pointAExplorer.containsKey(v))
-                                    pointAExplorer.replace(v,
-                                            pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-                                else
-                                    pointAExplorer.put(v,
-                                            pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-                            }
-                        }
-                        if (pointAExplorer.containsKey(v)) { // si il est dÃ©ja en attente d'exploration
-
-                            if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > pointAExplorer
-                                    .get(v)) {
-                                // si le cout actuel est moins grand que l'ancien coÃ»t.
-                                pointAExplorer.replace(v,
-                                        pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-
-                            }
-                        }
-                        if (v.getCoutDeDeplacement() <= pointAExplorer.get(hexagoneCourant)) {
-                            // si le cout de deplacement est inferieur ou egal Ã  la distance restante et
-                            // qu'il n'est pas dÃ©ja dans une des listes
-                            pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-
-                        }
-
-                    }
-                } // fin du parcours des voisins
-                if (!deplacementPossible.containsKey(hexagoneCourant))
-                    deplacementPossible.put(hexagoneCourant, pointAExplorer.get(hexagoneCourant));
-                pointAExplorer.remove(hexagoneCourant);
-
-            } // fin de la boucle principal
-        } else {
-            System.out.println("Pas de point de deplacement");
-        }
-
-        return deplacementPossible;
-
-    }
+}
+    /**
+     * 
+     * Donne la distance entre deux couples de coordonnees x,y 
+     * et x2,y2 dans une grille hexagonal.
+     * 
+     * @param x
+     * @param y
+     * @param x2
+     * @param y2
+     * @return int
+     */
+    public int getDistanceBetweenTwoPosition(int x,int y,int x2,int y2){
+	
+		double a= (double)x; 
+		double b =(double)y;
+		double a2 = (double)x2;
+		double b2 = (double)y2; 
+		
+		System.out.println(" a: "+a+"\n b: "+b+"\n a2: "+a2+"\n b2: "+b2);
+		
+		double t1=Math.abs((a-b/2)-(a2-b2/2));
+		double t2 =Math.abs(b-b2); 
+		double t3=Math.abs((a+b/2)-(a2+b2/2));
+		
+		System.out.println(" t1: "+t1+" t2: "+t2+" t3: "+t3);
+		double m=Math.max(Math.max(t1,t2), t3);
+		
+		int resultat=0;
+		
+		if( ((x== 0 && y ==0) && (x2%2 == 1 && y2%2 ==1)) ||
+				((x%2 ==1 && y%2 ==1) && (x2 == 0 && y2 ==0)) ){	// si un des paramÃ©tres est 0,0 et que l'autre a deux coordoonÃ©es imapairs
+			resultat=(int) Math.abs((m-0.5));	// on arrondie Ã  l'infÃ©rieur
+		}else{
+			resultat=(int) Math.abs((m+0.5));	// on arrondie au supÃ©rieur
+		}
+		return resultat; 
+}   
+    /**
+     * Retourne le joueur proprietaire de l'unite
+     * 
+     * @return Joueur
+     */
+    public Joueur getPlayerWhoControlMe(){
+	
+	for(Joueur j: Jeu.getListeJoueurs()){
+		if(j.getNumeroJoueur()==this.equipe)
+			return j;
+	}
+	return null; 
+}
 
     // JAVADOC A FAIRE
     public ArrayList<Hexagone> aPorte(int x, int y) { // donne tout les hexagones visibles par l'unitï¿½
@@ -409,9 +447,9 @@ public class Unite {
     }
 
     /**
-     * Applique la formule de calcul de dégâts sur l'unité à attaquer.
+     * Applique la formule de calcul de dï¿½gï¿½ts sur l'unitï¿½ ï¿½ attaquer.
      * 
-     * @param unite Unité à attaquer.
+     * @param unite Unitï¿½ ï¿½ attaquer.
      * @see Unite#calculDegats(int)
      */
     public void attaquer(final Unite unite) {
@@ -420,9 +458,9 @@ public class Unite {
     }
 
     /**
-     * Calcul les dégâts sur l'unité attaquée et les applique sur les PV.
+     * Calcul les dï¿½gï¿½ts sur l'unitï¿½ attaquï¿½e et les applique sur les PV.
      * 
-     * @param attaque Points d'attaque de l'unité qui attaque.
+     * @param attaque Points d'attaque de l'unitï¿½ qui attaque.
      */
     public void calculDegats(final int attaque) {
         final double borneInf = 0.5;
@@ -432,7 +470,7 @@ public class Unite {
         pv -= (int) degats;
         if (pv <= 0) {
             for(Joueur joueur : Jeu.getListeJoueurs()) {
-                if(joueur.getListeUnite().remove(this)) { //supprime l'unité morte
+                if(joueur.getListeUnite().remove(this)) { //supprime l'unitï¿½ morte
                     return;
                 }
             }
@@ -441,7 +479,7 @@ public class Unite {
     }
 
     /**
-     * Soigne une unité si elle ne s'est pas déplacée et n'a pas été attaquée.
+     * Soigne une unitï¿½ si elle ne s'est pas dï¿½placï¿½e et n'a pas ï¿½tï¿½ attaquï¿½e.
      * 
      * @param taux Taux de soin.
      */
@@ -455,11 +493,11 @@ public class Unite {
     }
 
     /**
-     * Retourne un double aléatoire entre les bornes min et max incluses.
+     * Retourne un double alï¿½atoire entre les bornes min et max incluses.
      * 
      * @param min Borne minimum.
      * @param max Borne maximum.
-     * @return un double aléatoire entre min et max.
+     * @return un double alï¿½atoire entre min et max.
      */
     public double getDoubleAleaBorne(final double min, final double max) {
         double res = (Math.random() * ((max - min) + 1)) + min;
@@ -469,181 +507,181 @@ public class Unite {
     //////////////////////// Getter and Setter /////////////////////////
 
     /**
-     * Retourne les points de défense de l'unité.
+     * Retourne les points de dï¿½fense de l'unitï¿½.
      * 
-     * @return les points de défense de l'unité.
+     * @return les points de dï¿½fense de l'unitï¿½.
      */
     public int getDefense() {
         return defense;
     }
 
     /**
-     * Met à jour les points de défense de l'unité.
+     * Met ï¿½ jour les points de dï¿½fense de l'unitï¿½.
      * 
-     * @param defense Les nouveaux points de défense de l'unité.
+     * @param defense Les nouveaux points de dï¿½fense de l'unitï¿½.
      */
     public void setDefense(final int defense) {
         this.defense = defense;
     }
 
     /**
-     * Retourne les points de vie restants de l'unité.
+     * Retourne les points de vie restants de l'unitï¿½.
      * 
-     * @return les points de vie restants de l'unité.
+     * @return les points de vie restants de l'unitï¿½.
      */
     public int getPv() {
         return pv;
     }
 
     /**
-     * Met à jour les points de vie restants de l'unité.
+     * Met ï¿½ jour les points de vie restants de l'unitï¿½.
      * 
-     * @param pv Les nouveaux points de vie restants de l'unité.
+     * @param pv Les nouveaux points de vie restants de l'unitï¿½.
      */
     public void setPv(final int pv) {
         this.pv = pv;
     }
 
     /**
-     * Retourne les points de vie maximum de l'unité.
+     * Retourne les points de vie maximum de l'unitï¿½.
      * 
-     * @return les points de vie maximum de l'unité.
+     * @return les points de vie maximum de l'unitï¿½.
      */
     public int getPvMax() {
         return pvMax;
     }
 
     /**
-     * Retourne les points de déplacement restants de l'unité.
+     * Retourne les points de dï¿½placement restants de l'unitï¿½.
      * 
-     * @return les points de déplacement restants de l'unité.
+     * @return les points de dï¿½placement restants de l'unitï¿½.
      */
     public int getPtDeDeplacement() {
         return ptDeDeplacement;
     }
 
     /**
-     * Met à jour les points de déplacement restants de l'unité.
+     * Met ï¿½ jour les points de dï¿½placement restants de l'unitï¿½.
      * 
-     * @param ptDeDeplacement Les nouveaux points de déplacement restants de
-     *                        l'unité.
+     * @param ptDeDeplacement Les nouveaux points de dï¿½placement restants de
+     *                        l'unitï¿½.
      */
     public void setPtDeDeplacement(final int ptDeDeplacement) {
         this.ptDeDeplacement = ptDeDeplacement;
     }
 
     /**
-     * Retourne les points de déplacement maximum de l'unité.
+     * Retourne les points de dï¿½placement maximum de l'unitï¿½.
      * 
-     * @return les points de déplacement maximum de l'unité.
+     * @return les points de dï¿½placement maximum de l'unitï¿½.
      */
     public int getPtDeDeplacementMax() {
         return ptDeDeplacementMax;
     }
 
     /**
-     * Retourne le numéro de ligne de l'unité.
+     * Retourne le numï¿½ro de ligne de l'unitï¿½.
      * 
-     * @return le numéro de ligne de l'unité.
+     * @return le numï¿½ro de ligne de l'unitï¿½.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Met à jour le numéro de ligne de l'unité.
+     * Met ï¿½ jour le numï¿½ro de ligne de l'unitï¿½.
      * 
-     * @param x Le nouveau numéro de ligne de l'unité.
+     * @param x Le nouveau numï¿½ro de ligne de l'unitï¿½.
      */
     public void setX(final int x) {
         this.x = x;
     }
 
     /**
-     * Retourne le numéro de colonne de l'unité.
+     * Retourne le numï¿½ro de colonne de l'unitï¿½.
      * 
-     * @return le numéro de colonne de l'unité.
+     * @return le numï¿½ro de colonne de l'unitï¿½.
      */
     public int getY() {
         return y;
     }
 
     /**
-     * Met à jour le numéro de colonne de l'unité.
+     * Met ï¿½ jour le numï¿½ro de colonne de l'unitï¿½.
      * 
-     * @param y Le nouveau numéro de colonne de l'unité.
+     * @param y Le nouveau numï¿½ro de colonne de l'unitï¿½.
      */
     public void setY(final int y) {
         this.y = y;
     }
 
     /**
-     * Retourne les points d'attaque de l'unité.
+     * Retourne les points d'attaque de l'unitï¿½.
      * 
-     * @return les points d'attaque de l'unité.
+     * @return les points d'attaque de l'unitï¿½.
      */
     public int getAttaque() {
         return attaque;
     }
 
     /**
-     * Met à jour les points d'attaque de l'unité.
+     * Met ï¿½ jour les points d'attaque de l'unitï¿½.
      * 
-     * @param attaque Les nouveaux points d'attaque de l'unité.
+     * @param attaque Les nouveaux points d'attaque de l'unitï¿½.
      */
     public void setAttaque(final int attaque) {
         this.attaque = attaque;
     }
 
     /**
-     * Retourne la vision de l'unité.
+     * Retourne la vision de l'unitï¿½.
      * 
-     * @return la vision de l'unité.
+     * @return la vision de l'unitï¿½.
      */
     public int getVision() {
         return vision;
     }
 
     /**
-     * Met à jour la vision de l'unité.
+     * Met ï¿½ jour la vision de l'unitï¿½.
      * 
-     * @param vision La nouvelle vision de l'unité.
+     * @param vision La nouvelle vision de l'unitï¿½.
      */
     public void setVision(final int vision) {
         this.vision = vision;
     }
 
     /**
-     * Retourne la portée de tir de l'unité.
+     * Retourne la portï¿½e de tir de l'unitï¿½.
      * 
-     * @return la portée de tir de l'unité.
+     * @return la portï¿½e de tir de l'unitï¿½.
      */
     public int getPorte() {
         return porte;
     }
 
     /**
-     * Met à jour la portée de tir de l'unité.
+     * Met ï¿½ jour la portï¿½e de tir de l'unitï¿½.
      * 
-     * @param porte La nouvelle portée de tir de l'unité.
+     * @param porte La nouvelle portï¿½e de tir de l'unitï¿½.
      */
     public void setPorte(final int porte) {
         this.porte = porte;
     }
 
     /**
-     * Retourne le type de l'unité.
+     * Retourne le type de l'unitï¿½.
      * 
-     * @return le type de l'unité.
+     * @return le type de l'unitï¿½.
      */
     public int getTypeUnite() {
         return typeUnite;
     }
 
     /**
-     * Met à jour le type de l'unité.
+     * Met ï¿½ jour le type de l'unitï¿½.
      * 
-     * @param typeUnite Le nouveau type de l'unité.
+     * @param typeUnite Le nouveau type de l'unitï¿½.
      */
     public void setTypeUnite(final int typeUnite) {
         this.typeUnite = typeUnite;
