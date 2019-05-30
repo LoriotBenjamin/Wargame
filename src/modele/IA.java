@@ -9,7 +9,7 @@ import java.util.Random;
 import controleur.Jeu;
 
 /**
- * IA est la classe représentant un joueur Ordinateur.
+ * IA est la classe reprï¿½sentant un joueur Ordinateur.
  * @author Solenn
  * @see Joueur
  */
@@ -18,7 +18,7 @@ public class IA extends Joueur {
     /**
      * Constructeur IA.
      * @param numeroJoueur
-     *      Le numéro du joueur.
+     *      Le numï¿½ro du joueur.
      * @param pseudo
      *      Le pseudo du joueur.
      */
@@ -27,25 +27,25 @@ public class IA extends Joueur {
     }
 
     /**
-     * Joue un tour de jeu automatiquement avec une stratégie agressive.
+     * Joue un tour de jeu automatiquement avec une stratï¿½gie agressive.
      */
     public void jouerTour() {
         for (Unite unite : this.getListeUnite()) {
-            Unite adversaire = null; //sauvegarde l'unité adverse en cas d'attaque pour décider si fuite après ou non
+            Unite adversaire = null; //sauvegarde l'unitï¿½ adverse en cas d'attaque pour dï¿½cider si fuite aprï¿½s ou non
            
             MyHashMap<Hexagone, Integer> deplacementPossible = unite.calculDeplacementPossible();
-            Iterator<Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
+            Iterator<Map.Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
             
             totality: while (iterator.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) iterator.next();
-                Hexagone hexagone = (Hexagone) mapEntry.getKey();
+                Map.Entry<Hexagone, Integer> mapEntry = iterator.next();
+                Hexagone hexagone = mapEntry.getKey();
                 ArrayList<Hexagone> aPorteeDAttaque = unite.aPorte(hexagone.getX(),hexagone.getY());
                 for(Joueur joueur : Jeu.getListeJoueurs()) {
                     if(joueur!=this) {
                         for(Unite uniteAdverse : joueur.getListeUnite()) {
                             if(uniteAdverse.getX() != hexagone.getX() && uniteAdverse.getY() != hexagone.getY() 
                                     && aPorteeDAttaque.contains(Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()])) {
-                                //unité à portée d'attaque trouvée
+                                //unitï¿½ ï¿½ portï¿½e d'attaque trouvï¿½e
                                 unite.setX(hexagone.getX());
                                 unite.setY(hexagone.getY());
                                 unite.setPtDeDeplacement((Integer) mapEntry.getValue());
@@ -53,7 +53,7 @@ public class IA extends Joueur {
                                 System.out.println(unite);
                                 System.out.println("sur "+uniteAdverse);
                                 unite.attaquer(uniteAdverse);
-                                System.out.println("Résultat :");
+                                System.out.println("RÃ©sultat :");
                                 System.out.println(unite);
                                 System.out.println(uniteAdverse);
                                 
@@ -70,14 +70,14 @@ public class IA extends Joueur {
             if(!deplacementPossible.isEmpty() && 
                     ((adversaire != null && adversaire.getPorte() >= unite.getPorte()) 
                             || unite.getPv() >= (int) (0.75*unite.getPvMax()))) {
-              //si portée adverse > à portée unité ou plus de 75% de PV restant alors déplacement aléatoire
+              //si portï¿½e adverse > ï¿½ portï¿½e unitï¿½ ou plus de 75% de PV restant alors dï¿½placement alï¿½atoire
                 Object[] tabDeplacementPossible = deplacementPossible.keySet().toArray();
                 Object key = tabDeplacementPossible[new Random().nextInt(tabDeplacementPossible.length)];
                 Hexagone hexagone = (Hexagone) key;
                 unite.setX(hexagone.getX());
                 unite.setY(hexagone.getY());
                 unite.setPtDeDeplacement((Integer) deplacementPossible.get(key));
-                System.out.println("Déplacement sans attaquer :");
+                System.out.println("DÃ©placement sans attaquer:");
                 System.out.println(unite);
             }
             else {

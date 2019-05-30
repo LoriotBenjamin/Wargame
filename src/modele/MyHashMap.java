@@ -8,6 +8,11 @@ import java.util.Map;
 
 public class MyHashMap<K, V> extends HashMap<K, V> {
 
+    /**
+     * Numéro de serial Version
+     */
+    private static final long serialVersionUID = 3195739454305712213L;
+
     public MyHashMap() {
         super();
 
@@ -15,10 +20,10 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
 
     public Object getFirstKey() {
 
-        Iterator<Entry<K, V>> iterator = this.entrySet().iterator();
+        Iterator<Map.Entry<K, V>> iterator = this.entrySet().iterator();
 
         if (iterator.hasNext()) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
+            Map.Entry<K, V> mapEntry = iterator.next();
             return mapEntry.getKey();
         } else {
             System.out.println("Plus de clef dans la map");
@@ -28,10 +33,10 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
     }
 
     public int getSize() {
-        Iterator<Entry<K, V>> iterator = this.entrySet().iterator();
+        Iterator<Map.Entry<K, V>> iterator = this.entrySet().iterator();
         int i = 0;
         while (iterator.hasNext()) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
+            Map.Entry<K, V> mapEntry = iterator.next();
             i++;
         }
         return i;

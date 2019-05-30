@@ -29,7 +29,7 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
-		Humain j1 = new Humain(1, "J1"); // juste pour tester
+		IA j1 = new IA(1, "J1"); // juste pour tester
 		Jeu.getListeJoueurs().add(j1);
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
@@ -79,7 +79,7 @@ public class MainOfGame {
 		            System.out.println();
 		        }
 		        
-		        //joueur.jouerTour();
+		        joueur.jouerTour();
 		        
 		        System.out.println();
 		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {

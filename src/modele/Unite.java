@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import controleur.Jeu;
 
@@ -211,9 +210,9 @@ public class Unite {
 
         totality: if (!deplacementPossible.isEmpty()) {
 
-            Iterator iterator = deplacementPossible.entrySet().iterator();
+            Iterator<Map.Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
             while (iterator.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) iterator.next();
+                Map.Entry<Hexagone, Integer> mapEntry = iterator.next();
                 Hexagone h = (Hexagone) mapEntry.getKey();
                 if (_x == h.getX() && _y == h.getY()) {
                     // La case a �t� trouv�e
@@ -268,6 +267,8 @@ public class Unite {
 		Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
 		MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
 		MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant
+		
+		this.ennemiAttaquable.clear();
 		
 		Joueur joueurCourant = this.getPlayerWhoControlMe();
 		ArrayList<Hexagone> caseVisible = joueurCourant.sansBrouillard();
