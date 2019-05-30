@@ -2,6 +2,8 @@ package modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Joueur est la classe représentant un joueur du jeu. Un joueur est caractérisé par :
@@ -83,6 +85,21 @@ public class Joueur implements Serializable {
     public void jouerTour() {
         
     }
+    
+  //JAVADOC A FAIRE
+    public ArrayList<Hexagone> sansBrouillard() {
+        HashSet<Hexagone> nonfog = new HashSet<Hexagone>();
+        ArrayList<Hexagone> list = new ArrayList<Hexagone>();
+        for (Unite unite : this.listeUnite) {
+            nonfog.addAll(unite.vision());
+        }
+        Iterator<Hexagone> i = nonfog.iterator();
+        while (i.hasNext()) {
+            Hexagone h = i.next();
+            list.add(h);
+        }
+        return list;
+    }
 
     //////////////////////// Getter and Setter /////////////////////////
     /**
@@ -135,5 +152,7 @@ public class Joueur implements Serializable {
     public void setListeUnite(final ArrayList<Unite> listeUnite) {
         this.listeUnite = listeUnite;
     }
+
+    
 
 }

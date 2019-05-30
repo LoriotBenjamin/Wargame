@@ -6,6 +6,7 @@ import modele.Archer;
 import modele.Chevalier;
 import modele.Guerrier;
 import modele.Humain;
+import modele.Hexagone;
 import modele.IA;
 import modele.Joueur; // à retirer d'ici 
 import modele.Mage;

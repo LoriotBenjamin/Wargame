@@ -11,8 +11,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -25,7 +23,6 @@ import modele.Hexagone;
 import modele.Joueur;
 import modele.Mer;
 import modele.Montagne;
-import modele.MyHashMap;
 import modele.Plaine;
 import modele.Riviere;
 import modele.Unite;
@@ -115,13 +112,6 @@ public class Jeu implements Serializable {
      */
     private static MainJFrame frame = new MainJFrame();
 
-    //A SUPPRIMER UNE FOIS QUE LA FONCTION SAUVEGARDE SERA REFAITE
-    public Jeu(Hexagone[][] map, ArrayList listeJoueurs) {
-        this.listeJoueurs = listeJoueurs;
-        this.map = map;
-
-    }
-
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
      */
@@ -152,7 +142,7 @@ public class Jeu implements Serializable {
                 ligne = getElementAleatoire(lignePossible); // ligne aleatoire
                 colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
                 terrain = getElementAleatoire(terrains); // terrain aleatoire
-            } while(terrain == MER && (ligne == 0 || colonne == 0 || ligne == MAPLIGNE-1 || colonne == MAPCOLONNE-1));
+            } while(terrain == MER && (ligne <= 1 || colonne <= 1 || ligne >= MAPLIGNE-2 || colonne >= MAPCOLONNE-2));
 
             final int nbVoisin = 6;
             for (int cpt = 0; cpt <= nbVoisin; cpt++) { // met le meme terrain pour l'hexagone aleatoire et ces voisins
@@ -176,7 +166,6 @@ public class Jeu implements Serializable {
                         break;
                     case MER:
                         map[ligne][colonne] = new Mer(ligne, colonne);
-                        cpt=6; //on ne fait pas des groupements de mer sinon déplacement difficile
                         break;
                     case DESERT:
                         map[ligne][colonne] = new Desert(ligne, colonne);
@@ -217,6 +206,7 @@ public class Jeu implements Serializable {
 
         for (int i = 0; i < MAPLIGNE; i++) {
             for (int j = 0; j < MAPCOLONNE; j++) {
+                map[i][j].initListeVoisin();
                 System.out.print(map[i][j]);
             }
             System.out.println();
@@ -232,99 +222,6 @@ public class Jeu implements Serializable {
     public static int getElementAleatoire(final List<Integer> liste){
         Random alea = new Random();
         return liste.get(alea.nextInt(liste.size()));
-    }
-
-    //JAVADOC A COMPLETER + DEPLACER DANS LA CLASSE HEXAGONE
-    /**
-     * Initialise la liste des voisins de chaque case de la map.
-     */
-    public static void initListeVoisin() { // ajoute a  chaque hexagone la liste des hexagones voisins
-        // ( serait peut etre plus pertinent dans la classe hexagone)
-
-        for (int i =0; i < MAPLIGNE; i++){
-            for(int j=0; j < MAPCOLONNE;j++){
-                if( i%2 == 0){
-                    if(i+1< MAPLIGNE )
-                        map[i][j].ajoutHexagoneVoisin(map[i+1][j]);
-                    if(j+1 < MAPCOLONNE)
-                        map[i][j].ajoutHexagoneVoisin(map[i][j+1]);
-                    if(i+1 < MAPLIGNE && j-1 >= 0)
-                        map[i][j].ajoutHexagoneVoisin(map[i+1][j-1]);
-                    if(i-1 >= 0 )
-                        map[i][j].ajoutHexagoneVoisin(map[i-1][j]);
-                    if(i-1 >= 0 && j-1 >= 0)
-                        map[i][j].ajoutHexagoneVoisin(map[i-1][j-1]);
-                    if( j-1 >= 0)
-                        map[i][j].ajoutHexagoneVoisin(map[i][j-1]);
-                }else{
-                    if(i+1< MAPLIGNE )
-                        map[i][j].ajoutHexagoneVoisin(map[i+1][j]);
-                    if(i+1< MAPLIGNE && j+1 < MAPCOLONNE)
-                        map[i][j].ajoutHexagoneVoisin(map[i+1][j+1]);
-                    if(j+1 < MAPCOLONNE)
-                        map[i][j].ajoutHexagoneVoisin(map[i][j+1]);
-                    if(i-1 >= 0 )
-                        map[i][j].ajoutHexagoneVoisin(map[i-1][j]);
-                    if(j-1 >= 0)
-                        map[i][j].ajoutHexagoneVoisin(map[i][j-1]);
-                    if(i-1 >= 0 && j+1 < MAPCOLONNE)
-                        map[i][j].ajoutHexagoneVoisin(map[i-1][j+1]);
-
-                }
-            }
-        }
-
-        System.out.println("Point 0 0");
-        map[0][0].afficheVoisin();
-        System.out.println("Point 3 3");
-        map[3][3].afficheVoisin();
-        System.out.println("Point 2;1 ");
-        map[2][1].afficheVoisin();
-
-    }
-
-    //JAVADOC A FAIRE + A DEPLACER DANS LA CLASSE JOUEUR
-    public static ArrayList<Hexagone> sansBrouillard(Joueur joueur) {
-        HashSet<Hexagone> nonfog = new HashSet<Hexagone>();
-        ArrayList<Hexagone> list = new ArrayList<Hexagone>();
-        for (Unite unite : joueur.getListeUnite()) {
-            nonfog.addAll(vision(unite));
-        }
-        Iterator<Hexagone> i = nonfog.iterator();
-        while (i.hasNext()) {
-            Hexagone h = i.next();
-            list.add(h);
-        }
-        return list;
-    }
-    
-    //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE UNITE
-    public static ArrayList<Hexagone> vision(Unite unite) { // donne tout les hexagones visibles par l'unitï¿½
-        Hexagone h = Jeu.map[unite.getX()][unite.getY()]; // hexagone ou se situe l'unite
-        ArrayList<Hexagone> nofog = new ArrayList();
-        MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant
-
-        Hexagone hexagoneCourant = h;
-        nofog.add(hexagoneCourant);
-        AExplorer.put(hexagoneCourant, 0);
-
-        while (!AExplorer.isEmpty()) {
-
-            hexagoneCourant = (Hexagone) AExplorer.getFirstKey(); // on rÃ©cupÃ©re le premier element de la liste
-            for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (!nofog.contains(v) && !AExplorer.containsKey(v)
-                        && AExplorer.get(hexagoneCourant) + 1 <= unite.getVision())
-                    AExplorer.put(v, AExplorer.get(hexagoneCourant) + 1);
-
-            } // fin du parcours des voisins
-            if (!nofog.contains(hexagoneCourant))
-                nofog.add(hexagoneCourant);
-            AExplorer.remove(hexagoneCourant);
-
-        } // fin de la boucle principal
-
-        return nofog;
-
     }
 
     //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE JOUEUR (JE PENSE) + A SUPPRIMER EN FIN DE PROJET SI NON UTILISEE
@@ -358,27 +255,7 @@ public class Jeu implements Serializable {
         return null;
     }
 
-    //CHOISIR LA FONCTION DE SAUVEGARDE QU'ON GARDE + JAVADOC A FAIRE
-    public static void save() {
-
-        File fichier = new File("tmp/game.ser");
-
-        // ouverture d'un flux sur un fichier
-        ObjectOutputStream oos;
-        try {
-            oos = new ObjectOutputStream(new FileOutputStream(fichier));
-            Jeu game = new Jeu(Jeu.map, Jeu.listeJoueurs);
-            oos.writeObject(game);
-        } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-
-    }
-
+    //JAVADOC A FAIRE
     public static void sauvegarderPartie(String saveName) {
         final File saveFile = new File("./" + saveName);
         try {

@@ -150,6 +150,42 @@ public class Hexagone {
     public void ajoutHexagoneVoisin(final Hexagone h) {
         listeVoisin.add(h);
     }
+    
+  //JAVADOC A COMPLETER
+    /**
+     * Initialise la liste des voisins de chaque case de la map.
+     */
+    public void initListeVoisin() { // ajoute a  chaque hexagone la liste des hexagones voisins
+        // ( serait peut etre plus pertinent dans la classe hexagone)
+        if( x%2 == 0){
+            if(x+1< Jeu.MAPLIGNE )
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y]);
+            if(y+1 < Jeu.MAPCOLONNE)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y+1]);
+            if(x+1 < Jeu.MAPLIGNE && y-1 >= 0)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y-1]);
+            if(x-1 >= 0 )
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y]);
+            if(x-1 >= 0 && y-1 >= 0)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y-1]);
+            if( y-1 >= 0)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y-1]);
+        }else{
+            if(x+1< Jeu.MAPLIGNE )
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y]);
+            if(x+1< Jeu.MAPLIGNE && y+1 < Jeu.MAPCOLONNE)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y+1]);
+            if(y+1 < Jeu.MAPCOLONNE)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y+1]);
+            if(x-1 >= 0 )
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y]);
+            if(y-1 >= 0)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y-1]);
+            if(x-1 >= 0 && y+1 < Jeu.MAPCOLONNE)
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y+1]);
+
+        }
+    }
 
     /**
      * A SUPPRIMER PLUS TARD.
@@ -263,5 +299,6 @@ public class Hexagone {
     public void setListeVoisin(final ArrayList<Hexagone> listeVoisin) {
         this.listeVoisin = listeVoisin;
     }
+    
 
 }

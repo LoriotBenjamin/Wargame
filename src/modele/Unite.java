@@ -260,7 +260,7 @@ public class Unite implements Serializable {
         MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
         MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
                                                                                           // deplacement restant
-        ArrayList<Hexagone> caseVisible = Jeu.vision(this);
+        ArrayList<Hexagone> caseVisible = this.vision();
         //ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
 
         /*
@@ -366,6 +366,35 @@ public class Unite implements Serializable {
 
         return aPorte;
 
+    }
+    
+  //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE UNITE
+    public ArrayList<Hexagone> vision() { // donne tout les hexagones visibles par l'unit�
+        Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
+        ArrayList<Hexagone> nofog = new ArrayList<Hexagone>();
+        MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant
+    
+        Hexagone hexagoneCourant = h;
+        nofog.add(hexagoneCourant);
+        AExplorer.put(hexagoneCourant, 0);
+    
+        while (!AExplorer.isEmpty()) {
+    
+            hexagoneCourant = (Hexagone) AExplorer.getFirstKey(); // on récupére le premier element de la liste
+            for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
+                if (!nofog.contains(v) && !AExplorer.containsKey(v)
+                        && AExplorer.get(hexagoneCourant) + 1 <= vision)
+                    AExplorer.put(v, AExplorer.get(hexagoneCourant) + 1);
+    
+            } // fin du parcours des voisins
+            if (!nofog.contains(hexagoneCourant))
+                nofog.add(hexagoneCourant);
+            AExplorer.remove(hexagoneCourant);
+    
+        } // fin de la boucle principal
+    
+        return nofog;
+    
     }
 
     /**
@@ -608,6 +637,8 @@ public class Unite implements Serializable {
     public void setTypeUnite(final int typeUnite) {
         this.typeUnite = typeUnite;
     }
+
+    
 
 }
 
