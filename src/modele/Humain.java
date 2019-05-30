@@ -13,7 +13,7 @@ public class Humain extends Joueur {
     /**
      * Constructeur Humain.
      * @param numeroJoueur
-     *      Le num�ro du joueur.
+     *      Le numéro du joueur.
      * @param pseudo
      *      Le pseudo du joueur.
      */

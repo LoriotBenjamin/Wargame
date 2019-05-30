@@ -9,7 +9,7 @@ import java.util.Map;
 public class MyHashMap<K, V> extends HashMap<K, V> {
 
     /**
-     * Numéro de serial Version
+     * Numéro de serial Version.
      */
     private static final long serialVersionUID = 3195739454305712213L;
 

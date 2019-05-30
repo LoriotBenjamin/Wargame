@@ -3,10 +3,10 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Forêt est la classe représentant un type d'Hexagone. Ses caractéristiques sont :
+ * Forï¿½t est la classe reprÃ©sentant un type d'Hexagone. Ses caractÃ©ristiques sont :
  * <ul>
- * <li>Points de déplacement : 2</li>
- * <li>Bonus de défense : 50 %</li>
+ * <li>Points de dÃ©placement : 2</li>
+ * <li>Bonus de dÃ©fense : 50 %</li>
  * </ul>
  * @author Solenn
  * @see Hexagone
@@ -14,24 +14,23 @@ import controleur.Jeu;
  */
 public class Foret extends Hexagone {
     /**
-     * Valeur des points de déplacement de la Forêt.
+     * Valeur des points de dÃ©placement de la ForÃªt.
      */
     private static final int POINTDEPLACEMENT = 2;
     /**
-     * Valeur du bonus de défense de la Forêt.
+     * Valeur du bonus de dÃ©fense de la ForÃªt.
      */
     private static final double BONUSDEFENSE = 0.5;
 
     /**
-     * Conctructeur Forêt.
+     * Conctructeur ForÃªt.
      * @param x
-     *      Numéro de ligne sur le plateau.
+     *      NumÃ©ro de ligne sur le plateau.
      * @param y
-     *      Numéro de colonne sur le plateau.
+     *      NumÃ©ro de colonne sur le plateau.
      */
     public Foret(final int x, final int y) {
         super(Jeu.FORET, BONUSDEFENSE, POINTDEPLACEMENT, x, y);
-        // TODO Auto-generated constructor stub
     }
 
 }

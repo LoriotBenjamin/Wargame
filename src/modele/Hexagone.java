@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import controleur.Jeu;
 
 /**
- * Hexagone est la classe représentant une case en forme d'hexagone du plateau
- * de jeu. Un hexagone est caractérisé par :
+ * Hexagone est la classe reprÃ©sentant une case en forme d'hexagone du plateau de jeu. Un hexagone est caractÃ©risÃ© par :
  * <ul>
- * <li>Son type qui est un entier entre 10 et 16 représentant un type de
- * terrain</li>
- * <li>Son bonus de défense qui est différent pour chaque type de terrain</li>
- * <li>Son coût de déplacement qui est différent pour chaque type de
- * terrain</li>
- * <li>Ses coordonnées sur le plateau : x et y</li>
+ * <li>Son type qui est un entier entre 10 et 16 reprÃ©sentant un type de terrain</li>
+ * <li>Son bonus de dÃ©fense qui est diffÃ©rent pour chaque type de terrain</li>
+ * <li>Son coÃ»t de dÃ©placement qui est diffÃ©rent pour chaque type de terrain</li>
+ * <li>Ses coordonnÃ©es sur le plateau : x et y</li>
  * <li>Sa liste d'hexagones voisins
  * </ul>
  * @author Solenn
@@ -21,31 +18,31 @@ import controleur.Jeu;
  */
 public class Hexagone {
     /**
-     * Le type de l'Hexagone. C'est un entier compris entre 10 et 16 représentant les différents types de terrains.
+     * Le type de l'Hexagone. C'est un entier compris entre 10 et 16 reprÃ©sentant les diffÃ©rents types de terrains.
      * @see Hexagone#getType()
      * @see Hexagone#setType(int)
      */
     private int type;
     /**
-     * Le bonus de défense d'un Hexagone.
+     * Le bonus de dÃ©fense d'un Hexagone.
      * @see Hexagone#getBonusDefense()
      * @see Hexagone#setBonusDefense(double)
      */
     private double bonusDefense;
     /**
-     * Le coût de déplacement d'un Hexagone.
+     * Le coÃ»t de dÃ©placement d'un Hexagone.
      * @see Hexagone#getCoutDeDeplacement()
      * @see Hexagone#setCoutDeDeplacement(int)
      */
     private int coutDeDeplacement;
     /**
-     * Le numéro de ligne d'un Hexagone.
+     * Le numÃ©ro de ligne d'un Hexagone.
      * @see Hexagone#getX()
      * @see Hexagone#setX(int)
      */
     private int x;
     /**
-     * Le numéro de colonne d'un Hexagone.
+     * Le numÃ©ro de colonne d'un Hexagone.
      * @see Hexagone#getY()
      * @see Hexagone#setY(int)
      */
@@ -62,13 +59,13 @@ public class Hexagone {
      * @param type
      *      Type de l'hexagone.
      * @param bonusDefense
-     *      Bonus défense de l'hexagone.
+     *      Bonus dÃ©fense de l'hexagone.
      * @param coutDeDeplacement
-     *      Coût de déplacement de l'hexagone.
+     *      CoÃ»t de dÃ©placement de l'hexagone.
      * @param x
-     *      Numéro de ligne de l'hexagone.
+     *      NumÃ©ro de ligne de l'hexagone.
      * @param y
-     *      Numéro de colonne de l'hexagone.
+     *      NumÃ©ro de colonne de l'hexagone.
      */
     public Hexagone(final int type, final double bonusDefense, final int coutDeDeplacement, final int x, final int y) {
         this.type = type;
@@ -82,15 +79,15 @@ public class Hexagone {
      * @param type
      *      Type de l'hexagone.
      * @param bonusDefense
-     *      Bonus de défense de l'hexagone.
+     *      Bonus de dÃ©fense de l'hexagone.
      * @param coutDeDeplacement
-     *      Coût de déplacement de l'hexagone.
+     *      CoÃ»t de dÃ©placement de l'hexagone.
      * @param listeVoisin
      *      Liste des voisins de l'hexagone.
      */
     public Hexagone(final int type, final double bonusDefense, final int coutDeDeplacement,
             final ArrayList<Hexagone> listeVoisin) {
-        // deuxieme constructeur utile seulement si on connait la liste des voisins a  voir
+        // deuxieme constructeur utile seulement si on connait la liste des voisins Ã  voir
         //A SUPPRIMER SI NON UTILISE
 
         this.type = type;
@@ -105,85 +102,97 @@ public class Hexagone {
     @Override
     public final String toString() {
         String string = "";
-        switch(type) {
+        switch (type) {
         case Jeu.PLAINE:
-            string+="Plaine ";
+            string += "Plaine ";
             break;
         case Jeu.FORET:
-            string+="Forêt ";
+            string += "ForÃªt ";
             break;
         case Jeu.VILLAGE:
-            string+="Vill ";
+            string += "Vill ";
             break;
         case Jeu.RIVIERE:
-            string+="Riv ";
+            string += "Riv ";
             break;
         case Jeu.MONTAGNE:
-            string+="Mont ";
+            string += "Mont ";
             break;
         case Jeu.MER:
-            string+="Mer ";
+            string += "Mer ";
             break;
         case Jeu.DESERT:
-            string+="Désert ";
+            string += "DÃ©sert ";
             break;
         default:
             break;
-              
         }
-        for(Joueur joueur : Jeu.getListeJoueurs()) {
-            for(Unite unite : joueur.getListeUnite()) {
-                if(unite.getX() == x && unite.getY() == y) {
-                    string+= unite.getTypeUnite()+" "+joueur.getPseudo()+" ";
+        for (Joueur joueur : Jeu.getListeJoueurs()) {
+            for (Unite unite : joueur.getListeUnite()) {
+                if (unite.getX() == x && unite.getY() == y) {
+                    string += unite.getTypeUnite() + " " + joueur.getPseudo() + " ";
                 }
             }
         }
-        return string+"\t\t\t";
+        return string + "\t\t\t";
     }
 
     /**
-     * Ajoute un hexagone à la liste des voisins.
+     * Ajoute un hexagone Ã  la liste des voisins.
      * @param h
-     *      Hexagone à ajouter.
+     *      Hexagone Ã  ajouter.
      * @see Hexagone#listeVoisin
      */
     public void ajoutHexagoneVoisin(final Hexagone h) {
         listeVoisin.add(h);
     }
-    
+
   //JAVADOC A COMPLETER
     /**
-     * Initialise la liste des voisins de chaque case de la map.
+     * Initialise la liste des voisins d'un hexagone.
+     * @see Hexagone#listeVoisin
+     * @see Hexagone#ajoutHexagoneVoisin(Hexagone)
      */
-    public void initListeVoisin() { // ajoute a  chaque hexagone la liste des hexagones voisins
+    public void initListeVoisin() { // ajoute aï¿½ chaque hexagone la liste des hexagones voisins
         // ( serait peut etre plus pertinent dans la classe hexagone)
-        if( x%2 == 0){
-            if(x+1< Jeu.MAPLIGNE )
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y]);
-            if(y+1 < Jeu.MAPCOLONNE)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y+1]);
-            if(x+1 < Jeu.MAPLIGNE && y-1 >= 0)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y-1]);
-            if(x-1 >= 0 )
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y]);
-            if(x-1 >= 0 && y-1 >= 0)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y-1]);
-            if( y-1 >= 0)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y-1]);
-        }else{
-            if(x+1< Jeu.MAPLIGNE )
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y]);
-            if(x+1< Jeu.MAPLIGNE && y+1 < Jeu.MAPCOLONNE)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x+1][y+1]);
-            if(y+1 < Jeu.MAPCOLONNE)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y+1]);
-            if(x-1 >= 0 )
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y]);
-            if(y-1 >= 0)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y-1]);
-            if(x-1 >= 0 && y+1 < Jeu.MAPCOLONNE)
-                this.ajoutHexagoneVoisin(Jeu.getMap()[x-1][y+1]);
-
+        if (x % 2 == 0) {
+            if (x + 1 < Jeu.MAPLIGNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x + 1][y]);
+            }
+            if (y + 1 < Jeu.MAPCOLONNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y + 1]);
+            }
+            if (x + 1 < Jeu.MAPLIGNE && y - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x + 1][y - 1]);
+            }
+            if (x - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x - 1][y]);
+            }
+            if (x - 1 >= 0 && y - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x - 1][y - 1]);
+            }
+            if (y - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y - 1]);
+            }
+        } else {
+            if (x + 1 < Jeu.MAPLIGNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x + 1][y]);
+            }
+            if (x + 1 < Jeu.MAPLIGNE && y + 1 < Jeu.MAPCOLONNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x + 1][y + 1]);
+            }
+            if (y + 1 < Jeu.MAPCOLONNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y + 1]);
+            }
+            if (x - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x - 1][y]);
+            }
+            if (y - 1 >= 0) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x][y - 1]);
+            }
+            if (x - 1 >= 0 && y + 1 < Jeu.MAPCOLONNE) {
+                this.ajoutHexagoneVoisin(Jeu.getMap()[x - 1][y + 1]);
+            }
         }
     }
 
@@ -207,7 +216,7 @@ public class Hexagone {
     }
 
     /**
-     * Met à jour le type de l'hexagone.
+     * Met Ã  jour le type de l'hexagone.
      * @param type
      *      Le nouveau type de l'hexagone.
      */
@@ -216,68 +225,68 @@ public class Hexagone {
     }
 
     /**
-     * Retourne le bonus de défense de l'hexagone.
-     * @return le bonus de défense de l'hexagone.
+     * Retourne le bonus de dÃ©fense de l'hexagone.
+     * @return le bonus de dÃ©fense de l'hexagone.
      */
     public double getBonusDefense() {
         return bonusDefense;
     }
 
     /**
-     * Met à jour le bonus de défense de l'hexagone.
+     * Met Ã  jour le bonus de dÃ©fense de l'hexagone.
      * @param bonusDefense
-     *      Le nouveau bonus de défense de l'hexagone.
+     *      Le nouveau bonus de dÃ©fense de l'hexagone.
      */
     public void setBonusDefense(final double bonusDefense) {
         this.bonusDefense = bonusDefense;
     }
 
     /**
-     * Retourne le coût de déplacement de l'hexagone.
-     * @return le coût de déplacement de l'hexagone.
+     * Retourne le coÃ»t de dÃ©placement de l'hexagone.
+     * @return le coÃ»t de dÃ©placement de l'hexagone.
      */
     public int getCoutDeDeplacement() {
         return coutDeDeplacement;
     }
 
     /**
-     * Met à jour le coût de déplacement de l'hexagone.
+     * Met Ã  jour le coÃ»t de dÃ©placement de l'hexagone.
      * @param coutDeDeplacement
-     *      Le nouveau coût de déplacement de l'hexagone.
+     *      Le nouveau coÃ»t de dÃ©placement de l'hexagone.
      */
     public void setCoutDeDeplacement(final int coutDeDeplacement) {
         this.coutDeDeplacement = coutDeDeplacement;
     }
 
     /**
-     * Retourne le numéro de ligne de l'hexagone.
-     * @return le numéro de ligne de l'hexagone.
+     * Retourne le numÃ©ro de ligne de l'hexagone.
+     * @return le numÃ©ro de ligne de l'hexagone.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Met à jour le numéro de ligne de l'hexagone.
+     * Met Ã  jour le numÃ©ro de ligne de l'hexagone.
      * @param x
-     *      Le nouveau numéro de ligne de l'hexagone.
+     *      Le nouveau numÃ©ro de ligne de l'hexagone.
      */
     public void setX(final int x) {
         this.x = x;
     }
 
     /**
-     * Retourne le numéro de colonne de l'hexagone.
-     * @return le numéro de colonne de l'hexagone.
+     * Retourne le numÃ©ro de colonne de l'hexagone.
+     * @return le numÃ©ro de colonne de l'hexagone.
      */
     public int getY() {
         return y;
     }
 
     /**
-     * Met à jour le numéro de colonne de l'hexagone.
+     * Met Ã  jour le numÃ©ro de colonne de l'hexagone.
      * @param y
-     *      Le nouveau numéro de colonne de l'hexagone.
+     *      Le nouveau numÃ©ro de colonne de l'hexagone.
      */
     public void setY(final int y) {
         this.y = y;
@@ -292,13 +301,11 @@ public class Hexagone {
     }
 
     /**
-     * Met à jour la liste des voisins de l'hexagone.
+     * Met Ã  jour la liste des voisins de l'hexagone.
      * @param listeVoisin
      *      La nouvelle liste des voisins de l'hexagone.
      */
     public void setListeVoisin(final ArrayList<Hexagone> listeVoisin) {
         this.listeVoisin = listeVoisin;
     }
-    
-
 }

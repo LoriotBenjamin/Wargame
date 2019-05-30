@@ -3,14 +3,14 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Archer est la classe repr�sentant une unit� d'Archer. Ses caract�ristiques sont :
+ * Archer est la classe représentant une unité d'Archer. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 14</li>
- * <li>D�fense : 4</li>
+ * <li>Défense : 4</li>
  * <li>PV : 28</li>
- * <li>D�placement : 4</li>
+ * <li>Déplacement : 4</li>
  * <li>Vision : 4</li>
- * <li>Port�e : 3</li>
+ * <li>Portée : 3</li>
  * </ul>
  * @author Solenn
  * @see Unite
@@ -22,7 +22,7 @@ public class Archer extends Unite {
      */
     private static final int ATTAQUE = 14;
     /**
-     * Valeur de la d�fense de l'Archer.
+     * Valeur de la défense de l'Archer.
      */
     private static final int DEFENSE = 4;
     /**
@@ -30,7 +30,7 @@ public class Archer extends Unite {
      */
     private static final int PV = 28;
     /**
-     * Valeur du d�placement de l'Archer.
+     * Valeur du déplacement de l'Archer.
      */
     private static final int DEPLACEMENT = 4;
     /**
@@ -38,15 +38,21 @@ public class Archer extends Unite {
      */
     private static final int VISION = 4;
     /**
-     * Valeur de la port�e de l'Archer.
+     * Valeur de la portée de l'Archer.
      */
     private static final int PORTEE = 3;
 
     /**
      * Constructeur Archer avec ses constantes.
+     * @param equipe
+     *      Le numéro du joueur associé à cette unité.
+     * @param x
+     *      Le numéro de ligne de l'unité.
+     * @param y
+     *      Le numéro de colonne de l'unité.
      */
-    public Archer(int equipe,int x,int y) {
-        super(Jeu.ARCHER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
+    public Archer(final int equipe, final int x, final int y) {
+        super(Jeu.ARCHER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y, equipe);
     }
 
 }

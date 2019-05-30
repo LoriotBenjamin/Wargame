@@ -3,10 +3,10 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Rivière est la classe représentant un type d'Hexagone. Ses caractéristiques sont :
+ * Riviï¿½re est la classe reprï¿½sentant un type d'Hexagone. Ses caractï¿½ristiques sont :
  * <ul>
- * <li>Points de déplacement : 2</li>
- * <li>Bonus de défense : 10 %</li>
+ * <li>Points de dï¿½placement : 2</li>
+ * <li>Bonus de dï¿½fense : 10 %</li>
  * </ul>
  * @author Solenn
  * @see Hexagone
@@ -14,20 +14,20 @@ import controleur.Jeu;
  */
 public class Riviere extends Hexagone {
     /**
-     * Valeur des points de déplacement de la Rivière.
+     * Valeur des points de dÃ©placement de la RiviÃ¨re.
      */
     private static final int POINTDEPLACEMENT = 2;
     /**
-     * Valeur du bonus de défense de la Rivière.
+     * Valeur du bonus de dÃ©fense de la RiviÃ¨re.
      */
     private static final double BONUSDEFENSE = 0.1;
 
     /**
-     * Conctructeur Rivière.
+     * Conctructeur RiviÃ¨re.
      * @param x
-     *      Numéro de ligne sur le plateau.
+     *      NumÃ©ro de ligne sur le plateau.
      * @param y
-     *      Numéro de colonne sur le plateau.
+     *      NumÃ©ro de colonne sur le plateau.
      */
     public Riviere(final int x, final int y) {
         super(Jeu.RIVIERE, BONUSDEFENSE, POINTDEPLACEMENT, x, y);

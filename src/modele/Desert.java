@@ -3,10 +3,10 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Desert est la classe représentant un type d'Hexagone. Ses caractéristiques sont :
+ * DÃ©sert est la classe reprÃ©sentant un type d'Hexagone. Ses caractÃ©ristiques sont :
  * <ul>
- * <li>Points de déplacement : 2</li>
- * <li>Bonus de défense : 10 %</li>
+ * <li>Points de dÃ©placement : 2</li>
+ * <li>Bonus de dÃ©fense : 10 %</li>
  * </ul>
  * @author Solenn
  * @see Hexagone
@@ -14,20 +14,20 @@ import controleur.Jeu;
  */
 public class Desert extends Hexagone {
     /**
-     * Valeur des points de déplacement du Désert.
+     * Valeur des points de dÃ©placement du DÃ©sert.
      */
     private static final int POINTDEPLACEMENT = 2;
     /**
-     * Valeur du bonus de défense du Désert.
+     * Valeur du bonus de dÃ©fense du DÃ©sert.
      */
     private static final double BONUSDEFENSE = 0.1;
 
     /**
-     * Conctructeur Désert.
+     * Conctructeur DÃ©sert.
      * @param x
-     *      Numéro de ligne sur le plateau.
+     *      NumÃ©ro de ligne sur le plateau.
      * @param y
-     *      Numéro de colonne sur le plateau.
+     *      NumÃ©ro de colonne sur le plateau.
      */
     public Desert(final int x, final int y) {
         super(Jeu.DESERT, BONUSDEFENSE, POINTDEPLACEMENT, x, y);

@@ -106,7 +106,7 @@ public class Jeu {
      */
     private static Hexagone[][] map = new Hexagone[MAPLIGNE][MAPCOLONNE];
     /**
-     * Fenetre de jeu.
+     * Fenêtre de jeu.
      */
     private static MainJFrame frame = new MainJFrame();
 
@@ -118,7 +118,7 @@ public class Jeu {
         List<Integer> lignePossible = new ArrayList<Integer>();
         List<Integer> terrains = new ArrayList<Integer>();
 
-        for (int i = 0; i < MAPLIGNE; i++) { // recupere toutes les positions possibles
+        for (int i = 0; i < MAPLIGNE; i++) { // récupèere toutes les positions possibles
             List<Integer> listeLigne = new ArrayList<Integer>();
             for (int j = 0; j < MAPCOLONNE; j++) {
                 listeLigne.add(j);
@@ -127,7 +127,7 @@ public class Jeu {
             lignePossible.add(i);
         }
 
-        for (int i = PLAINE; i <= DESERT; i++) { // recupere tous les terrains possibles
+        for (int i = PLAINE; i <= DESERT; i++) { // récupère tous les terrains possibles
             terrains.add(i);
         }
 
@@ -139,8 +139,9 @@ public class Jeu {
                 ligne = getElementAleatoire(lignePossible); // ligne aleatoire
                 colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
                 terrain = getElementAleatoire(terrains); // terrain aleatoire
-            } while(terrain == MER && (ligne <= 1 || colonne <= 1 || ligne >= MAPLIGNE-2 || colonne >= MAPCOLONNE-2));
-
+            } while (terrain == MER && (ligne <= 6 || ligne >= MAPLIGNE - 7)
+                    && (colonne <= 4 || colonne >= MAPCOLONNE - 5));
+            //pas de mer dans les zones de depart
             final int nbVoisin = 6;
             for (int cpt = 0; cpt <= nbVoisin; cpt++) { // met le meme terrain pour l'hexagone aleatoire et ces voisins
                 if (ligne >= 0 && colonne >= 0 && ligne < MAPLIGNE && colonne < MAPCOLONNE
@@ -178,22 +179,22 @@ public class Jeu {
                 }
                 switch (cpt) {
                 case 0:
-                    colonne++; // hexagone a  droite
+                    colonne++; // hexagone à droite
                     break;
                 case 1:
-                    colonne -= 2; // hexagone a  gauche
+                    colonne -= 2; // hexagone à gauche
                     break;
                 case 2:
-                    ligne--; // hexagone en haut a  gauche
+                    ligne--; // hexagone en haut à gauche
                     break;
                 case 3:
-                    colonne++; // hexagone en haut a  droite
+                    colonne++; // hexagone en haut à droite
                     break;
                 case 4:
-                    ligne += 2; // hexagone en bas a  droite
+                    ligne += 2; // hexagone en bas à droite
                     break;
                 case 5:
-                    colonne--; // hexagone en bas a  gauche
+                    colonne--; // hexagone en bas à gauche
                     break;
                 default:
                     break;
@@ -225,11 +226,15 @@ public class Jeu {
         Random alea = new Random();
         return liste.get(alea.nextInt(liste.size()));
     }
-    
+
+    /**
+     * Récupère pour chaque unité le numéro de joueur, son type et sa position
+     * puis appelle la fonction d'affichage des unités.
+     */
     public void controlAffichageUnite() {
         ArrayList<Integer> infoUnite = new ArrayList<Integer>();
-        for(Joueur joueur : listeJoueurs) {
-            for(Unite unite : joueur.getListeUnite()) {
+        for (Joueur joueur : listeJoueurs) {
+            for (Unite unite : joueur.getListeUnite()) {
                 infoUnite.clear();
                 infoUnite.add(joueur.getNumeroJoueur());
                 infoUnite.add(unite.getTypeUnite());
@@ -346,6 +351,8 @@ public class Jeu {
                         case DESERT:
                             map[ligne][colonne] = new Desert(ligne, colonne);
                             break;
+                        default:
+                            break;
                         }
                     }
                 }
@@ -411,6 +418,8 @@ public class Jeu {
                             		save.read(), save.read(),
                             		save.read(), save.read(),
                             		save.read(),p));
+                            break;
+                        default:
                             break;
                         }
                     }
@@ -488,7 +497,7 @@ public class Jeu {
     public static void setMap(final Hexagone[][] map) {
         Jeu.map = map;
     }
-    
+
     /**
      * Retourne la fenetre de jeu.
      * @return la fenetre de jeu.

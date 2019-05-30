@@ -3,14 +3,14 @@ package modele;
 import controleur.Jeu;
 
 /**
- * Mage est la classe repr�sentant une unit� de Mage. Ses caract�ristiques sont :
+ * Mage est la classe représentant une unité de Mage. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 16</li>
- * <li>D�fense : 2</li>
+ * <li>Défense : 2</li>
  * <li>PV : 24</li>
- * <li>D�placement : 3</li>
+ * <li>Déplacement : 3</li>
  * <li>Vision : 3</li>
- * <li>Port�e : 2</li>
+ * <li>Portée : 2</li>
  * </ul>
  * @author Solenn
  * @see Unite
@@ -22,7 +22,7 @@ public class Mage extends Unite {
      */
     private static final int ATTAQUE = 16;
     /**
-     * Valeur de la d�fense du Mage.
+     * Valeur de la défense du Mage.
      */
     private static final int DEFENSE = 2;
     /**
@@ -30,7 +30,7 @@ public class Mage extends Unite {
      */
     private static final int PV = 24;
     /**
-     * Valeur du d�placement du Mage.
+     * Valeur du déplacement du Mage.
      */
     private static final int DEPLACEMENT = 3;
     /**
@@ -38,15 +38,21 @@ public class Mage extends Unite {
      */
     private static final int VISION = 3;
     /**
-     * Valeur de la port�e du Mage.
+     * Valeur de la portée du Mage.
      */
     private static final int PORTEE = 2;
 
     /**
      * Constructeur Mage avec ses constantes.
+     * @param equipe
+     *      Le numéro du joueur associé à cette unité.
+     * @param x
+     *      Le numéro de ligne de l'unité.
+     * @param y
+     *      Le numéro de colonne de l'unité.
      */
-    public Mage(int equipe,int x,int y) {
-        super(Jeu.MAGE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
+    public Mage(final int equipe, final int x, final int y) {
+        super(Jeu.MAGE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y, equipe);
     }
 
 }
