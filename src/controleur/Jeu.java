@@ -2,19 +2,12 @@ package controleur;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import modele.Desert;
@@ -33,12 +26,7 @@ import modele.Village;
  * @author Solenn
  *
  */
-public class Jeu implements Serializable {
-
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 42317779892167959L;
+public class Jeu {
     /**
      * Entier représentant le type d'unité Guerrier.
      */

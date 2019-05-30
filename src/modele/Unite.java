@@ -1,11 +1,11 @@
 package modele;
 
 import java.awt.Point;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import controleur.Jeu;
 
@@ -28,11 +28,7 @@ import controleur.Jeu;
  * @author Solenn
  *
  */
-public class Unite implements Serializable {
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 2569571978178827188L;
+public class Unite {
     /**
      * Type de l'unité représenté par un entier entre 1 et 5.
      * @see Unite#getTypeUnite()
@@ -211,7 +207,7 @@ public class Unite implements Serializable {
 
         if (!deplacementPossible.isEmpty()) {
 
-            Iterator iterator = deplacementPossible.entrySet().iterator();
+            Iterator<Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
             totality: while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();
                 Hexagone h = (Hexagone) mapEntry.getKey();
@@ -343,8 +339,8 @@ public class Unite implements Serializable {
     // JAVADOC A FAIRE
     public ArrayList<Hexagone> aPorte(int x, int y) { // donne tout les hexagones visibles par l'unitï¿½
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
-        ArrayList<Hexagone> aPorte = new ArrayList();
-        MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant
+        ArrayList<Hexagone> aPorte = new ArrayList<Hexagone>();
+        MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de deplacement restant
 
         Hexagone hexagoneCourant = h;
         aPorte.add(hexagoneCourant);

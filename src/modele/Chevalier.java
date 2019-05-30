@@ -17,11 +17,6 @@ import controleur.Jeu;
  *
  */
 public class Chevalier extends Unite {
-
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 3580264710466315299L;
     /**
      * Valeur de l'attaque du Chevalier.
      */

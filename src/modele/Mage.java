@@ -17,11 +17,6 @@ import controleur.Jeu;
  *
  */
 public class Mage extends Unite {
-
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = -8883471561308513623L;
     /**
      * Valeur de l'attaque du Mage.
      */

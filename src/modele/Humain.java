@@ -11,11 +11,6 @@ import java.awt.Point;
 public class Humain extends Joueur {
 
     /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = -6558755708485039078L;
-
-    /**
      * Constructeur Humain.
      * @param numeroJoueur
      *      Le numéro du joueur.

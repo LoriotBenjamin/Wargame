@@ -15,7 +15,7 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
 
     public Object getFirstKey() {
 
-        Iterator iterator = this.entrySet().iterator();
+        Iterator<Entry<K, V>> iterator = this.entrySet().iterator();
 
         if (iterator.hasNext()) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();
@@ -28,7 +28,7 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
     }
 
     public int getSize() {
-        Iterator iterator = this.entrySet().iterator();
+        Iterator<Entry<K, V>> iterator = this.entrySet().iterator();
         int i = 0;
         while (iterator.hasNext()) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();

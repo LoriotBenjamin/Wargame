@@ -3,6 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import controleur.Jeu;
@@ -13,10 +14,6 @@ import controleur.Jeu;
  * @see Joueur
  */
 public class IA extends Joueur {
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 4118767757581824513L;
 
     /**
      * Constructeur IA.
@@ -37,7 +34,7 @@ public class IA extends Joueur {
             Unite adversaire = null; //sauvegarde l'unité adverse en cas d'attaque pour décider si fuite après ou non
            
             MyHashMap<Hexagone, Integer> deplacementPossible = unite.calculDeplacementPossible();
-            Iterator<?> iterator = deplacementPossible.entrySet().iterator();
+            Iterator<Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
             
             totality: while (iterator.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) iterator.next();

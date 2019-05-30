@@ -18,10 +18,6 @@ import controleur.Jeu;
  */
 public class Pretre extends Unite {
     /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = -8078990595064117125L;
-    /**
      * Valeur de l'attaque du Prêtre.
      */
     private static final int ATTAQUE = 6;

@@ -18,10 +18,6 @@ import controleur.Jeu;
  */
 public class Archer extends Unite {
     /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 1378169169146716222L;
-    /**
      * Valeur de l'attaque de l'Archer.
      */
     private static final int ATTAQUE = 14;

@@ -17,11 +17,6 @@ import controleur.Jeu;
  *
  */
 public class Guerrier extends Unite {
-
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = -793005436543005495L;
     /**
      * Valeur de l'attaque du Guerrier.
      */

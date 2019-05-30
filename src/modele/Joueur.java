@@ -1,6 +1,5 @@
 package modele;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,12 +14,7 @@ import java.util.Iterator;
  * @author Solenn
  *
  */
-public class Joueur implements Serializable {
-
-    /**
-     * Numéro de sérial Version pour la sauvegarde.
-     */
-    private static final long serialVersionUID = 916267121420154488L;
+public class Joueur {
     /**
      * Le numéro du joueur qui correspond au tour de passage du joueur.
      * @see Joueur#getNumeroJoueur()
