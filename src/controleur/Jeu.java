@@ -20,63 +20,65 @@ import modele.Plaine;
 import modele.Riviere;
 import modele.Unite;
 import modele.Village;
+import modele.IA;
+import modele.Humain;
 
 /**
- * Jeu est la classe représentant le contrôleur de la partie.
+ * Jeu est la classe reprÃ©sentant le contrÃ´leur de la partie.
  * @author Solenn
  *
  */
 public class Jeu {
     /**
-     * Entier représentant le type d'unité Guerrier.
+     * Entier reprÃ©sentant le type d'unitÃ© Guerrier.
      */
     public static final int GUERRIER = 1;
     /**
-     * Entier représentant le type d'unité Mage.
+     * Entier reprÃ©sentant le type d'unitÃ© Mage.
      */
     public static final int MAGE = 2;
     /**
-     * Entier représentant le type d'unité Archer.
+     * Entier reprÃ©sentant le type d'unitÃ© Archer.
      */
     public static final int ARCHER = 3;
     /**
-     * Entier représentant le type d'unité Prêtre.
+     * Entier reprÃ©sentant le type d'unitÃ© PrÃªtre.
      */
     public static final int PRETRE = 4;
     /**
-     * Entier représentant le type d'unité Chevalier.
+     * Entier reprÃ©sentant le type d'unitÃ© Chevalier.
      */
     public static final int CHEVALIER = 5;
     /**
-     * Entier représentant le type d'hexagone Plaine.
+     * Entier reprÃ©sentant le type d'hexagone Plaine.
      */
     public static final int PLAINE = 10;
     /**
-     * Entier représentant le type d'hexagone Forêt.
+     * Entier reprÃ©sentant le type d'hexagone ForÃªt.
      */
     public static final int FORET = 11;
     /**
-     * Entier représentant le type d'hexagone Village.
+     * Entier reprÃ©sentant le type d'hexagone Village.
      */
     public static final int VILLAGE = 12;
     /**
-     * Entier représentant le type d'hexagone Rivière.
+     * Entier reprÃ©sentant le type d'hexagone RiviÃ¨re.
      */
     public static final int RIVIERE = 13;
     /**
-     * Entier représentant le type d'hexagone Montagne.
+     * Entier reprÃ©sentant le type d'hexagone Montagne.
      */
     public static final int MONTAGNE = 14;
     /**
-     * Entier représentant le type d'hexagone Mer.
+     * Entier reprÃ©sentant le type d'hexagone Mer.
      */
     public static final int MER = 15;
     /**
-     * Entier représentant le type d'hexagone Désert.
+     * Entier reprÃ©sentant le type d'hexagone DÃ©sert.
      */
     public static final int DESERT = 16;
     /**
-     * Constante représentant le taux de soin général.
+     * Constante reprÃ©sentant le taux de soin gÃ©nÃ©ral.
      */
     public static final double SOIN = 0.1;
     /**
@@ -86,9 +88,9 @@ public class Jeu {
     /**
      * Nombre de colonne du plateau.
      */
-    public static final int MAPCOLONNE = 19;
+    public static final int MAPCOLONNE = 12;
     /**
-     * Liste des joueurs participant à la partie.
+     * Liste des joueurs participant Ã  la partie.
      */
     private static ArrayList<Joueur> listeJoueurs = new ArrayList<Joueur>();
     /**
@@ -105,10 +107,9 @@ public class Jeu {
     private static MainJFrame frame = new MainJFrame();
 
     /**
-     * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
+     * Initialise un plateau alÃ©atoirement en faisant des regroupements de types d'hexagone.
      */
     public static void initMap() {
-    	frame.getFrame().setVisible(true);
         List<List<Integer>> listeMap = new ArrayList<List<Integer>>();
         List<Integer> lignePossible = new ArrayList<Integer>();
         List<Integer> terrains = new ArrayList<Integer>();
@@ -134,8 +135,8 @@ public class Jeu {
                 ligne = getElementAleatoire(lignePossible); // ligne aleatoire
                 colonne = getElementAleatoire(listeMap.get(ligne)); // colonne aleatoire
                 terrain = getElementAleatoire(terrains); // terrain aleatoire
-            } while(terrain == MER && (ligne <= 6 || ligne >= MAPLIGNE-7) && (colonne <= 4 || colonne >= MAPCOLONNE-5));
-            //pas de mer dans les zones de depart
+            } while(terrain == MER && (ligne <= 1 || colonne <= 1 || ligne >= MAPLIGNE-2 || colonne >= MAPCOLONNE-2));
+
             final int nbVoisin = 6;
             for (int cpt = 0; cpt <= nbVoisin; cpt++) { // met le meme terrain pour l'hexagone aleatoire et ces voisins
                 if (ligne >= 0 && colonne >= 0 && ligne < MAPLIGNE && colonne < MAPCOLONNE
@@ -173,22 +174,22 @@ public class Jeu {
                 }
                 switch (cpt) {
                 case 0:
-                    colonne++; // hexagone a  droite
+                    colonne++; // hexagone aÂ  droite
                     break;
                 case 1:
-                    colonne -= 2; // hexagone a  gauche
+                    colonne -= 2; // hexagone aÂ  gauche
                     break;
                 case 2:
-                    ligne--; // hexagone en haut a  gauche
+                    ligne--; // hexagone en haut aÂ  gauche
                     break;
                 case 3:
-                    colonne++; // hexagone en haut a  droite
+                    colonne++; // hexagone en haut aÂ  droite
                     break;
                 case 4:
-                    ligne += 2; // hexagone en bas a  droite
+                    ligne += 2; // hexagone en bas aÂ  droite
                     break;
                 case 5:
-                    colonne--; // hexagone en bas a  gauche
+                    colonne--; // hexagone en bas aÂ  gauche
                     break;
                 default:
                     break;
@@ -196,7 +197,12 @@ public class Jeu {
             }
         }
 
-        for (int i = 0; i < MAPLIGNE; i++) {
+        initVoisins();
+    }
+    
+    public static void initVoisins() {
+    	frame.getFrame().setVisible(true);
+    	for (int i = 0; i < MAPLIGNE; i++) {
             for (int j = 0; j < MAPCOLONNE; j++) {
                 map[i][j].initListeVoisin();
                 System.out.print(map[i][j]);
@@ -206,10 +212,10 @@ public class Jeu {
     }
 
     /**
-     * Retourne un élément aléatoire d'une liste d'entiers.
+     * Retourne un Ã©lÃ©ment alÃ©atoire d'une liste d'entiers.
      * @param liste
      *      Liste d'entiers.
-     * @return un élément aléatoire de liste
+     * @return un Ã©lÃ©ment alÃ©atoire de liste
      */
     public static int getElementAleatoire(final List<Integer> liste){
         Random alea = new Random();
@@ -274,31 +280,29 @@ public class Jeu {
                 int x, y;
                 for (y = 0; y < MAPLIGNE; y++) {
                     for (x = 0; x < MAPCOLONNE; x++) {
-                        save.write(Integer.toString(map[y][x].getType()));
-                        if (x < MAPCOLONNE - 1) {
-                            save.write("\t");
-                        }
+                        save.write(map[y][x].getType());
                     }
-                    save.write("\n");
                 }
-                save.write(listeJoueurs.size() + "\n");
+                save.write(listeJoueurs.size());
                 for (Joueur joueur : listeJoueurs) {
-                    save.write(joueur.getPseudo() + "\n");
-                    for (Unite unite : joueur.getListeUnite()) {
-                        save.write(Integer.toString(unite.getTypeUnite()) + "\t");
-                        save.write(Integer.toString(unite.getAttaque()) + "\t");
-                        save.write(Integer.toString(unite.getDefense()) + "\t");
-                        save.write(Integer.toString(unite.getPv()) + "\t");
-                        save.write(Integer.toString(unite.getPvMax()) + "\t");
-                        save.write(Integer.toString(unite.getPtDeDeplacement()) + "\t");
-                        save.write(Integer.toString(unite.getPtDeDeplacementMax()) + "\t");
-                        save.write(Integer.toString(unite.getVision()) + "\t");
-                        save.write(Integer.toString(unite.getPorte()) + "\t");
-                        save.write(Integer.toString(unite.getX()) + "\t");
-                        save.write(Integer.toString(unite.getY()) + "\t");
-                        save.write(Integer.toString(unite.getTeamUnite()) + "\n");
+                	save.write(joueur.getPseudo().length());
+                    for(int i=0;i<joueur.getPseudo().length();i++) {
+                    	save.write(joueur.getPseudo().charAt(i));
                     }
-                    save.write("\n");
+                    save.write(joueur.getListeUnite().size());
+                    for (Unite unite : joueur.getListeUnite()) {
+                        save.write(unite.getTypeUnite());
+                        save.write(unite.getAttaque());
+                        save.write(unite.getDefense());
+                        save.write(unite.getPv());
+                        save.write(unite.getPvMax());
+                        save.write(unite.getPtDeDeplacement());
+                        save.write(unite.getPtDeDeplacementMax());
+                        save.write(unite.getVision());
+                        save.write(unite.getPorte());
+                        save.write(unite.getX());
+                        save.write(unite.getY());
+                    }
                 }
             } finally {
                 save.close();
@@ -312,14 +316,11 @@ public class Jeu {
         final File saveFile = new File("./" + fichier);
         try {
             final FileReader save = new FileReader(saveFile);
-            final BufferedReader br = new BufferedReader(save);
             try {
                 int ligne, colonne;
                 for (ligne = 0; ligne < MAPLIGNE; ligne++) {
-                    String lignelue = br.readLine();
-                    StringTokenizer tok = new StringTokenizer(lignelue, "\t");
                     for (colonne = 0; colonne < MAPCOLONNE; colonne++) {
-                        switch (Integer.parseInt(tok.nextToken())) {
+                        switch (save.read()) {
                         case PLAINE:
                             map[ligne][colonne] = new Plaine(ligne, colonne);
                             break;
@@ -344,60 +345,71 @@ public class Jeu {
                         }
                     }
                 }
-                int playerCount = Integer.parseInt(br.readLine());
+                int playerCount = save.read();
                 for (int p = 1; p <= playerCount; p++) {
-                    System.out.println(p);
-                    String nom = br.readLine();
-                    String infoUnite = br.readLine();
-                    ArrayList<Unite> unites = new ArrayList<Unite>();
-                    while (!(infoUnite.isEmpty())) {
-                        StringTokenizer tok = new StringTokenizer(infoUnite, "\t");
-                        switch (Integer.parseInt(tok.nextToken())) {
+                	int namelength = save.read();
+                	String nom = "";
+                	for(int c=0;c<namelength;c++) {
+                		char carac = (char)save.read();
+                		nom = nom+String.valueOf(carac);
+                	}
+                	Joueur joueur;
+                    if(nom.matches("(.*)IA(.*)")) {
+                    	System.out.println("IA");
+                    	joueur = new IA(p, nom);
+                    }else {
+                    	System.out.println("Humain");
+                    	joueur = new Humain(p, nom);
+                    }
+                    listeJoueurs.add(joueur);
+                	int uniteCount = save.read();
+                	System.out.println("Count: "+uniteCount);
+                    for(int u=0;u<uniteCount;u++) {
+                        int typeUnite = save.read();
+                        System.out.println("Type: "+typeUnite);
+                        switch (typeUnite) {
                         case GUERRIER:
-                            unites.add(new Unite(GUERRIER, Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+                            joueur.getListeUnite().add(new Unite(GUERRIER, save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(),p));
                             break;
                         case PRETRE:
-                            unites.add(new Unite(PRETRE, Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+                        	joueur.getListeUnite().add(new Unite(PRETRE, save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(),p));
                             break;
                         case MAGE:
-                            unites.add(new Unite(MAGE, Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+                        	joueur.getListeUnite().add(new Unite(MAGE, save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(),p));
                             break;
                         case ARCHER:
-                            unites.add(new Unite(ARCHER, Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+                        	joueur.getListeUnite().add(new Unite(ARCHER, save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(),p));
                             break;
                         case CHEVALIER:
-                            unites.add(new Unite(CHEVALIER, Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
+                        	joueur.getListeUnite().add(new Unite(CHEVALIER, save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(), save.read(),
+                            		save.read(),p));
                             break;
                         }
-                        infoUnite = br.readLine();
                     }
-                    Joueur player = new Joueur(p, nom, unites);
-                    listeJoueurs.add(player);
                 }
             } finally {
                 save.close();
@@ -417,7 +429,7 @@ public class Jeu {
     }
 
     /**
-     * Met à jour l'indicateur.
+     * Met Ã  jour l'indicateur.
      * @param le nouvel indicateur
      */
     public static void setEvent(final boolean event) {
@@ -432,7 +444,7 @@ public class Jeu {
     }
 
     /**
-     * Met à jour la liste des joueurs de la partie.
+     * Met Ã  jour la liste des joueurs de la partie.
      * @param listeJoueurs
      *      La nouvelle liste des joueurs de la partie.
      */
@@ -449,7 +461,7 @@ public class Jeu {
     }
 
     /**
-     * Met à jour le plateau de jeu.
+     * Met Ã  jour le plateau de jeu.
      * @param map
      *      Le nouveau plateau de jeu.
      */
