@@ -183,7 +183,7 @@ public class Unite implements Serializable {
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        ArrayList<Hexagone> aPorteDAttaque = aPorte();
+        ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
 
         if (!deplacementPossible.isEmpty()) {
 
@@ -314,7 +314,7 @@ public class Unite implements Serializable {
     }
 
     // JAVADOC A FAIRE
-    public ArrayList<Hexagone> aPorte() { // donne tout les hexagones visibles par l'unit�
+    public ArrayList<Hexagone> aPorte(int x, int y) { // donne tout les hexagones visibles par l'unit�
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         ArrayList<Hexagone> aPorte = new ArrayList();
         MyHashMap<Hexagone, Integer> AExplorer = new MyHashMap(); // couple hexagone/ point de deplacement restant
