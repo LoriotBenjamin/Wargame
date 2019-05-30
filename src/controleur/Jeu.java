@@ -86,7 +86,7 @@ public class Jeu {
     /**
      * Nombre de colonne du plateau.
      */
-    public static final int MAPCOLONNE = 12;
+    public static final int MAPCOLONNE = 19;
     /**
      * Liste des joueurs participant à la partie.
      */

@@ -47,8 +47,8 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crée une grile
 		Graphics2D g2d=(Graphics2D) graph;
 		BufferedImage bim = null;
 		
-		for(int l=0;l<12;l=l+2){// Remarquer le "+2" car la grille est constituée de 2 sous grilles (les lignes impaires sont décallées)
-			for(int c=0;c<12;c++){
+		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constituée de 2 sous grilles (les lignes impaires sont décallées)
+			for(int c=0;c<Jeu.MAPCOLONNE;c++){
 			    Polygon poly=getPolygon(c*r.width, (int)(l*cote*1.5),cote);
 				
 				try {
@@ -84,8 +84,8 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crée une grile
 			    g2d.drawImage(bim,c*r.width ,(int)(l*cote*1.5),this);
 			}
 		}
-		for(int l=1;l<12;l=l+2){
-			for(int c=0;c<12;c++)
+		for(int l=1;l<Jeu.MAPLIGNE;l=l+2){
+			for(int c=0;c<Jeu.MAPCOLONNE;c++)
 			{
 				Polygon poly=getPolygon(c*r.width+r.width/2,  (int)(l*cote*1.5+0.5),cote);
 				try {

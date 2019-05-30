@@ -42,7 +42,7 @@ public class MainOfGame {
 			
 		}*/
 		
-		for(Joueur joueur : Jeu.getListeJoueurs()) {
+		/*for(Joueur joueur : Jeu.getListeJoueurs()) {
 		    Archer archer = new Archer();
 		    
 		    Chevalier chevalier = new Chevalier();
@@ -67,7 +67,7 @@ public class MainOfGame {
 		    joueur.getListeUnite().add(archer);
 		    joueur.getListeUnite().add(chevalier);
 		    joueur.getListeUnite().add(guerrier);
-		}
+		}*/
 		
 		for(int cpt=0;cpt<10;cpt++) {
 		    for(Joueur joueur : Jeu.getListeJoueurs()) {
@@ -79,7 +79,7 @@ public class MainOfGame {
 		            System.out.println();
 		        }
 		        
-		        joueur.jouerTour();
+		        //joueur.jouerTour();
 		        
 		        System.out.println();
 		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {
