@@ -1,5 +1,6 @@
 package modele;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -171,11 +172,34 @@ public class Unite implements Serializable {
     }
 
     // JAVADOC A FAIRE
-    public void attendreSecondClic() {
-        // Récupérer les coordonnées du second clic et les transformer en coordonnées
-        // map
-        int x = 0, y = 0;
-        secondClic(x, y);
+    public void selected() {
+        Point mouse;
+    	int hX = -1;
+    	int hY = -1;
+    	do {
+	        do {
+	        	mouse = Jeu.getFrame().getClicPos();
+	        	System.out.println(mouse);
+	        }while(mouse.x == -1 && mouse.y == -1);
+	        int X = mouse.y;
+	        int Y = mouse.x;
+	        find : for(int ligne=0;ligne<Jeu.MAPLIGNE;ligne++) {
+	        	for(int colonne=0;colonne<Jeu.MAPCOLONNE;colonne++) {
+	        		int refX = 30 + 45*ligne;
+	        		int refY = 26*colonne%2 + 52*colonne;
+	        		if(Y >= refY && Y <= refY+52) {
+	        			int dX = (int)(30- 15.0 / 26.0 * (Math.abs(refY+26-Y)));
+	        			if(X >= refX-dX && X <= refX+dX) {
+	        				hX = ligne;
+	        				hY = colonne;
+	        				break find;
+	        			}
+	        		}
+	        	}
+	        }
+	        System.out.println(hX + " " + hY);
+    	}while(hX < 0 || hY < 0 || hX >= Jeu.MAPLIGNE || hY >= Jeu.MAPCOLONNE);
+        secondClic(hX, hY);
     }
 
     // JAVADOC A FAIRE
@@ -199,7 +223,10 @@ public class Unite implements Serializable {
                                 // Une unité est sur la case
                                 if (j.getListeUnite().contains(this)) {
                                     // L'unité est alliée
-                                    u.attendreSecondClic();
+                                	if(typeUnite == Jeu.PRETRE && aPorteDAttaque.contains(h)) {
+                                		//Soigner l'unité
+                                	}else
+                                		u.selected();
                                 } else {
                                     if (aPorteDAttaque.contains(h)) {
                                         // L'unité est à porté

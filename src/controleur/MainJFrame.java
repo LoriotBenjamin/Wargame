@@ -1,6 +1,7 @@
 package controleur;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,11 +18,15 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class MainJFrame {
 
 	private JFrame frame;
+	private boolean state = false;
+	private Point mouse = new Point(-1,-1);
 
 	/**
 	 * Launch the application.
@@ -58,6 +63,27 @@ public class MainJFrame {
 		
 		Affplateau scrollPane = new Affplateau();
 		scrollPane.setBounds(0, 21, 1048, 591);
+		scrollPane.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				state = true;
+				mouse = e.getPoint();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+		});
 		frame.getContentPane().add(scrollPane);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -113,6 +139,14 @@ public class MainJFrame {
 
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	public Point getClicPos() {
+		if(state == true) {
+			state = false;
+			return mouse;
+		}else
+			return new Point(-1,-1);
 	}
 	/*
 	public void setFrame(JFrame frame) {

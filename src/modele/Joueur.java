@@ -24,19 +24,19 @@ public class Joueur implements Serializable {
      * @see Joueur#getNumeroJoueur()
      * @see Joueur#setNumeroJoueur(int)
      */
-    private int numeroJoueur;
+    protected int numeroJoueur;
     /**
      * Le pseudo du joueur.
      * @see Joueur#getPseudo()
      * @see Joueur#setPseudo(String)
      */
-    private String pseudo;
+    protected String pseudo;
     /**
      * Les unités du joueur présentes sur le plateau.
      * @see Joueur#getListeUnite()
      * @see Joueur#setListeUnite(ArrayList)
      */
-    private ArrayList<Unite> listeUnite = new ArrayList<Unite>();
+    protected ArrayList<Unite> listeUnite = new ArrayList<Unite>();
 
     /**
      * Constructeur Joueur.

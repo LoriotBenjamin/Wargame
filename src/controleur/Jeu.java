@@ -110,6 +110,10 @@ public class Jeu implements Serializable {
      * Plateau de jeu.
      */
     private static Hexagone[][] map = new Hexagone[MAPLIGNE][MAPCOLONNE];
+    /**
+     * Fenetre de jeu.
+     */
+    private static MainJFrame frame = new MainJFrame();
 
     //A SUPPRIMER UNE FOIS QUE LA FONCTION SAUVEGARDE SERA REFAITE
     public Jeu(Hexagone[][] map, ArrayList listeJoueurs) {
@@ -122,6 +126,7 @@ public class Jeu implements Serializable {
      * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
      */
     public static void initMap() {
+    	frame.getFrame().setVisible(true);
         List<List<Integer>> listeMap = new ArrayList<List<Integer>>();
         List<Integer> lignePossible = new ArrayList<Integer>();
         List<Integer> terrains = new ArrayList<Integer>();
@@ -551,6 +556,14 @@ public class Jeu implements Serializable {
      */
     public static void setMap(final Hexagone[][] map) {
         Jeu.map = map;
+    }
+    
+    /**
+     * Retourne la fenetre de jeu.
+     * @return la fenetre de jeu.
+     */
+    public static MainJFrame getFrame() {
+        return frame;
     }
 
 }
