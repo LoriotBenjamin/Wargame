@@ -49,7 +49,7 @@ public class Pretre extends Unite {
     /**
      * Constructeur Pr�tre avec ses constantes.
      */
-    public Pretre(int equipe) {
-        super(Jeu.PRETRE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
+    public Pretre(int equipe,int x,int y) {
+        super(Jeu.PRETRE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
     }
 }

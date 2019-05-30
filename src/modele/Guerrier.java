@@ -45,8 +45,8 @@ public class Guerrier extends Unite {
     /**
      * Constructeur Guerrier avec ses constantes.
      */
-    public Guerrier(int equipe) {
-        super(Jeu.GUERRIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
+    public Guerrier(int equipe,int x,int y) {
+        super(Jeu.GUERRIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
     }
 
 }

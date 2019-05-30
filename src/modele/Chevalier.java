@@ -45,8 +45,8 @@ public class Chevalier extends Unite {
     /**
      * Constructeur Chevalier avec ses constantes.
      */
-    public Chevalier(int equipe) {
-        super(Jeu.CHEVALIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
+    public Chevalier(int equipe,int x,int y) {
+        super(Jeu.CHEVALIER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
     }
 
 }

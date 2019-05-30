@@ -45,8 +45,8 @@ public class Archer extends Unite {
     /**
      * Constructeur Archer avec ses constantes.
      */
-    public Archer(int equipe) {
-        super(Jeu.ARCHER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
+    public Archer(int equipe,int x,int y) {
+        super(Jeu.ARCHER, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
     }
 
 }

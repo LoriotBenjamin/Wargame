@@ -713,11 +713,11 @@ public class Unite {
     }
 
     /**
-     * Met ï¿½ jour l'équipe de l'unitï¿½.
+     * Met ï¿½ jour l'ï¿½quipe de l'unitï¿½.
      * 
-     * @param equipe La nouvelle équipe de l'unitï¿½.
+     * @param equipe La nouvelle ï¿½quipe de l'unitï¿½.
      */
-    public void setTypeUnite(final int equipe) {
+    public void setEquipe(final int equipe) {
         this.equipe = equipe;
     }
 

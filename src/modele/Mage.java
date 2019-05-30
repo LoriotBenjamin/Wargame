@@ -45,8 +45,8 @@ public class Mage extends Unite {
     /**
      * Constructeur Mage avec ses constantes.
      */
-    public Mage(int equipe) {
-        super(Jeu.MAGE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, 0, 0,equipe);
+    public Mage(int equipe,int x,int y) {
+        super(Jeu.MAGE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y,equipe);
     }
 
 }

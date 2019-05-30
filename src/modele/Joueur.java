@@ -5,18 +5,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * Joueur est la classe représentant un joueur du jeu. Un joueur est caractérisé par :
+ * Joueur est la classe reprï¿½sentant un joueur du jeu. Un joueur est caractï¿½risï¿½ par :
  * <ul>
- * <li>Son numéro de joueur qui correspond au tour du passage du joueur</li>
+ * <li>Son numï¿½ro de joueur qui correspond au tour du passage du joueur</li>
  * <li>Son pseudo</li>
- * <li>Ses unités présentes sur le plateau</li>
+ * <li>Ses unitï¿½s prï¿½sentes sur le plateau</li>
  * </ul>
  * @author Solenn
  *
  */
 public class Joueur {
     /**
-     * Le numéro du joueur qui correspond au tour de passage du joueur.
+     * Le numï¿½ro du joueur qui correspond au tour de passage du joueur.
      * @see Joueur#getNumeroJoueur()
      * @see Joueur#setNumeroJoueur(int)
      */
@@ -28,7 +28,7 @@ public class Joueur {
      */
     protected String pseudo;
     /**
-     * Les unités du joueur présentes sur le plateau.
+     * Les unitï¿½s du joueur prï¿½sentes sur le plateau.
      * @see Joueur#getListeUnite()
      * @see Joueur#setListeUnite(ArrayList)
      */
@@ -37,13 +37,42 @@ public class Joueur {
     /**
      * Constructeur Joueur.
      * @param numeroJoueur
-     *      Le numéro du joueur.
+     *      Le numï¿½ro du joueur.
      * @param pseudo
      *      Le pseudo du joueur.
      */
     public Joueur(final int numeroJoueur, final String pseudo) {
         this.numeroJoueur = numeroJoueur;
         this.pseudo = pseudo;
+        
+
+        if(numeroJoueur == 1){
+         	listeUnite.add(new Archer(1,0,2));
+         	listeUnite.add(new Mage(1,1,1));
+         	listeUnite.add(new Pretre(1,2,1));
+         	listeUnite.add(new Chevalier(1,3,0));
+         	listeUnite.add(new Guerrier(1,4,0));
+         }else if(numeroJoueur == 2){
+         	listeUnite.add(new Archer(2,0,17));
+         	listeUnite.add(new Mage(2,1,17));
+         	listeUnite.add(new Pretre(2,2,18));
+         	listeUnite.add(new Chevalier(2,3,18));
+         	listeUnite.add(new Guerrier(2,4,19));
+         	
+         }else if (numeroJoueur == 3){
+         	listeUnite.add(new Archer(2,12,2));
+         	listeUnite.add(new Mage(2,11,1));
+         	listeUnite.add(new Pretre(2,10,1));
+         	listeUnite.add(new Chevalier(2,9,0));
+         	listeUnite.add(new Guerrier(2,8,0));
+         	
+         }else{
+         	listeUnite.add(new Archer(2,12,17));
+         	listeUnite.add(new Mage(2,11,17));
+         	listeUnite.add(new Pretre(2,10,18));
+         	listeUnite.add(new Chevalier(2,10,18));
+         	listeUnite.add(new Guerrier(2,11,19));
+         }
 
         //A MODIFIER
         //listeUnite.add(new Guerrier());
@@ -53,11 +82,11 @@ public class Joueur {
     /**
      * Constructeur Joueur.
      * @param numeroJoueur
-     *      Le numéro du joueur.
+     *      Le numï¿½ro du joueur.
      * @param pseudo
      *      Le pseudo du joueur.
      * @param listeunite
-     *      Les unités du joueur.
+     *      Les unitï¿½s du joueur.
      */
     //A SUPPRIMER SI ON S'EN SERT PAS
     public Joueur(final int numeroJoueur, final String pseudo, final ArrayList<Unite> listeunite) {
@@ -67,9 +96,9 @@ public class Joueur {
     }
 
     /**
-     * Ajoute une unité à la liste des unités.
+     * Ajoute une unitï¿½ ï¿½ la liste des unitï¿½s.
      * @param u
-     *      Unité à ajouter.
+     *      Unitï¿½ ï¿½ ajouter.
      * @see Joueur#listeUnite
      */
     public void setUnite(final Unite u) {
@@ -97,17 +126,17 @@ public class Joueur {
 
     //////////////////////// Getter and Setter /////////////////////////
     /**
-     * Retourne le numéro du joueur.
-     * @return le numéro du joueur.
+     * Retourne le numï¿½ro du joueur.
+     * @return le numï¿½ro du joueur.
      */
     public int getNumeroJoueur() {
         return numeroJoueur;
     }
 
     /**
-     * Met à jour le numéro du joueur.
+     * Met ï¿½ jour le numï¿½ro du joueur.
      * @param numeroJoueur
-     *      Le nouveau numéro du joueur.
+     *      Le nouveau numï¿½ro du joueur.
      */
     public void setNumeroJoueur(final int numeroJoueur) {
         this.numeroJoueur = numeroJoueur;
@@ -122,7 +151,7 @@ public class Joueur {
     }
 
     /**
-     * Met à jour le pseudo du joueur.
+     * Met ï¿½ jour le pseudo du joueur.
      * @param pseudo
      *      Le nouveau pseudo du joueur.
      */
@@ -131,17 +160,17 @@ public class Joueur {
     }
 
     /**
-     * Retourne la liste des unités du joueur.
-     * @return la liste des unités du joueur.
+     * Retourne la liste des unitï¿½s du joueur.
+     * @return la liste des unitï¿½s du joueur.
      */
     public ArrayList<Unite> getListeUnite() {
         return listeUnite;
     }
 
     /**
-     * Met à jour la liste des unités du joueur.
+     * Met ï¿½ jour la liste des unitï¿½s du joueur.
      * @param listeUnite
-     *      La nouvelle liste des unités du joueur.
+     *      La nouvelle liste des unitï¿½s du joueur.
      */
     public void setListeUnite(final ArrayList<Unite> listeUnite) {
         this.listeUnite = listeUnite;
