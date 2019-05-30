@@ -215,6 +215,20 @@ public class Jeu {
         Random alea = new Random();
         return liste.get(alea.nextInt(liste.size()));
     }
+    
+    public void controlAffichageUnite() {
+        ArrayList<Integer> infoUnite = new ArrayList<Integer>();
+        for(Joueur joueur : listeJoueurs) {
+            for(Unite unite : joueur.getListeUnite()) {
+                infoUnite.clear();
+                infoUnite.add(joueur.getNumeroJoueur());
+                infoUnite.add(unite.getTypeUnite());
+                infoUnite.add(unite.getX());
+                infoUnite.add(unite.getY());
+                //appel fonction affichage
+            }
+        }
+    }
 
     //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE JOUEUR (JE PENSE) + A SUPPRIMER EN FIN DE PROJET SI NON UTILISEE
     /*
