@@ -8,6 +8,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
+
+import vue.Affplateau;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JButton;
@@ -27,6 +30,7 @@ public class MainJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Jeu.initMap();
 					MainJFrame window = new MainJFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -52,7 +56,7 @@ public class MainJFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		Affplateau scrollPane = new Affplateau();
 		scrollPane.setBounds(0, 21, 1048, 591);
 		frame.getContentPane().add(scrollPane);
 		

@@ -97,11 +97,11 @@ public class Jeu implements Serializable {
     /**
      * Nombre de lignes du plateau.
      */
-    public static final int MAPLIGNE = 9;
+    public static final int MAPLIGNE = 12;
     /**
      * Nombre de colonne du plateau.
      */
-    public static final int MAPCOLONNE = 11;
+    public static final int MAPCOLONNE = 12;
     /**
      * Liste des joueurs participant à la partie.
      */
