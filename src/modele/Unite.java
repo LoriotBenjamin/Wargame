@@ -141,6 +141,23 @@ public class Unite {
         this.estAttaquee = false;
         this.equipe = equipe;
     }
+    
+    public Unite(final int typeUnite, final int attaque, final int defense, final int pv, final int pvMax, final int ptDeDeplacement,
+    		final int ptDeDeplacementMax, final int vision, final int porte, final int x, final int y,final int equipe) {
+        this.typeUnite = typeUnite;
+        this.attaque = attaque;
+        this.defense = defense;
+        this.pv = pv;
+        this.pvMax = pvMax;
+        this.ptDeDeplacement = ptDeDeplacement;
+        this.ptDeDeplacementMax = ptDeDeplacementMax;
+        this.vision = vision;
+        this.porte = porte;
+        this.x = x;
+        this.y = y;
+        this.estAttaquee = false;
+        this.equipe = equipe;
+    }
 
  
     //EN ATTENDANT LA VUE
@@ -685,6 +702,23 @@ public class Unite {
      */
     public void setTypeUnite(final int typeUnite) {
         this.typeUnite = typeUnite;
+    }
+    /**
+     * Retourne le type de l'unitï¿½.
+     * 
+     * @return le type de l'unitï¿½.
+     */
+    public int getTeamUnite() {
+        return equipe;
+    }
+
+    /**
+     * Met ï¿½ jour l'équipe de l'unitï¿½.
+     * 
+     * @param equipe La nouvelle équipe de l'unitï¿½.
+     */
+    public void setTypeUnite(final int equipe) {
+        this.equipe = equipe;
     }
 
     

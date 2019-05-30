@@ -295,7 +295,8 @@ public class Jeu {
                         save.write(Integer.toString(unite.getVision()) + "\t");
                         save.write(Integer.toString(unite.getPorte()) + "\t");
                         save.write(Integer.toString(unite.getX()) + "\t");
-                        save.write(Integer.toString(unite.getY()) + "\n");
+                        save.write(Integer.toString(unite.getY()) + "\t");
+                        save.write(Integer.toString(unite.getTeamUnite()) + "\n");
                     }
                     save.write("\n");
                 }
@@ -358,7 +359,7 @@ public class Jeu {
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken())));
+                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
                             break;
                         case PRETRE:
                             unites.add(new Unite(PRETRE, Integer.parseInt(tok.nextToken()),
@@ -366,7 +367,7 @@ public class Jeu {
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken())));
+                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
                             break;
                         case MAGE:
                             unites.add(new Unite(MAGE, Integer.parseInt(tok.nextToken()),
@@ -374,7 +375,7 @@ public class Jeu {
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken())));
+                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
                             break;
                         case ARCHER:
                             unites.add(new Unite(ARCHER, Integer.parseInt(tok.nextToken()),
@@ -382,7 +383,7 @@ public class Jeu {
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken())));
+                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
                             break;
                         case CHEVALIER:
                             unites.add(new Unite(CHEVALIER, Integer.parseInt(tok.nextToken()),
@@ -390,7 +391,7 @@ public class Jeu {
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
                                     Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken()),
-                                    Integer.parseInt(tok.nextToken())));
+                                    Integer.parseInt(tok.nextToken()), Integer.parseInt(tok.nextToken())));
                             break;
                         }
                         infoUnite = br.readLine();
