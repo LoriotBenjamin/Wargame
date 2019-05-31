@@ -195,6 +195,42 @@ public class Hexagone {
             }
         }
     }
+    /**
+     * Donne la distance entre deux couples de coordonnees x,y et x2,y2 dans une
+     * grille hexagonale.
+     * 
+     * @param h1  hexagone de départ
+     * @param h2  hexagone cible 
+     * @return int La distance entre les 2 points.
+     */
+    public int getDistanceBetweenTwoPosition(Hexagone h1,Hexagone h2) {
+
+        double a = (double) h1.getX();
+        double b = (double) h1.getY();
+        double a2 = (double) h2.getX();
+        double b2 = (double) h2.getY();
+
+        System.out.println(" a: " + a + "\n b: " + b + "\n a2: " + a2 + "\n b2: " + b2);
+
+        double t1 = Math.abs((a - b / 2) - (a2 - b2 / 2));
+        double t2 = Math.abs(b - b2);
+        double t3 = Math.abs((a + b / 2) - (a2 + b2 / 2));
+
+        System.out.println(" t1: " + t1 + " t2: " + t2 + " t3: " + t3);
+        double m = Math.max(Math.max(t1, t2), t3);
+
+        int resultat = 0;
+
+        if (((h1.getX() == 0 && h1.getY() == 0) && (h2.getX() % 2 == 1 && h2.getY() % 2 == 1))
+                || ((h1.getX() % 2 == 1 && h1.getY() % 2 == 1) && (h2.getX() == 0 && h2.getY() == 0))) { // si un des paramètres est 0,0 et que
+                                                                           // l'autre a deux coordoonées impaires
+            // TODO déclarer constante
+            resultat = (int) Math.abs((m - 0.5)); // on arrondit à l'inférieur
+        } else {
+            resultat = (int) Math.abs((m + 0.5)); // on arrondit au supérieur
+        }
+        return resultat;
+    }
 
     /**
      * A SUPPRIMER PLUS TARD.
