@@ -192,60 +192,72 @@ public class Unite {
         secondClic(hexagone.x, hexagone.y);
     }
 
-    // JAVADOC A FAIRE
+    /**
+     * Prend en parametre les coordoonees du seocnd clic et 
+     * trouve l'hexagone sur lequelle le second clic a ete effectué,
+     * cherche si c'est une unite ennemie, si c'est le cas alors declenche l'attaque ,
+     * si c'est une unite allie verifie que l'ordre ne vient pas d'un pretre pour soigner
+     * si c'est le cas soigne l'allie sinon si la case est vide alors deplace l'unite
+     * 
+     * 
+     * @param _x
+     * @param _y
+     */
     public void secondClic(int _x, int _y) { // avertir la vue si la position de l'unite change
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
+        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
 
         totality: if (!deplacementPossible.isEmpty()) {
+	          if(deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
+	        	  Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
+	        	  Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
 
-            Iterator<Map.Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Hexagone, Integer> mapEntry = iterator.next();
-                Hexagone h = (Hexagone) mapEntry.getKey();
-                if (_x == h.getX() && _y == h.getY()) {
-                    // La case a été trouvée
-                    System.out.println("CASE TROUVEE");
+	        	  System.out.println("CASE TROUVEE");
+
                     for (Joueur j : Jeu.getListeJoueurs()) {
-                        for (Unite u : j.getListeUnite()) {
-                            if (_x == u.getX() && _y == u.getY()) {
-                                // Une unité est sur la case
-                                System.out.println("CASE OCCUPEE");
-                                if (j.getListeUnite().contains(this)) {
-                                    // L'unité est alliée
-                                    System.out.println("UNITE ALLIEE");
-                                    if (typeUnite == Jeu.PRETRE && aPorteDAttaque.contains(h)) {
-                                        System.out.println("SOIN");
-                                        ((Pretre)(this)).soigner(u);
-                                    } else {
-                                        u.selected();
-                                    }
-                                } else {
-                                    System.out.println("UNITE ENNEMIE");
-                                    if (aPorteDAttaque.contains(h)) {
-                                        System.out.println("TAPER");
-                                        // L'unité est à porté
-                                        attaquer(u);
-                                    }
-                                }
-                                break totality;
-                            }
+	                        for (Unite u : j.getListeUnite()) {
+
+	                            if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
+	                                // Une unité est sur la case
+	                                System.out.println("CASE OCCUPEE");
+	                                if (j.getListeUnite().contains(this)) {
+	                                    // L'unité est alliée
+	                                    System.out.println("UNITE ALLIEE");
+	                                    if (typeUnite == Jeu.PRETRE && 
+	                                    		hexaDeLunite.getDistanceBetweenTwoPosition(hexaDeLunite,hexaVisee) <= this.porte) {
+	                                        System.out.println("SOIN");
+	                                        ((Pretre)(this)).soigner(u);
+	                                    } else {
+	                                        u.selected();
+	                                    }
+	                                } else {
+	                                    System.out.println("UNITE ENNEMIE");
+	                                    if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaDeLunite,hexaVisee) <= this.porte) {
+	                                        System.out.println("TAPER");
+	                                        // L'unité est à porté
+	                                        attaquer(u);
+
+	                                    }
+	                                }
+	                                break totality;
+	                            }
+	                        }
                         }
-                    }
+
+
                     System.out.println("CASE VIDE");
                     // Il n'y a pas d'unité sur la case
                     this.x = _x;
                     this.y = _y;
-                    this.ptDeDeplacement = (Integer) mapEntry.getValue();
+                    this.ptDeDeplacement = deplacementPossible.get(hexaDeLunite);
                     System.out.println("JE SUIS EN " + x + " " + y);
                     Jeu.jeRepaint();
                     break totality;
                 }
             }
             System.out.println("CASE TROP LOIN");
-        }
     }
 
     /**
@@ -352,43 +364,7 @@ public class Unite {
 
     }
 
-    /**
-     * Donne la distance entre deux couples de coordonnees x,y et x2,y2 dans une
-     * grille hexagonale.
-     * 
-     * @param h1  hexagone de départ
-     * @param h2  hexagone cible 
-     * @return int La distance entre les 2 points.
-     */
-    public int getDistanceBetweenTwoPosition(Hexagone h1,Hexagone h2) {
-
-        double a = (double) h1.getX();
-        double b = (double) h1.getY();
-        double a2 = (double) h2.getX();
-        double b2 = (double) h2.getY();
-
-        System.out.println(" a: " + a + "\n b: " + b + "\n a2: " + a2 + "\n b2: " + b2);
-
-        double t1 = Math.abs((a - b / 2) - (a2 - b2 / 2));
-        double t2 = Math.abs(b - b2);
-        double t3 = Math.abs((a + b / 2) - (a2 + b2 / 2));
-
-        System.out.println(" t1: " + t1 + " t2: " + t2 + " t3: " + t3);
-        double m = Math.max(Math.max(t1, t2), t3);
-
-        int resultat = 0;
-
-        if (((h1.getX() == 0 && h1.getY() == 0) && (h2.getX() % 2 == 1 && h2.getY() % 2 == 1))
-                || ((h1.getX() % 2 == 1 && h1.getY() % 2 == 1) && (h2.getX() == 0 && h2.getY() == 0))) { // si un des paramètres est 0,0 et que
-                                                                           // l'autre a deux coordoonées impaires
-            // TODO déclarer constante
-            resultat = (int) Math.abs((m - 0.5)); // on arrondit à l'inférieur
-        } else {
-            resultat = (int) Math.abs((m + 0.5)); // on arrondit au supérieur
-        }
-        return resultat;
-    }
-
+   
     /**
      * Retourne le joueur propriétaire de l'unité.
      * 
