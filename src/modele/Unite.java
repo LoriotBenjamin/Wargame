@@ -505,6 +505,10 @@ public class Unite {
         double res = (Math.random() * ((max - min) + 1)) + min;
         return res;
     }
+    
+    public void soigner(Unite unite) {
+        
+    }
 
     //////////////////////// Getter and Setter /////////////////////////
 

@@ -1,6 +1,5 @@
 package modele;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -44,8 +43,7 @@ public class IA extends Joueur {
                 for (Joueur joueur : Jeu.getListeJoueurs()) {
                     if (joueur != this) {
                         for (Unite uniteAdverse : joueur.getListeUnite()) {
-                            if (uniteAdverse.getX() != hexagone.getX() && uniteAdverse.getY() != hexagone.getY()
-                                    && hexagone.getDistanceBetweenTwoPosition(
+                            if (unite.getTypeUnite() != Jeu.PRETRE && hexagone.getDistanceBetweenTwoPosition(
                                             Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()] ) <= unite.getPorte()) {
                                 // unité à portée d'attaque trouvée
                                 unite.setX(hexagone.getX());
@@ -67,9 +65,22 @@ public class IA extends Joueur {
                                 break totality;
                             }
                         }
+                    } 
+                }
+            }
+            
+            if(unite.getTypeUnite() == Jeu.PRETRE) {
+                for(Unite uniteAlliee : listeUnite) {
+                    if(uniteAlliee != unite && uniteAlliee.getPv() != uniteAlliee.getPvMax() 
+                            && Jeu.getMap()[unite.getX()][unite.getY()].getDistanceBetweenTwoPosition(
+                                    Jeu.getMap()[uniteAlliee.getX()][uniteAlliee.getY()]) <= unite.getPorte()) {
+                        //soigne unités alliées à portée
+                        System.out.println(unite + "\nsoigne" + "\n" + uniteAlliee);
+                        unite.soigner(uniteAlliee);
                     }
                 }
             }
+            
             final double pourcentagePV = 0.75;
             Hexagone hexAct = null;
             Hexagone hexAdv = null;
@@ -91,15 +102,12 @@ public class IA extends Joueur {
                 Jeu.jeRepaint();
                 System.out.println("Déplacement sans attaquer:");
                 System.out.println(unite);
-            } else {
-                System.out.println("Soin :");
-                System.out.println(unite);
-                unite.soin(Jeu.SOIN);
-                System.out.println(unite);
-            }
+            } 
+            
         }
         for (Unite unite : this.getListeUnite()) {
             unite.setPtDeDeplacement(unite.getPtDeDeplacementMax());
+            unite.soin(Jeu.SOIN);
         }
     }
 }
