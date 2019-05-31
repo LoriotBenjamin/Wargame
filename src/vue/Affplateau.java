@@ -11,6 +11,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,6 +25,10 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 	final static int cote=30; // Ceci d�finit la taille du c�t� d'un polygone
 	//int numero=0; // Retien le n� du polygone sur lequel est la souris
 	Polygon pol;
+	Graphics2D g2d;
+	BufferedImage bim;
+	Rectangle r;
+	Graphics graph;
 	
 	
 	public static Polygon getPolygon(int x,int y,int cote){
@@ -40,14 +45,15 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 	}		
 	
 	 public void paint(Graphics graph) {
-		Polygon hexagone=getPolygon(0, 0, cote); // Cree un hexagone
-		Rectangle r=hexagone.getBounds(); // Recupere le plus petit rectangle // aux bord de la fenetre dans lequel l'hexagone peut s'inscrire
+		Polygon hexagone=getPolygon(0, 0, cote); // Cr�e un hexagone
+		r=hexagone.getBounds(); // R�cup�re le plus petit rectangle // aux bord de la fen�tre dans lequel l'hexagone peut s'inscrire
 		graph.setColor(Color.BLACK);
 		super.paint(graph);
-		Graphics2D g2d=(Graphics2D) graph;
-		BufferedImage bim = null;
+		g2d=(Graphics2D) graph;
+		this.graph=graph;
+		bim = null;
 		
-		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constituee de 2 sous grilles (les lignes impaires sont decallees)
+		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constitu�e de 2 sous grilles (les lignes impaires sont d�call�es)
 			for(int c=0;c<Jeu.MAPCOLONNE;c++){
 			    Polygon poly=getPolygon(c*r.width, (int)(l*cote*1.5),cote);
 				
@@ -118,6 +124,106 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 				g2d.setColor(new Color(53,196,39));
 				g2d.draw(poly);
 				g2d.drawImage(bim, c*r.width+r.width/2,(int)(l*cote*1.5+0.5),this);
+			}
+		}
+		for(ArrayList<Integer> listeUnite:Jeu.getInfoUnite()) {
+			try {
+				if(listeUnite.get(0)==1) {
+					switch(listeUnite.get(1)) {
+						case 1:
+							bim=ImageIO.read(new File("guerrier1.png"));
+							break;
+						case 2:
+							bim=ImageIO.read(new File("mage2.png"));
+							break;
+						case 3:
+							bim=ImageIO.read(new File("archer3.png"));
+							break;
+						case 4:
+							bim=ImageIO.read(new File("pretre1.png"));
+							break;
+						case 5:
+							bim=ImageIO.read(new File("chevalier1.png"));
+							break;
+						
+					}
+				}
+				else if(listeUnite.get(0)==2) {
+					switch(listeUnite.get(1)) {
+					case 1:
+						bim=ImageIO.read(new File("guerrier1.png"));
+						break;
+					case 2:
+						bim=ImageIO.read(new File("mage2.png"));
+						break;
+					case 3:
+						bim=ImageIO.read(new File("archer3.png"));
+						break;
+					case 4:
+						bim=ImageIO.read(new File("pretre1.png"));
+						break;
+					case 5:
+						bim=ImageIO.read(new File("chevalier1.png"));
+						break;
+					
+					}
+				}
+				else if(listeUnite.get(0)==3) {
+					switch(listeUnite.get(1)) {
+					case 1:
+						bim=ImageIO.read(new File("guerrier1.png"));
+						break;
+					case 2:
+						bim=ImageIO.read(new File("mage2.png"));
+						break;
+					case 3:
+						bim=ImageIO.read(new File("archer3.png"));
+						break;
+					case 4:
+						bim=ImageIO.read(new File("pretre1.png"));
+						break;
+					case 5:
+						bim=ImageIO.read(new File("chevalier1.png"));
+						break;
+					
+					}
+				}
+				
+				else if(listeUnite.get(0)==4) {
+					switch(listeUnite.get(1)) {
+					case 1:
+						bim=ImageIO.read(new File("guerrier1.png"));
+						break;
+					case 2:
+						bim=ImageIO.read(new File("mage2.png"));
+						break;
+					case 3:
+						bim=ImageIO.read(new File("archer3.png"));
+						break;
+					case 4:
+						bim=ImageIO.read(new File("pretre1.png"));
+						break;
+					case 5:
+						bim=ImageIO.read(new File("chevalier1.png"));
+						break;
+					
+					}
+				}
+			}
+			catch(IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(bim!=null) {
+				g2d =(Graphics2D) graph;
+				if(listeUnite.get(2)%2==0) {
+					g2d.drawImage(bim, listeUnite.get(3)*r.width+5,(int)(listeUnite.get(2)*cote*1.5)+7, this);//+7 pour recentrer l'image
+					
+				}
+				else {
+					g2d.drawImage(bim, listeUnite.get(3)*r.width+r.width/2+5,(int)(listeUnite.get(2)*cote*1.5+0.5)+7,this);
+				}
+				repaint();
 			}
 		}
 	
