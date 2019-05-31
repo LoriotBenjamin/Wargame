@@ -217,11 +217,20 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 			if(bim!=null) {
 				g2d =(Graphics2D) graph;
 				if(listeUnite.get(2)%2==0) {
-					g2d.drawImage(bim, listeUnite.get(3)*r.width+5,(int)(listeUnite.get(2)*cote*1.5)+7, this);//+7 pour recentrer l'image
-					
+					if(listeUnite.get(1)==2) {
+						g2d.drawImage(bim, listeUnite.get(3)*r.width+5,(int)(listeUnite.get(2)*cote*1.5), this);
+					}
+					else {
+						g2d.drawImage(bim, listeUnite.get(3)*r.width+5,(int)(listeUnite.get(2)*cote*1.5)+7, this);//+7 pour recentrer l'image
+					}
 				}
 				else {
-					g2d.drawImage(bim, listeUnite.get(3)*r.width+r.width/2+5,(int)(listeUnite.get(2)*cote*1.5+0.5)+7,this);
+					if(listeUnite.get(1)==2) {
+						g2d.drawImage(bim, listeUnite.get(3)*r.width+r.width/2+5,(int)(listeUnite.get(2)*cote*1.5+0.5),this);
+					}
+					else {
+						g2d.drawImage(bim, listeUnite.get(3)*r.width+r.width/2+5,(int)(listeUnite.get(2)*cote*1.5+0.5)+7,this);
+					}
 				}
 				repaint();
 			}
