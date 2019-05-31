@@ -29,7 +29,7 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Jeu.initMap(); // pour test
-		Humain j1 = new Humain(1, "J1"); // juste pour tester
+		Humain j1 = new Humain(1, "IA1"); // juste pour tester
 		Jeu.getListeJoueurs().add(j1);
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);

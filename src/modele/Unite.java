@@ -512,6 +512,10 @@ public class Unite {
         double res = (Math.random() * ((max - min) + 1)) + min;
         return res;
     }
+    
+    public void soigner(Unite unite) {
+        
+    }
 
     //////////////////////// Getter and Setter /////////////////////////
 
@@ -709,10 +713,10 @@ public class Unite {
     }
     
     /**
-     * Redonne à l'unité tous ses points de déplacement et son droit d'action.
-     * @param acted 
+     * Redonne à l'unité tous ses points de déplacement et son droit d'action et la soigne.
      */
-    public void reset() {
+    public void preparerPourProchainTour() {
+        soin(Jeu.SOIN);
         this.ptDeDeplacement = this.ptDeDeplacementMax;
         acted = false;
     }
