@@ -285,6 +285,11 @@ public class Jeu {
         return null;
     }
     
+    public static void jeRepaint() {
+    	controlAffichageUnite();
+    	plateau.repaint();
+    }
+    
     public static Point getHexagonClicked() {
     	System.out.println("HOY");
     	Point mouse = new Point(-1,-1);
