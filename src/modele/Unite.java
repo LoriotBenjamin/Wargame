@@ -192,7 +192,16 @@ public class Unite {
         secondClic(hexagone.x, hexagone.y);
     }
 
-    // JAVADOC A FAIRE
+    /**
+     * Trouve l'hexagone sur lequelle le second clic a ete effectué,
+     * cherche si c'est une unite ennemie, si c'est le cas alors declenche l'attaque 
+     * si c'est une unite allie verifie que l'ordre ne vient pas d'un pretre pour soigner
+     * si c'est le cas soigne l'allie sinon si la case est vide alors deplace l'unite
+     * 
+     * 
+     * @param _x
+     * @param _y
+     */
     public void secondClic(int _x, int _y) { // avertir la vue si la position de l'unite change
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
