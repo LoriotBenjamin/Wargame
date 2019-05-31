@@ -293,13 +293,7 @@ public class Unite {
                         if (joueurCourant != j) {
                             for (Unite u : j.getListeUnite()) {
                                 if (u.getX() == v.getX() && u.getY() == v.getY()) {
-                                    libre = false;
-                                    System.out.println("distance :"
-                                            + this.getDistanceBetweenTwoPosition(this.x, this.y, u.getX(), u.getY()));
-                                    if ((!ennemiAttaquable.contains(u)) && this.getDistanceBetweenTwoPosition(this.x,
-                                            this.y, u.getX(), u.getY()) <= this.porte) {
-                                        this.ennemiAttaquable.add(u);
-                                    }
+                                    libre = false;                             
                                     break test;
                                 }
                             }
@@ -361,18 +355,16 @@ public class Unite {
      * Donne la distance entre deux couples de coordonnees x,y et x2,y2 dans une
      * grille hexagonale.
      * 
-     * @param x  Numéro de la ligne du 1er point.
-     * @param y  Numéro de la colonne du 1er point.
-     * @param x2 Numéro de la ligne du 2e point.
-     * @param y2 Numéro de la colonne du 2e point.
+     * @param h1  hexagone de départ
+     * @param h2  hexagone cible 
      * @return int La distance entre les 2 points.
      */
-    public int getDistanceBetweenTwoPosition(final int x, final int y, final int x2, final int y2) {
+    public int getDistanceBetweenTwoPosition(Hexagone h1,Hexagone h2) {
 
-        double a = (double) x;
-        double b = (double) y;
-        double a2 = (double) x2;
-        double b2 = (double) y2;
+        double a = (double) h1.getX();
+        double b = (double) h1.getY();
+        double a2 = (double) h2.getX();
+        double b2 = (double) h2.getY();
 
         System.out.println(" a: " + a + "\n b: " + b + "\n a2: " + a2 + "\n b2: " + b2);
 
@@ -385,8 +377,8 @@ public class Unite {
 
         int resultat = 0;
 
-        if (((x == 0 && y == 0) && (x2 % 2 == 1 && y2 % 2 == 1))
-                || ((x % 2 == 1 && y % 2 == 1) && (x2 == 0 && y2 == 0))) { // si un des paramètres est 0,0 et que
+        if (((h1.getX() == 0 && h1.getY() == 0) && (h2.getX() % 2 == 1 && h2.getY() % 2 == 1))
+                || ((h1.getX() % 2 == 1 && h1.getY() % 2 == 1) && (h2.getX() == 0 && h2.getY() == 0))) { // si un des paramètres est 0,0 et que
                                                                            // l'autre a deux coordoonées impaires
             // TODO déclarer constante
             resultat = (int) Math.abs((m - 0.5)); // on arrondit à l'inférieur
