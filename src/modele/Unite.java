@@ -219,10 +219,9 @@ public class Unite {
 		System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
 		this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
 		System.out.println("JE SUIS EN " + x + " " + y);
-		Jeu.jeRepaint();
 		}else {
 			
-			for (Joueur j : Jeu.getListeJoueurs()) {
+			tests : for (Joueur j : Jeu.getListeJoueurs()) {
                 for (Unite u : j.getListeUnite()) {
 
                     if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
@@ -245,7 +244,7 @@ public class Unite {
                                 System.out.println("TAPER");
                                 // L'unité est à porté
                                 attaquer(u);
-
+                                break tests;
                             }
                         }
                         
@@ -255,6 +254,7 @@ public class Unite {
             }
 			
 		}
+		Jeu.jeRepaint();
     }
 
     /**
@@ -458,6 +458,7 @@ public class Unite {
     public void attaquer(final Unite unite) {
         // si attaque possible
         unite.calculDegats(attaque);
+        this.ptDeDeplacement = 0;
     }
 
     /**
@@ -473,6 +474,7 @@ public class Unite {
         if (pv <= 0) {
             for (Joueur joueur : Jeu.getListeJoueurs()) {
                 if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
+                	System.out.println("JE SUIS MORTE!");
                     return;
                 }
             }

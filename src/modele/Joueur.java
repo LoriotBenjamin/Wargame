@@ -49,7 +49,7 @@ public class Joueur {
             listeUnite.add(new Archer(1, 0, 2));
             listeUnite.add(new Mage(1, 1, 1));
             listeUnite.add(new Pretre(1, 2, 1));
-            listeUnite.add(new Chevalier(1, 3, 0));
+            listeUnite.add(new Chevalier(1, 3, 17));
             listeUnite.add(new Guerrier(1, 4, 0));
         } else if (numeroJoueur == 2) {
             listeUnite.add(new Archer(2, 11, 16));

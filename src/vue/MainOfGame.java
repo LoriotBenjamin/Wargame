@@ -36,12 +36,20 @@ public class MainOfGame {
 		//Jeu.chargerPartie("save");
 		Jeu.controlAffichageUnite();
 		
-		while(true) {
+		game : do {
 		    for (Joueur joueur : Jeu.getListeJoueurs()) {
+				int joueursEnVie = Jeu.getListeJoueurs().size();
 		        joueur.jouerTour();
+		        for(Joueur player : Jeu.getListeJoueurs()) {
+		        	if(player.getListeUnite().size() == 0)
+		        		joueursEnVie--;
+		        }
+		        if(joueursEnVie == 1)
+		        	break game;
 		    }
-		}
+		}while(true);
 		
+		System.out.println("Un joueur a gagné");
 	
 		//Jeu.sauvegarderPartie("save");
 		
