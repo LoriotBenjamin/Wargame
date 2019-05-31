@@ -1,6 +1,7 @@
 package controleur;
 
 import java.awt.Point;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import modele.Desert;
 import modele.Foret;
@@ -19,6 +21,7 @@ import modele.Plaine;
 import modele.Riviere;
 import modele.Unite;
 import modele.Village;
+import vue.Affplateau;
 import modele.IA;
 import modele.Humain;
 
@@ -108,6 +111,12 @@ public class Jeu {
      * Fenêtre de jeu.
      */
     private static MainJFrame frame = new MainJFrame();
+    /**
+     * Plateau visuel de la vue.
+     */
+    private static Affplateau plateau= new Affplateau();
+    
+    private static ArrayList<ArrayList<Integer>> infoUnite =new ArrayList<ArrayList<Integer>>();
 
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
@@ -230,16 +239,17 @@ public class Jeu {
      * Récupère pour chaque unité le numéro de joueur, son type et sa position
      * puis appelle la fonction d'affichage des unités.
      */
-    public void controlAffichageUnite() {
-        ArrayList<Integer> infoUnite = new ArrayList<Integer>();
+    public static void controlAffichageUnite() {
+        infoUnite.clear();
         for (Joueur joueur : listeJoueurs) {
             for (Unite unite : joueur.getListeUnite()) {
-                infoUnite.clear();
-                infoUnite.add(joueur.getNumeroJoueur());
-                infoUnite.add(unite.getTypeUnite());
-                infoUnite.add(unite.getX());
-                infoUnite.add(unite.getY());
-                //appel fonction affichage
+                ArrayList<Integer> unites =new ArrayList<Integer>();
+                unites.add(joueur.getNumeroJoueur());
+                unites.add(unite.getTypeUnite());
+                unites.add(unite.getX());
+                unites.add(unite.getY());
+                infoUnite.add(unites);
+                //plateau.afficheUnite(infoUnite);
             }
         }
     }
@@ -532,5 +542,21 @@ public class Jeu {
     public static MainJFrame getFrame() {
         return frame;
     }
+
+	public static Affplateau getPlateau() {
+		return plateau;
+	}
+
+	public static void setPlateau(Affplateau plateau) {
+		Jeu.plateau = plateau;
+	}
+
+	public static ArrayList<ArrayList<Integer>> getInfoUnite() {
+		return infoUnite;
+	}
+
+	public static void setInfoUnite(ArrayList<ArrayList<Integer>> infoUnite) {
+		Jeu.infoUnite = infoUnite;
+	}
 
 }

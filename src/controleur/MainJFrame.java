@@ -61,9 +61,9 @@ public class MainJFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Affplateau scrollPane = new Affplateau();
-		scrollPane.setBounds(0, 21, 1048, 591);
-		scrollPane.addMouseListener(new MouseListener() {
+		Jeu.setPlateau(new Affplateau());
+		Jeu.getPlateau().setBounds(0, 21, 1048, 591);
+		Jeu.getPlateau().addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {}
@@ -84,7 +84,7 @@ public class MainJFrame {
 			public void mouseExited(MouseEvent e) {}
 			
 		});
-		frame.getContentPane().add(scrollPane);
+		frame.getContentPane().add(Jeu.getPlateau());
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1300, 21);
