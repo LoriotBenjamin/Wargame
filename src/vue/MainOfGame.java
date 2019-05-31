@@ -34,7 +34,7 @@ public class MainOfGame {
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
 		//Jeu.chargerPartie("save");
-		
+		Jeu.controlAffichageUnite();
 		/*for(Joueur joueur : Jeu.getListeJoueurs()) {
 		    Archer archer = new Archer();
 		    
