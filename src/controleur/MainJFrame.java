@@ -28,22 +28,7 @@ public class MainJFrame {
 	private boolean state = false;
 	private Point mouse = new Point(-1,-1);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Jeu.initMap();
-					MainJFrame window = new MainJFrame();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
@@ -65,22 +50,17 @@ public class MainJFrame {
 		Jeu.getPlateau().setBounds(0, 21, 1048, 591);
 		Jeu.getPlateau().addMouseListener(new MouseListener() {
 
-			@Override
 			public void mouseClicked(MouseEvent e) {}
 
-			@Override
 			public void mousePressed(MouseEvent e) {
 				mouse = e.getPoint();
 				Jeu.setClicFlag(true);
 			}
 
-			@Override
 			public void mouseReleased(MouseEvent e) {}
 
-			@Override
 			public void mouseEntered(MouseEvent e) {}
 
-			@Override
 			public void mouseExited(MouseEvent e) {}
 			
 		});

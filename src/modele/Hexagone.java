@@ -203,10 +203,10 @@ public class Hexagone {
      * @param h2  hexagone cible 
      * @return int La distance entre les 2 points.
      */
-    public int getDistanceBetweenTwoPosition(Hexagone h1,Hexagone h2) {
+    public int getDistanceBetweenTwoPosition(Hexagone h2) {
 
-        double a = (double) h1.getX();
-        double b = (double) h1.getY();
+        double a = (double) this.x;
+        double b = (double) this.y;
         double a2 = (double) h2.getX();
         double b2 = (double) h2.getY();
 
@@ -221,8 +221,8 @@ public class Hexagone {
 
         int resultat = 0;
 
-        if (((h1.getX() == 0 && h1.getY() == 0) && (h2.getX() % 2 == 1 && h2.getY() % 2 == 1))
-                || ((h1.getX() % 2 == 1 && h1.getY() % 2 == 1) && (h2.getX() == 0 && h2.getY() == 0))) { // si un des paramètres est 0,0 et que
+        if (((a == 0 && b == 0) && (a2% 2 == 1 && b2 % 2 == 1))
+                || ((a % 2 == 1 && b % 2 == 1) && (a2 == 0 && b2 == 0))) { // si un des paramètres est 0,0 et que
                                                                            // l'autre a deux coordoonées impaires
             // TODO déclarer constante
             resultat = (int) Math.abs((m - 0.5)); // on arrondit à l'inférieur

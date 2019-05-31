@@ -226,7 +226,7 @@ public class Unite {
 	                                    // L'unité est alliée
 	                                    System.out.println("UNITE ALLIEE");
 	                                    if (typeUnite == Jeu.PRETRE && 
-	                                    		hexaDeLunite.getDistanceBetweenTwoPosition(hexaDeLunite,hexaVisee) <= this.porte) {
+	                                    		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                        System.out.println("SOIN");
 	                                        ((Pretre)(this)).soigner(u);
 	                                    } else {
@@ -234,7 +234,7 @@ public class Unite {
 	                                    }
 	                                } else {
 	                                    System.out.println("UNITE ENNEMIE");
-	                                    if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaDeLunite,hexaVisee) <= this.porte) {
+	                                    if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                        System.out.println("TAPER");
 	                                        // L'unité est à porté
 	                                        attaquer(u);
@@ -251,7 +251,8 @@ public class Unite {
                     // Il n'y a pas d'unité sur la case
                     this.x = _x;
                     this.y = _y;
-                    this.ptDeDeplacement = deplacementPossible.get(hexaDeLunite);
+                    System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
+                    this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
                     System.out.println("JE SUIS EN " + x + " " + y);
                     Jeu.jeRepaint();
                     break totality;
