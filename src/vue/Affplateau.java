@@ -128,86 +128,23 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 		}
 		for(ArrayList<Integer> listeUnite:Jeu.getInfoUnite()) {
 			try {
-				if(listeUnite.get(0)==1) {
-					switch(listeUnite.get(1)) {
-						case 1:
-							bim=ImageIO.read(new File("guerrier1.png"));
-							break;
-						case 2:
-							bim=ImageIO.read(new File("mage2.png"));
-							break;
-						case 3:
-							bim=ImageIO.read(new File("archer3.png"));
-							break;
-						case 4:
-							bim=ImageIO.read(new File("pretre1.png"));
-							break;
-						case 5:
-							bim=ImageIO.read(new File("chevalier1.png"));
-							break;
-						
-					}
-				}
-				else if(listeUnite.get(0)==2) {
-					switch(listeUnite.get(1)) {
+				switch(listeUnite.get(1)) {
 					case 1:
-						bim=ImageIO.read(new File("guerrier1.png"));
+						bim=ImageIO.read(new File("guerrier"+listeUnite.get(0)+".png"));
 						break;
 					case 2:
-						bim=ImageIO.read(new File("mage2.png"));
+						bim=ImageIO.read(new File("mage"+listeUnite.get(0)+".png"));
 						break;
 					case 3:
-						bim=ImageIO.read(new File("archer3.png"));
+						bim=ImageIO.read(new File("archer"+listeUnite.get(0)+".png"));
 						break;
 					case 4:
-						bim=ImageIO.read(new File("pretre1.png"));
+						bim=ImageIO.read(new File("pretre"+listeUnite.get(0)+".png"));
 						break;
 					case 5:
-						bim=ImageIO.read(new File("chevalier1.png"));
+						bim=ImageIO.read(new File("chevalier"+listeUnite.get(0)+".png"));
 						break;
 					
-					}
-				}
-				else if(listeUnite.get(0)==3) {
-					switch(listeUnite.get(1)) {
-					case 1:
-						bim=ImageIO.read(new File("guerrier1.png"));
-						break;
-					case 2:
-						bim=ImageIO.read(new File("mage2.png"));
-						break;
-					case 3:
-						bim=ImageIO.read(new File("archer3.png"));
-						break;
-					case 4:
-						bim=ImageIO.read(new File("pretre1.png"));
-						break;
-					case 5:
-						bim=ImageIO.read(new File("chevalier1.png"));
-						break;
-					
-					}
-				}
-				
-				else if(listeUnite.get(0)==4) {
-					switch(listeUnite.get(1)) {
-					case 1:
-						bim=ImageIO.read(new File("guerrier1.png"));
-						break;
-					case 2:
-						bim=ImageIO.read(new File("mage2.png"));
-						break;
-					case 3:
-						bim=ImageIO.read(new File("archer3.png"));
-						break;
-					case 4:
-						bim=ImageIO.read(new File("pretre1.png"));
-						break;
-					case 5:
-						bim=ImageIO.read(new File("chevalier1.png"));
-						break;
-					
-					}
 				}
 			}
 			catch(IOException e) {

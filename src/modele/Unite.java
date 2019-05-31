@@ -208,57 +208,53 @@ public class Unite {
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
         //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
+        
+		Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
+		Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
+		
+		if (deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
+		System.out.println("CASE VIDE");
+		this.x = _x;
+		this.y = _y;
+		System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
+		this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
+		System.out.println("JE SUIS EN " + x + " " + y);
+		Jeu.jeRepaint();
+		}else {
+			
+			for (Joueur j : Jeu.getListeJoueurs()) {
+                for (Unite u : j.getListeUnite()) {
 
-        totality: if (!deplacementPossible.isEmpty()) {
-	          if(deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
-	        	  Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
-	        	  Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
+                    if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
+                    	
+                        // Une unité est sur la case
+                        System.out.println("CASE OCCUPEE");
+                        if (u.getTeamUnite() == this.getTeamUnite()) {
+                            // L'unité est alliée
+                            System.out.println("UNITE ALLIEE");
+                            if (typeUnite == Jeu.PRETRE && 
+                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+                                System.out.println("SOIN");
+                                ((Pretre)(this)).soigner(u);
+                            } else {
+                                u.selected();
+                            }
+                        } else {
+                            System.out.println("UNITE ENNEMIE");
+                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+                                System.out.println("TAPER");
+                                // L'unité est à porté
+                                attaquer(u);
 
-	        	  System.out.println("CASE TROUVEE");
-
-                    for (Joueur j : Jeu.getListeJoueurs()) {
-	                        for (Unite u : j.getListeUnite()) {
-
-	                            if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
-	                                // Une unité est sur la case
-	                                System.out.println("CASE OCCUPEE");
-	                                if (j.getListeUnite().contains(this)) {
-	                                    // L'unité est alliée
-	                                    System.out.println("UNITE ALLIEE");
-	                                    if (typeUnite == Jeu.PRETRE && 
-	                                    		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
-	                                        System.out.println("SOIN");
-	                                        ((Pretre)(this)).soigner(u);
-	                                    } else {
-	                                        u.selected();
-	                                    }
-	                                } else {
-	                                    System.out.println("UNITE ENNEMIE");
-	                                    if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
-	                                        System.out.println("TAPER");
-	                                        // L'unité est à porté
-	                                        attaquer(u);
-
-	                                    }
-	                                }
-	                                break totality;
-	                            }
-	                        }
+                            }
                         }
-
-
-                    System.out.println("CASE VIDE");
-                    // Il n'y a pas d'unité sur la case
-                    this.x = _x;
-                    this.y = _y;
-                    System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
-                    this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
-                    System.out.println("JE SUIS EN " + x + " " + y);
-                    Jeu.jeRepaint();
-                    break totality;
+                        
+                    }
+                    
                 }
             }
-            System.out.println("CASE TROP LOIN");
+			
+		}
     }
 
     /**
