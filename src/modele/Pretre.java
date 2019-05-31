@@ -64,6 +64,6 @@ public class Pretre extends Unite {
         if (unite.pv > unite.pvMax) {
             unite.pv = unite.pvMax;
         }
-        this.ptDeDeplacement = 0;
+        acted = true;
     }
 }

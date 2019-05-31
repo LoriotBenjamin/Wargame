@@ -99,7 +99,7 @@ public class IA extends Joueur {
             }
         }
         for (Unite unite : this.getListeUnite()) {
-            unite.setPtDeDeplacement(unite.getPtDeDeplacementMax());
+            unite.reset();
         }
     }
 }

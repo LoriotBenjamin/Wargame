@@ -105,6 +105,10 @@ public class Unite {
      * @see Unite#setEquipe(int)
      */
     protected int equipe;
+    /**
+     * Droit d'action de l'unitér.
+     */
+    protected boolean acted;
 
     /**
      * Constructeur Unité.
@@ -219,8 +223,7 @@ public class Unite {
 		System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
 		this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
 		System.out.println("JE SUIS EN " + x + " " + y);
-		}else {
-			
+		}else if(!acted){
 			tests : for (Joueur j : Jeu.getListeJoueurs()) {
                 for (Unite u : j.getListeUnite()) {
 
@@ -457,15 +460,18 @@ public class Unite {
      */
     public void attaquer(final Unite unite) {
         // si attaque possible
-        unite.calculDegats(attaque);
-        this.ptDeDeplacement = 0;
+        if(unite.calculDegats(attaque) && porte > 1) {
+        	x = unite.getX();
+        	y = unite.getY();
+        }
+        acted = true;
     }
 
     /**
      * Calcul les dégâts sur l'unité attaquée et les applique sur les PV.
      * @param attaque Points d'attaque de l'unité qui attaque.
      */
-    public void calculDegats(final int attaque) {
+    public boolean calculDegats(final int attaque) {
         final double borneInf = 0.5;
         final double borneSup = 1.5;
         double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
@@ -475,10 +481,11 @@ public class Unite {
             for (Joueur joueur : Jeu.getListeJoueurs()) {
                 if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
                 	System.out.println("JE SUIS MORTE!");
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
 
     }
 
@@ -699,6 +706,15 @@ public class Unite {
      */
     public void setEquipe(final int equipe) {
         this.equipe = equipe;
+    }
+    
+    /**
+     * Redonne à l'unité tous ses points de déplacement et son droit d'action.
+     * @param acted 
+     */
+    public void reset() {
+        this.ptDeDeplacement = this.ptDeDeplacementMax;
+        acted = false;
     }
 
 }
