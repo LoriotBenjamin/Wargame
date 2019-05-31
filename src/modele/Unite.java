@@ -175,43 +175,21 @@ public class Unite {
 
     // JAVADOC A FAIRE
     public void selected() {
-    	System.out.println("Salut\n");
-        Point mouse = new Point(-1,-1);
-    	int hX = -1;
-    	int hY = -1;
-    	totality : do {
-	        do {
-	        	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
-	        	if(Jeu.getSkipFlag()) {
-		    		Jeu.setSkipFlag(false);
-		    		break totality;
-		    	}
-		    	if(Jeu.getClicFlag()) {
-				    mouse = Jeu.getFrame().getClicPos();
-				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
-		    		Jeu.setClicFlag(false);
-		    	}
-	        }while(mouse.x == -1 && mouse.y == -1);
-	        int X = mouse.y;
-	        int Y = mouse.x;
-	        find : for(int ligne=0;ligne<Jeu.MAPLIGNE;ligne++) {
-	        	for(int colonne=0;colonne<Jeu.MAPCOLONNE;colonne++) {
-	        		int refX = 30 + 45*ligne;
-	        		int refY = 26*colonne%2 + 52*colonne;
-	        		if(Y >= refY && Y <= refY+52) {
-	        			int dX = (int)(30- 15.0 / 26.0 * (Math.abs(refY+26-Y)));
-	        			if(X >= refX-dX && X <= refX+dX) {
-	        				hX = ligne;
-	        				hY = colonne;
-	        				break find;
-	        			}
-	        		}
-	        	}
-	        }
-	        System.out.println(hX + " " + hY);
-    	}while(hX < 0 || hY < 0 || hX >= Jeu.MAPLIGNE || hY >= Jeu.MAPCOLONNE);
-    	System.out.println("CASE CLIQUEE LIGNE: "+hX+" COLONNE: "+hY);
-        secondClic(hX, hY);
+    	System.out.println(this.toString()+" A votre service!\n");
+    	Point hexagone = new Point(-1, -1);
+        do {
+        	System.out.print("");//ABSOLUMENT NECESSAIRE!!
+        	if(Jeu.getSkipFlag()) {
+        		Jeu.setSkipFlag(false);
+            	break;
+        	}
+        	if(Jeu.getClicFlag()) {
+            	hexagone = Jeu.getHexagonClicked();
+            	Jeu.setClicFlag(false);
+        	}
+        }while(hexagone.x == -1 || hexagone.y == -1);
+    	System.out.println("CASE CLIQUEE LIGNE: "+hexagone.x+" COLONNE: "+hexagone.y);
+        secondClic(hexagone.x, hexagone.y);
     }
 
     // JAVADOC A FAIRE
@@ -240,7 +218,7 @@ public class Unite {
                                     System.out.println("UNITE ALLIEE");
                                     if (typeUnite == Jeu.PRETRE && aPorteDAttaque.contains(h)) {
                                         System.out.println("SOIN");
-                                        // Soigner l'unité
+                                        ((Pretre)(this)).soigner(u);
                                     } else {
                                         u.selected();
                                     }

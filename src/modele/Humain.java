@@ -22,59 +22,44 @@ public class Humain extends Joueur {
     }
     
     public void jouerTour() {
-    	int dep = 0;
+    	int deplacable = 0;
     	totality : do {
     		//Attente de l'impossibilit� pour le joueur de continuer son tour
+    		boolean selected = false;
 	    	selection : do {
+	    		deplacable = 0;
 	    		//Attente d'un clic sur une unit� alli�e
-		    	int hX = -1;
-		    	int hY = -1;
-		    	do {
-			    	Point mouse = new Point(-1,-1);
-		    		//Attante d'un clic sur un hexagone
-			    	System.out.println("\nJ'attend");
-				    do {
-				    	//Attente d'un cic dans la fenetre du plateau
-				    	System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
-				    	if(Jeu.getSkipFlag()) {
-				    		Jeu.setSkipFlag(false);
-				    		break totality;
-				    	}
-				    	if(Jeu.getClicFlag()) {
-						    mouse = Jeu.getFrame().getClicPos();
-						    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
-				    		Jeu.setClicFlag(false);
-				    	}
-				    }while(mouse.x == -1 && mouse.y == -1);
-				    System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
-			        int X = mouse.y;
-			        int Y = mouse.x;
-			        find : for(int ligne=0;ligne<Jeu.MAPLIGNE;ligne++) {
-			        	for(int colonne=0;colonne<Jeu.MAPCOLONNE;colonne++) {
-			        		int refX = 30 + 45*ligne;
-			        		int refY = 26*colonne%2 + 52*colonne;
-			        		if(Y >= refY && Y <= refY+52) {
-			        			int dX = (int)(30- 15.0 / 26.0 * (Math.abs(refY+26-Y)));
-			        			if(X >= refX-dX && X <= refX+dX) {
-			        				hX = ligne;
-			        				hY = colonne;
-			        				break find;
-			        			}
-			        		}
-			        	}
-			        }
-		    	}while(hX < 0 || hY < 0 || hX >= Jeu.MAPLIGNE || hY >= Jeu.MAPCOLONNE);
-		    	System.out.println("CASE CLIQUEE LIGNE: "+hX+" COLONNE: "+hY);
+	    		selected = false;
+	    		Point hexagone = new Point(-1, -1);
+	    		System.out.println("\nJ'attends");
+	            do {
+	            	System.out.print("");//ABSOLUMENT NECESSAIRE!!
+	            	if(Jeu.getSkipFlag()) {
+	            		Jeu.setSkipFlag(false);
+	                	break totality;
+	            	}
+	            	if(Jeu.getClicFlag()) {
+	                	hexagone = Jeu.getHexagonClicked();
+	                	System.out.println("CLIC");
+	                	Jeu.setClicFlag(false);
+	            	}
+	            }while(hexagone.x == -1 || hexagone.y == -1);
+		    	System.out.println("CASE CLIQUEE LIGNE: "+hexagone.x+" COLONNE: "+hexagone.y);
 		    	for(Unite u : listeUnite) {
-	        		if(u.getX() == hX && u.getY() == hY) {
+	        		if(u.getX() == hexagone.x && u.getY() == hexagone.y) {
 	        			System.out.println("UNITE TROUVEE");
 	        			u.selected();
-	        			break selection;
+	        			selected = true;
 	        		}
-	        		dep+=u.getPtDeDeplacement();
+	        		int mindep = 10;
+	        		for(Hexagone h : Jeu.getMap()[u.getX()][u.getY()].getListeVoisin()) {
+	        			mindep = Math.min(mindep, h.getCoutDeDeplacement());
+	        		}
+	        		if(mindep<=u.getPtDeDeplacement())
+	        			deplacable++;
 	        	}
-		    	System.out.println("CASE VIDE");
-	    	}while(true);
-    	}while(dep > 0);
+		    	System.out.println(deplacable);
+	    	}while(!selected);
+    	}while(deplacable > 0);
     }
 }

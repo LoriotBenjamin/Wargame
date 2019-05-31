@@ -1,5 +1,6 @@
 package controleur;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -274,6 +275,34 @@ public class Jeu {
                 return u;
         }
         return null;
+    }
+    
+    public static Point getHexagonClicked() {
+    	System.out.println("HOY");
+    	Point mouse = new Point(-1,-1);
+    	int hX = -1;
+    	int hY = -1;
+	    //System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
+		mouse = Jeu.getFrame().getClicPos();
+		System.out.println("CLIC X: "+mouse.x+" Y: "+mouse.y);
+	    int X = mouse.y;
+	    int Y = mouse.x;
+	    find : for(int ligne=0;ligne<Jeu.MAPLIGNE;ligne++) {
+	       	for(int colonne=0;colonne<Jeu.MAPCOLONNE;colonne++) {
+	       		int refX = 30 + 45*ligne;
+	       		int refY = 26*colonne%2 + 52*colonne;
+	       		if(Y >= refY && Y <= refY+52) {
+	       			int dX = (int)(30- 15.0 / 26.0 * (Math.abs(refY+26-Y)));
+	       			if(X >= refX-dX && X <= refX+dX) {
+	       				hX = ligne;
+	       				hY = colonne;
+	       				break find;
+	       			}
+	       		}
+	       	}
+	    }
+	    System.out.println(hX + " " + hY);
+    	return new Point(hX, hY);
     }
 
     //JAVADOC A FAIRE
