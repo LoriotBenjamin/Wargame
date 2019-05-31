@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 import controleur.Jeu;
 
 
-public class Affplateau extends JPanel{ // Classe personnelle qui crée une grile hexagonale.
-	final static int cote=30; // Ceci définit la taille du côté d'un polygone
-	//int numero=0; // Retien le n° du polygone sur lequel est la souris
+public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une grile hexagonale.
+	final static int cote=30; // Ceci dï¿½finit la taille du cï¿½tï¿½ d'un polygone
+	//int numero=0; // Retien le nï¿½ du polygone sur lequel est la souris
 	Polygon pol;
 	
 	
@@ -40,14 +40,14 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crée une grile
 	}		
 	
 	 public void paint(Graphics graph) {
-		Polygon hexagone=getPolygon(0, 0, cote); // Crée un hexagone
-		Rectangle r=hexagone.getBounds(); // Récupère le plus petit rectangle // aux bord de la fenêtre dans lequel l'hexagone peut s'inscrire
+		Polygon hexagone=getPolygon(0, 0, cote); // Cree un hexagone
+		Rectangle r=hexagone.getBounds(); // Recupere le plus petit rectangle // aux bord de la fenetre dans lequel l'hexagone peut s'inscrire
 		graph.setColor(Color.BLACK);
 		super.paint(graph);
 		Graphics2D g2d=(Graphics2D) graph;
 		BufferedImage bim = null;
 		
-		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constituée de 2 sous grilles (les lignes impaires sont décallées)
+		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constituee de 2 sous grilles (les lignes impaires sont decallees)
 			for(int c=0;c<Jeu.MAPCOLONNE;c++){
 			    Polygon poly=getPolygon(c*r.width, (int)(l*cote*1.5),cote);
 				

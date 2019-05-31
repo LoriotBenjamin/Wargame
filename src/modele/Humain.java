@@ -20,13 +20,15 @@ public class Humain extends Joueur {
     public Humain(final int numeroJoueur, final String pseudo) {
         super(numeroJoueur, pseudo);
     }
-    
+    /**
+     *  Execute un tour d'un joueur 
+     */
     public void jouerTour() {
     	int deplacable = 0;
     	totality : do {
     		//Attente de l'impossibilit� pour le joueur de continuer son tour
     		boolean selected = false;
-	    	selection : do {
+	    	do {
 	    		deplacable = 0;
 	    		//Attente d'un clic sur une unit� alli�e
 	    		selected = false;

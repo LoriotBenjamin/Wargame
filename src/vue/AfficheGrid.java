@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import wargame.Menu;
-import wargame.Hexagons.Hexagon;
+import vue.Menu;
+//import vue.Hexagons.Hexagon;
 
 public class AfficheGrid {
 
@@ -28,7 +28,7 @@ public class AfficheGrid {
 		//Interface I =new Interface();
 	}*/
 
-
+/*
 		  final int width = 50;
 	        final int height = 50;
 	        final Hexagon[][] grid = new Hexagon[height][width];
@@ -71,6 +71,6 @@ public class AfficheGrid {
 
 	        } finally {
 	            f.repaint();
-	        }
+	        }*/
 	    }
 	}

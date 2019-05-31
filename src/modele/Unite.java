@@ -3,8 +3,6 @@ package modele;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import controleur.Jeu;
 
@@ -193,8 +191,9 @@ public class Unite {
     }
 
     /**
-     * Trouve l'hexagone sur lequelle le second clic a ete effectué,
-     * cherche si c'est une unite ennemie, si c'est le cas alors declenche l'attaque 
+     * Prend en parametre les coordoonees du seocnd clic et 
+     * trouve l'hexagone sur lequelle le second clic a ete effectué,
+     * cherche si c'est une unite ennemie, si c'est le cas alors declenche l'attaque ,
      * si c'est une unite allie verifie que l'ordre ne vient pas d'un pretre pour soigner
      * si c'est le cas soigne l'allie sinon si la case est vide alors deplace l'unite
      * 
@@ -206,12 +205,6 @@ public class Unite {
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        
-      
-        ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
-        
-        
-        
         totality: if (!deplacementPossible.isEmpty()) {
 
 		          if(deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
@@ -242,6 +235,7 @@ public class Unite {
 		                                        System.out.println("TAPER");
 		                                        // L'unité est à porté
 		                                        attaquer(u);
+		                                     
 		                                    }
 		                                }
 		                                break totality;
@@ -383,7 +377,6 @@ public class Unite {
         return null;
     }
 
-    // JAVADOC A FAIRE
     /**
      * Retourne tous les hexagones à portée d'une case pour une unité.
      * @param x
