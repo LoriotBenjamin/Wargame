@@ -36,30 +36,14 @@ public class MainOfGame {
 		//Jeu.chargerPartie("save");
 		Jeu.controlAffichageUnite();
 		
-		
-		for(int cpt=0;cpt<10;cpt++) {
-		    for(Joueur joueur : Jeu.getListeJoueurs()) {
-		        System.out.println();
-		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {
-		            for (int j = 0; j < Jeu.MAPCOLONNE; j++) {
-		                System.out.print(Jeu.getMap()[i][j]);
-		            }
-		            System.out.println();
-		        }
-		        
+		while(true) {
+		    for (Joueur joueur : Jeu.getListeJoueurs()) {
 		        joueur.jouerTour();
-		        
-		        System.out.println();
-		        for (int i = 0; i < Jeu.MAPLIGNE; i++) {
-                    for (int j = 0; j < Jeu.MAPCOLONNE; j++) {
-                        System.out.print(Jeu.getMap()[i][j]);
-                    }
-                    System.out.println();
-                }
 		    }
 		}
+		
 	
-		Jeu.sauvegarderPartie("save");
+		//Jeu.sauvegarderPartie("save");
 		
 	}
 
