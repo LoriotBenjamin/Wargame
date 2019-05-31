@@ -210,13 +210,13 @@ public class Hexagone {
         double a2 = (double) h2.getX();
         double b2 = (double) h2.getY();
 
-        System.out.println(" a: " + a + "\n b: " + b + "\n a2: " + a2 + "\n b2: " + b2);
+        //System.out.println(" a: " + a + "\n b: " + b + "\n a2: " + a2 + "\n b2: " + b2);
 
         double t1 = Math.abs((a - b / 2) - (a2 - b2 / 2));
         double t2 = Math.abs(b - b2);
         double t3 = Math.abs((a + b / 2) - (a2 + b2 / 2));
 
-        System.out.println(" t1: " + t1 + " t2: " + t2 + " t3: " + t3);
+        //System.out.println(" t1: " + t1 + " t2: " + t2 + " t3: " + t3);
         double m = Math.max(Math.max(t1, t2), t3);
 
         int resultat = 0;

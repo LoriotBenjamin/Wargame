@@ -40,13 +40,13 @@ public class IA extends Joueur {
             totality: while (iterator.hasNext()) {
                 Map.Entry<Hexagone, Integer> mapEntry = iterator.next();
                 Hexagone hexagone = mapEntry.getKey();
-                ArrayList<Hexagone> aPorteeDAttaque = unite.aPorte(hexagone.getX(), hexagone.getY());
+                //ArrayList<Hexagone> aPorteeDAttaque = unite.aPorte(hexagone.getX(), hexagone.getY());
                 for (Joueur joueur : Jeu.getListeJoueurs()) {
                     if (joueur != this) {
                         for (Unite uniteAdverse : joueur.getListeUnite()) {
                             if (uniteAdverse.getX() != hexagone.getX() && uniteAdverse.getY() != hexagone.getY()
-                                    && aPorteeDAttaque.contains(
-                                            Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()])) {
+                                    && hexagone.getDistanceBetweenTwoPosition(
+                                            Jeu.getMap()[uniteAdverse.getX()][uniteAdverse.getY()] ) <= unite.getPorte()) {
                                 // unité à portée d'attaque trouvée
                                 unite.setX(hexagone.getX());
                                 unite.setY(hexagone.getY());
@@ -71,10 +71,17 @@ public class IA extends Joueur {
                 }
             }
             final double pourcentagePV = 0.75;
-            if (!deplacementPossible.isEmpty() && ((adversaire != null && adversaire.getPorte() >= unite.getPorte())
+            Hexagone hexAct = null;
+            Hexagone hexAdv = null;
+            if(adversaire != null) {
+                hexAct = Jeu.getMap()[unite.getX()][unite.getY()];
+                hexAdv = Jeu.getMap()[adversaire.getX()][adversaire.getY()];
+            }
+            if (!deplacementPossible.isEmpty() && ((adversaire != null && hexAct.getDistanceBetweenTwoPosition(hexAdv) <= adversaire.getPorte())
                     || unite.getPv() >= (int) (pourcentagePV * unite.getPvMax()))) {
-                // si portée adverse > à portée unité ou plus de 75% de PV restant alors
+                // si portée adverse > à distance entre les 2 unités ou plus de 75% de PV restant alors
                 // déplacement aléatoire
+
                 Object[] tabDeplacementPossible = deplacementPossible.keySet().toArray();
                 Object key = tabDeplacementPossible[new Random().nextInt(tabDeplacementPossible.length)];
                 Hexagone hexagone = (Hexagone) key;

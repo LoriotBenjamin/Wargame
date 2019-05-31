@@ -304,12 +304,10 @@ public class Unite {
 
                     boolean libre = true;
                     test: for (Joueur j : Jeu.getListeJoueurs()) {
-                        if (joueurCourant != j) {
-                            for (Unite u : j.getListeUnite()) {
-                                if (u.getX() == v.getX() && u.getY() == v.getY()) {
-                                    libre = false;                             
-                                    break test;
-                                }
+                        for (Unite u : j.getListeUnite()) {
+                            if (u.getX() == v.getX() && u.getY() == v.getY()) {
+                                libre = false;                             
+                                break test;
                             }
                         }
                     }
