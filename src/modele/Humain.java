@@ -25,6 +25,10 @@ public class Humain extends Joueur {
      */
     public void jouerTour() {
     	int deplacable = 0;
+    	
+    	for (Unite unite : this.getListeUnite()) { //remise des points de deplacement au max
+            unite.setPtDeDeplacement(unite.getPtDeDeplacementMax());
+        }
     	totality : do {
     		//Attente de l'impossibilit� pour le joueur de continuer son tour
     		boolean selected = false;
