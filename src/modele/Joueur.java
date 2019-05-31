@@ -52,25 +52,25 @@ public class Joueur {
             listeUnite.add(new Chevalier(1, 3, 0));
             listeUnite.add(new Guerrier(1, 4, 0));
         } else if (numeroJoueur == 2) {
-            listeUnite.add(new Archer(2, 0, 16));
-            listeUnite.add(new Mage(2, 1, 16));
-            listeUnite.add(new Pretre(2, 2, 17));
-            listeUnite.add(new Chevalier(2, 3, 17));
-            listeUnite.add(new Guerrier(2, 4, 18));
+            listeUnite.add(new Archer(2, 11, 16));
+            listeUnite.add(new Mage(2, 10, 17));
+            listeUnite.add(new Pretre(2, 9, 17));
+            listeUnite.add(new Chevalier(2, 8, 18));
+            listeUnite.add(new Guerrier(2, 7, 18));
 
         } else if (numeroJoueur == 3) {
-            listeUnite.add(new Archer(2, 12, 2));
-            listeUnite.add(new Mage(2, 11, 1));
-            listeUnite.add(new Pretre(2, 10, 1));
-            listeUnite.add(new Chevalier(2, 9, 0));
-            listeUnite.add(new Guerrier(2, 8, 0));
+            listeUnite.add(new Archer(3, 11, 2));
+            listeUnite.add(new Mage(3, 10, 2));
+            listeUnite.add(new Pretre(3, 9, 1));
+            listeUnite.add(new Chevalier(3, 8, 1));
+            listeUnite.add(new Guerrier(3, 7, 0));
 
         } else {
-            listeUnite.add(new Archer(2, 12, 16));
-            listeUnite.add(new Mage(2, 11, 16));
-            listeUnite.add(new Pretre(2, 10, 17));
-            listeUnite.add(new Chevalier(2, 10, 17));
-            listeUnite.add(new Guerrier(2, 11, 18));
+            listeUnite.add(new Archer(4, 0, 16));
+            listeUnite.add(new Mage(4, 1, 16));
+            listeUnite.add(new Pretre(4, 2, 17));
+            listeUnite.add(new Chevalier(4, 3, 17));
+            listeUnite.add(new Guerrier(4, 4, 18));
         }
     }
 
