@@ -11,9 +11,11 @@ import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 
 import vue.Affplateau;
+import vue.PaintImage;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
@@ -24,6 +26,7 @@ import modele.Unite;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -33,7 +36,7 @@ public class MainJFrame {
 	private boolean state = false;
 	private Point mouse = new Point(-1,-1);
 	private ArrayList <JLabel> listeCaractAffichage = new ArrayList<JLabel>();
-
+	private PaintImage image = new PaintImage("ptInterrogation.png");
 
 	/**
 	 * Create the application.
@@ -68,10 +71,29 @@ public class MainJFrame {
 					listeCaractAffichage.get(3).setText(String.valueOf(uniteSelec.getAttaque()));
 					listeCaractAffichage.get(4).setText(String.valueOf(uniteSelec.getVision()));
 					listeCaractAffichage.get(5).setText(String.valueOf(uniteSelec.getPtDeDeplacement()));
+					
+					switch(uniteSelec.getTypeUnite()) {
+					case Jeu.ARCHER:
+						image =new PaintImage("GrandArcher.png");
+						break;
+					case  Jeu.CHEVALIER:
+						image =new PaintImage("GrandChevalier.png");
+						break;
+					case  Jeu.GUERRIER:
+						image =new PaintImage("GrandGuerrier.png");
+						break;
+					case  Jeu.PRETRE:
+						image =new PaintImage("GrandPretre.png");
+						break;
+					case  Jeu.MAGE:
+						image =new PaintImage("GrandMage.png");
+						break;
+					
+					}
 				}else
 					System.out.println("Trouve pas unite");
 			}
-
+			
 			public void mouseReleased(MouseEvent e) {}
 
 			public void mouseEntered(MouseEvent e) {}
@@ -162,6 +184,12 @@ public class MainJFrame {
 		labelAffichagePtDeDeplacement.setBounds(136, 435, 46, 14);
 		panel.add(labelAffichagePtDeDeplacement);
 		listeCaractAffichage.add(labelAffichagePtDeDeplacement);
+		
+	
+		image.setBounds(10, 11, 216, 270);
+		panel.add(image);
+		
+		
 	}
 
 	public JFrame getFrame() {
@@ -188,8 +216,4 @@ public class MainJFrame {
 		System.out.println(mouse);
 		return mouse;
 	}
-	/*
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}*/
 }
