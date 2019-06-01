@@ -184,7 +184,7 @@ public class Unite {
         //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
         Jeu.setDeplacementPossibleHash(deplacementPossible);
         Jeu.setActionPossibleHash(action);
-        Jeu.jeRepaint2();
+        Jeu.affichageDeplacementPossible();
     	System.out.println(this.toString()+" A votre service!\n");
     	Point hexagone = new Point(-2, -2);
         do {
@@ -264,7 +264,7 @@ public class Unite {
 				
 			}
         }
-		Jeu.jeRepaint();
+		Jeu.affichageUnite();
     }
 
     /**

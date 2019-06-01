@@ -47,7 +47,7 @@ public class IA extends Joueur {
                                 unite.setX(hexagone.getX());
                                 unite.setY(hexagone.getY());
                                 unite.setPtDeDeplacement((Integer) mapEntry.getValue());
-                                Jeu.jeRepaint();
+                                Jeu.affichageUnite();
                                 System.out.println("Attaque de " + joueur.getPseudo());
                                 System.out.println(unite);
                                 System.out.println("sur " + uniteAdverse);
@@ -91,7 +91,7 @@ public class IA extends Joueur {
                 unite.setX(hexagone.getX());
                 unite.setY(hexagone.getY());
                 unite.setPtDeDeplacement((Integer) deplacementPossible.get(key));
-                Jeu.jeRepaint();
+                Jeu.affichageUnite();
                 System.out.println("Déplacement sans attaquer:");
                 System.out.println(unite);
             } 
