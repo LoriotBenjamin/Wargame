@@ -180,7 +180,7 @@ public class Unite {
     // JAVADOC A FAIRE
     public void selected(HashMap<Hexagone, Integer> deplacementPossible) {
     	System.out.println(this.toString()+" A votre service!\n");
-    	Point hexagone = new Point(-1, -1);
+    	Point hexagone = new Point(-2, -2);
         do {
         	System.out.print("");//ABSOLUMENT NECESSAIRE!!
         	if(Jeu.getSkipFlag()) {
@@ -191,7 +191,7 @@ public class Unite {
             	hexagone = Jeu.getHexagonClicked();
             	Jeu.setClicFlag(false);
         	}
-        }while(hexagone.x == -1 || hexagone.y == -1);
+        }while(hexagone.x == -2 || hexagone.y == -2);
     	System.out.println("CASE CLIQUEE LIGNE: "+hexagone.x+" COLONNE: "+hexagone.y);
     	
         secondClic(hexagone.x, hexagone.y,deplacementPossible);
@@ -211,51 +211,52 @@ public class Unite {
     public void secondClic(int _x, int _y,HashMap<Hexagone,Integer>deplacementPossible) { // avertir la vue si la position de l'unite change
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
-        
-		Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
-		Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
-		
-		if (deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
-		System.out.println("CASE VIDE");
-		this.x = _x;
-		this.y = _y;
-		System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
-		this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
-		System.out.println("JE SUIS EN " + x + " " + y);
-		}else if(!acted){
-			tests : for (Joueur j : Jeu.getListeJoueurs()) {
-                for (Unite u : j.getListeUnite()) {
-
-                    if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
-                    	
-                        // Une unité est sur la case
-                        System.out.println("CASE OCCUPEE");
-                        if (u.getTeamUnite() == this.getTeamUnite()) {
-                            // L'unité est alliée
-                            System.out.println("UNITE ALLIEE");
-                            if (typeUnite == Jeu.PRETRE && 
-                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
-                                System.out.println("SOIN");
-                                ((Pretre)(this)).soigner(u);
-                            } else {
-                                u.selected(deplacementPossible);
-                            }
-                        } else {
-                            System.out.println("UNITE ENNEMIE");
-                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
-                                System.out.println("TAPER");
-                                // L'unité est à porté
-                                attaquer(u);
-                                break tests;
-                            }
-                        }
-                        
-                    }
-                    
-                }
-            }
+        if(_x >= 0 && _y >= 0) {
+			Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
+			Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
 			
-		}
+			if (deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
+			System.out.println("CASE VIDE");
+			this.x = _x;
+			this.y = _y;
+			System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
+			this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
+			System.out.println("JE SUIS EN " + x + " " + y);
+			}else if(!acted){
+				tests : for (Joueur j : Jeu.getListeJoueurs()) {
+	                for (Unite u : j.getListeUnite()) {
+	
+	                    if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
+	                    	
+	                        // Une unité est sur la case
+	                        System.out.println("CASE OCCUPEE");
+	                        if (u.getTeamUnite() == this.getTeamUnite()) {
+	                            // L'unité est alliée
+	                            System.out.println("UNITE ALLIEE");
+	                            if (typeUnite == Jeu.PRETRE && 
+	                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+	                                System.out.println("SOIN");
+	                                ((Pretre)(this)).soigner(u);
+	                            } else {
+	                                u.selected(deplacementPossible);
+	                            }
+	                        } else {
+	                            System.out.println("UNITE ENNEMIE");
+	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+	                                System.out.println("TAPER");
+	                                // L'unité est à porté
+	                                attaquer(u);
+	                                break tests;
+	                            }
+	                        }
+	                        
+	                    }
+	                    
+	                }
+	            }
+				
+			}
+        }
 		Jeu.jeRepaint();
     }
 
