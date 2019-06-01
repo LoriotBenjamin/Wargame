@@ -21,9 +21,9 @@ import javax.swing.JPanel;
 import controleur.Jeu;
 
 
-public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une grile hexagonale.
-	final static int cote=30; // Ceci d�finit la taille du c�t� d'un polygone
-	//int numero=0; // Retien le n� du polygone sur lequel est la souris
+public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une grile hexagonale.
+	final static int cote=30; // Ceci dï¿½finit la taille du cï¿½tï¿½ d'un polygone
+	//int numero=0; // Retien le nï¿½ du polygone sur lequel est la souris
 	Polygon pol;
 	Graphics2D g2d;
 	BufferedImage bim;
@@ -45,15 +45,15 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 	}		
 	
 	 public void paint(Graphics graph) {
-		Polygon hexagone=getPolygon(0, 0, cote); // Cr�e un hexagone
-		r=hexagone.getBounds(); // R�cup�re le plus petit rectangle // aux bord de la fen�tre dans lequel l'hexagone peut s'inscrire
+		Polygon hexagone=getPolygon(0, 0, cote); // Crï¿½e un hexagone
+		r=hexagone.getBounds(); // Rï¿½cupï¿½re le plus petit rectangle // aux bord de la fenï¿½tre dans lequel l'hexagone peut s'inscrire
 		graph.setColor(Color.BLACK);
 		super.paint(graph);
 		g2d=(Graphics2D) graph;
 		this.graph=graph;
 		bim = null;
 		
-		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constitu�e de 2 sous grilles (les lignes impaires sont d�call�es)
+		for(int l=0;l<Jeu.MAPLIGNE;l=l+2){// Remarquer le "+2" car la grille est constituï¿½e de 2 sous grilles (les lignes impaires sont dï¿½callï¿½es)
 			for(int c=0;c<Jeu.MAPCOLONNE;c++){
 			    Polygon poly=getPolygon(c*r.width, (int)(l*cote*1.5),cote);
 				
@@ -172,13 +172,22 @@ public class Affplateau extends JPanel{ // Classe personnelle qui cr�e une gri
 				repaint();
 			}
 		}
+		Polygon poly = null;
+		if(Jeu.getDeplacementPossible()!=null) {
+			for(ArrayList<Integer>deplacementPossible:Jeu.getDeplacementPossible()) {
+				if (deplacementPossible.get(0)%2==0) {
+					poly=getPolygon(deplacementPossible.get(1)*r.width,(int)(deplacementPossible.get(0)*cote*1.5),cote);
+				}
+				else {
+					poly=getPolygon(deplacementPossible.get(1)*r.width+r.width/2,(int)(deplacementPossible.get(0)*cote*1.5+0.5),cote);
+				}
+				if(poly!=null) {
+					g2d.setColor(Color.PINK);
+					g2d.draw(poly);
+				}
+			}
+		}
 	
 	}
-
-	
-
-	
-
-
 
 }
