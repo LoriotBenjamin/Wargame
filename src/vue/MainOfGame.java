@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import modele.Archer;
 import modele.Chevalier;
@@ -33,21 +34,25 @@ public class MainOfGame {
 		Jeu.getListeJoueurs().add(j1);
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
+		IA j3 = new IA(3, "IA3"); // juste pour tester
+        Jeu.getListeJoueurs().add(j3);
+        IA j4 = new IA(4, "IA4"); // juste pour tester
+        Jeu.getListeJoueurs().add(j4);
 		//Jeu.chargerPartie("save");
 		Jeu.controlAffichageUnite();
 		
-		game : do {
-		    for (Joueur joueur : Jeu.getListeJoueurs()) {
-				int joueursEnVie = Jeu.getListeJoueurs().size();
+		do {
+		    ArrayList<Joueur> perdant = new ArrayList<Joueur>();
+		    for (Joueur joueur : Jeu.getListeJoueurs()) { //tour des joueurs chacun leur tour
 		        joueur.jouerTour();
-		        for(Joueur player : Jeu.getListeJoueurs()) {
-		        	if(player.getListeUnite().size() == 0)
-		        		joueursEnVie--;
+		        if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
+		            perdant.add(joueur);
 		        }
-		        if(joueursEnVie == 1)
-		        	break game;
 		    }
-		}while(true);
+		    if(!perdant.isEmpty()) {//on enlève les perdants de la liste
+		        Jeu.getListeJoueurs().removeAll(perdant);
+		    }
+		}while(Jeu.getListeJoueurs().size() > 1);
 		
 		System.out.println("Un joueur a gagné");
 	

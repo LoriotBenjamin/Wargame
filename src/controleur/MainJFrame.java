@@ -17,17 +17,22 @@ import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
+
+import modele.Joueur;
+import modele.Unite;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class MainJFrame {
 
 	private JFrame frame;
 	private boolean state = false;
 	private Point mouse = new Point(-1,-1);
-
+	private ArrayList <JLabel> listeCaractAffichage = new ArrayList<JLabel>();
 
 
 	/**
@@ -55,6 +60,16 @@ public class MainJFrame {
 			public void mousePressed(MouseEvent e) {
 				mouse = e.getPoint();
 				Jeu.setClicFlag(true);
+				Unite uniteSelec = getUniteEnMouvement(Jeu.getHexagonClicked());
+				if(uniteSelec != null){
+					listeCaractAffichage.get(0).setText(String.valueOf(uniteSelec.getPv()));
+					listeCaractAffichage.get(1).setText(String.valueOf(uniteSelec.getPvMax()));
+					listeCaractAffichage.get(2).setText(String.valueOf(uniteSelec.getDefense()));
+					listeCaractAffichage.get(3).setText(String.valueOf(uniteSelec.getAttaque()));
+					listeCaractAffichage.get(4).setText(String.valueOf(uniteSelec.getVision()));
+					listeCaractAffichage.get(5).setText(String.valueOf(uniteSelec.getPtDeDeplacement()));
+				}else
+					System.out.println("Trouve pas unite");
 			}
 
 			public void mouseReleased(MouseEvent e) {}
@@ -116,11 +131,58 @@ public class MainJFrame {
 		JLabel lblPointDeDeplacement = new JLabel("Point de mouvement : ");
 		lblPointDeDeplacement.setBounds(10, 435, 158, 14);
 		panel.add(lblPointDeDeplacement);
+		
+
+		JLabel lblNewLabelAffichagePvRest = new JLabel("Pv rest");
+		lblNewLabelAffichagePvRest.setBounds(94, 304, 46, 14);
+		panel.add(lblNewLabelAffichagePvRest);
+		listeCaractAffichage.add(lblNewLabelAffichagePvRest);
+		
+		JLabel labelAffichagePvMax = new JLabel("Pv max");
+		labelAffichagePvMax.setBounds(93, 329, 46, 14);
+		panel.add(labelAffichagePvMax);
+		listeCaractAffichage.add(labelAffichagePvMax);
+		
+		JLabel labelAffichageDefense = new JLabel("Def");
+		labelAffichageDefense.setBounds(94, 354, 46, 14);
+		panel.add(labelAffichageDefense);
+		listeCaractAffichage.add(labelAffichageDefense);
+		
+		JLabel labelAffichageAttaque = new JLabel("Att");
+		labelAffichageAttaque.setBounds(93, 379, 46, 14);
+		panel.add(labelAffichageAttaque);
+		listeCaractAffichage.add(labelAffichageAttaque);
+		
+		JLabel labelVision = new JLabel("Vision");
+		labelVision.setBounds(94, 404, 46, 14);
+		panel.add(labelVision);
+		listeCaractAffichage.add(labelVision);
+		
+		JLabel labelAffichagePtDeDeplacement = new JLabel("PM");
+		labelAffichagePtDeDeplacement.setBounds(136, 435, 46, 14);
+		panel.add(labelAffichagePtDeDeplacement);
+		listeCaractAffichage.add(labelAffichagePtDeDeplacement);
 	}
 
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	  public static Unite getUniteEnMouvement(Point hexa){
+			
+	    	int px=(int)hexa.getX();
+			int py=(int)hexa.getY();
+			
+	    	for(Joueur j: Jeu.getListeJoueurs() ){
+	    		for(Unite u : j.getListeUnite()){
+	    			if(px == u.getX() && py == u.getY())
+	    				return u; 
+	    		}
+	    			    			
+	    	}
+	    	return null;
+	    	
+	    }
 	
 	public Point getClicPos() {
 		System.out.println(mouse);
