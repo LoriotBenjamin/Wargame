@@ -30,17 +30,15 @@ public class IA extends Joueur {
     @Override
     public void jouerTour() {
         for (Unite unite : this.getListeUnite()) {
-            Unite adversaire = null; // sauvegarde l'unité adverse en cas d'attaque pour décider si fuite après ou
-                                     // non
-
+            boolean attaque = false;
             MyHashMap<Hexagone, Integer> deplacementPossible = unite.calculDeplacementPossible();
             Iterator<Map.Entry<Hexagone, Integer>> iterator = deplacementPossible.entrySet().iterator();
 
-            totality: while (iterator.hasNext()) {
+            while (!attaque && iterator.hasNext()) {
                 Map.Entry<Hexagone, Integer> mapEntry = iterator.next();
                 Hexagone hexagone = mapEntry.getKey();
-                //ArrayList<Hexagone> aPorteeDAttaque = unite.aPorte(hexagone.getX(), hexagone.getY());
-                for (Joueur joueur : Jeu.getListeJoueurs()) {
+
+                recherche: for (Joueur joueur : Jeu.getListeJoueurs()) {
                     if (joueur != this) {
                         for (Unite uniteAdverse : joueur.getListeUnite()) {
                             if (unite.getTypeUnite() != Jeu.PRETRE && hexagone.getDistanceBetweenTwoPosition(
@@ -58,11 +56,12 @@ public class IA extends Joueur {
                                 System.out.println(unite);
                                 System.out.println(uniteAdverse);
 
-                                adversaire = uniteAdverse;
+                                attaque = true;
 
                                 deplacementPossible = unite.calculDeplacementPossible();
+                                
+                                break recherche;
 
-                                break totality;
                             }
                         }
                     } 
@@ -82,16 +81,9 @@ public class IA extends Joueur {
             }
             
             final double pourcentagePV = 0.75;
-            Hexagone hexAct = null;
-            Hexagone hexAdv = null;
-            if(adversaire != null) {
-                hexAct = Jeu.getMap()[unite.getX()][unite.getY()];
-                hexAdv = Jeu.getMap()[adversaire.getX()][adversaire.getY()];
-            }
-            if (!deplacementPossible.isEmpty() && ((adversaire != null && hexAct.getDistanceBetweenTwoPosition(hexAdv) <= adversaire.getPorte())
-                    || unite.getPv() >= (int) (pourcentagePV * unite.getPvMax()))) {
-                // si portée adverse > à distance entre les 2 unités ou plus de 75% de PV restant alors
-                // déplacement aléatoire
+   
+            if (!deplacementPossible.isEmpty() &&  unite.getPv() >= (int) (pourcentagePV * unite.getPvMax())) {
+                // si deplacement possible et plus de 75% de PV restant alors déplacement aléatoire
 
                 Object[] tabDeplacementPossible = deplacementPossible.keySet().toArray();
                 Object key = tabDeplacementPossible[new Random().nextInt(tabDeplacementPossible.length)];

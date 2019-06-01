@@ -61,7 +61,7 @@ public class Pretre extends Unite {
     
     @Override
     public void soigner(Unite unite) {
-    	unite.pv += (int) unite.pv * SOIN;
+    	unite.pv += (int) unite.pvMax * SOIN;
         if (unite.pv > unite.pvMax) {
             unite.pv = unite.pvMax;
         }

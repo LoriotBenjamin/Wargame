@@ -500,7 +500,7 @@ public class Unite {
      */
     public void soin(final double taux) {
         if (this.ptDeDeplacement == this.ptDeDeplacementMax) {
-            this.pv += (int) this.pv * taux;
+            this.pv += (int) this.pvMax * taux;
             if (this.pv > this.pvMax) {
                 this.pv = this.pvMax;
             }
@@ -520,6 +520,15 @@ public class Unite {
     
     public void soigner(Unite unite) {
         
+    }
+    
+    /**
+     * Redonne à l'unité tous ses points de déplacement et son droit d'action et la soigne.
+     */
+    public void preparerPourProchainTour() {
+        soin(Jeu.SOIN);
+        this.ptDeDeplacement = this.ptDeDeplacementMax;
+        acted = false;
     }
 
     //////////////////////// Getter and Setter /////////////////////////
@@ -715,15 +724,6 @@ public class Unite {
      */
     public void setEquipe(final int equipe) {
         this.equipe = equipe;
-    }
-    
-    /**
-     * Redonne à l'unité tous ses points de déplacement et son droit d'action et la soigne.
-     */
-    public void preparerPourProchainTour() {
-        soin(Jeu.SOIN);
-        this.ptDeDeplacement = this.ptDeDeplacementMax;
-        acted = false;
     }
 
 }
