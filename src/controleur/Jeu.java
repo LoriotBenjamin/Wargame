@@ -1,7 +1,6 @@
 package controleur;
 
 import java.awt.Point;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 import modele.Desert;
 import modele.Foret;
@@ -120,7 +118,9 @@ public class Jeu {
     private static ArrayList<ArrayList<Integer>> infoUnite =new ArrayList<ArrayList<Integer>>();
     
     private static HashMap<Hexagone,Integer>deplacementPossibleHash=new HashMap<Hexagone,Integer>();
+    private static HashMap<Hexagone,String>actionPossibleHash=new HashMap<Hexagone,String>();
     private static ArrayList<ArrayList<Integer>> deplacementPossible=new ArrayList<ArrayList<Integer>>();
+    private static ArrayList<ArrayList<Object>> actionPossible=new ArrayList<ArrayList<Object>>();
 
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
@@ -263,14 +263,23 @@ public class Jeu {
      * Récupère la HashMap contenant les déplacement possible de l'unité sélection,
      * et envoie deux integers x et y à la vue pour surligné les cases où le déplacement est possible.
      */
-    public static void controlSurligne(HashMap<Hexagone,Integer>deplacementPossible2) {
+    public static void controlSurligne(HashMap<Hexagone,Integer>deplacementPossible2, HashMap<Hexagone,String>actionPossible2) {
     	deplacementPossible.clear();
+    	actionPossible.clear();
     	
     	for(Hexagone i:deplacementPossible2.keySet()) {
     		ArrayList<Integer> deplacementP=new ArrayList<Integer>();
     		deplacementP.add(i.getX());
     		deplacementP.add(i.getY());
     		deplacementPossible.add(deplacementP);
+    	}
+    	
+    	for(Hexagone i:actionPossible2.keySet()) {
+    		ArrayList<Object> actionP=new ArrayList<Object>();
+    		actionP.add(i.getX());
+    		actionP.add(i.getY());
+    		actionP.add(actionPossible2.get(i));
+    		actionPossible.add(actionP);
     	}
     }
 
@@ -309,13 +318,14 @@ public class Jeu {
     public static void jeRepaint() {
     	controlAffichageUnite();
     	deplacementPossible.clear();
+    	actionPossible.clear();
     	//controlSurligne(deplacementPossibleHash);
     	plateau.repaint();
     }
     
     public static void jeRepaint2() {
     	controlAffichageUnite();
-    	controlSurligne(deplacementPossibleHash);
+    	controlSurligne(deplacementPossibleHash, actionPossibleHash);
     	plateau.repaint();
     }
     
@@ -602,19 +612,34 @@ public class Jeu {
 	public static ArrayList<ArrayList<Integer>> getDeplacementPossible() {
 		return deplacementPossible;
 	}
+	
+	public static ArrayList<ArrayList<Object>> getActionPossible() {
+		return actionPossible;
+	}
 
 	public static void setDeplacementPossible(ArrayList<ArrayList<Integer>> deplacementPossible) {
 		Jeu.deplacementPossible = deplacementPossible;
+	}
+	
+	public static void setActionPossible(ArrayList<ArrayList<Object>> actionPossible) {
+		Jeu.actionPossible = actionPossible;
 	}
 
 	public static HashMap<Hexagone, Integer> getDeplacementPossibleHash() {
 		return deplacementPossibleHash;
 	}
+	
+	public static HashMap<Hexagone, String> getActionPossibleHash() {
+		return actionPossibleHash;
+	}
 
 	public static void setDeplacementPossibleHash(HashMap<Hexagone, Integer> deplacementPossibleHash) {
 		Jeu.deplacementPossibleHash = deplacementPossibleHash;
 	}
-
+	
+	public static void setActionPossibleHash(HashMap<Hexagone, String> actionPossibleHash) {
+		Jeu.actionPossibleHash = actionPossibleHash;
+	}
 	
 
 }

@@ -182,10 +182,31 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 					poly=getPolygon(deplacementPossible.get(1)*r.width+r.width/2,(int)(deplacementPossible.get(0)*cote*1.5+0.5),cote);
 				}
 				if(poly!=null) {
-					g2d.setColor(Color.RED);
+					g2d.setColor(Color.ORANGE);
 					g2d.draw(poly);
 				}
 			}
+			
+		}
+		if(Jeu.getActionPossible()!=null) {
+			for(ArrayList<Object> actionPossible : Jeu.getActionPossible()) {
+				if (((int)actionPossible.get(0))%2==0) {
+					poly=getPolygon(((int)actionPossible.get(1))*r.width,(int)(((int)actionPossible.get(0))*cote*1.5),cote);
+				}
+				else {
+					poly=getPolygon(((int)actionPossible.get(1))*r.width+r.width/2,(int)(((int)actionPossible.get(0))*cote*1.5+0.5),cote);
+				}
+				if(poly!=null) {
+					if((String)actionPossible.get(2) == "allie") {
+						g2d.setColor(Color.GREEN);
+						g2d.draw(poly);
+					}else {
+						g2d.setColor(Color.RED);
+						g2d.draw(poly);
+					}
+				}
+			}
+			
 		}
 	
 	}

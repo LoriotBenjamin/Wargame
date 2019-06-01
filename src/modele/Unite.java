@@ -180,8 +180,10 @@ public class Unite {
     // JAVADOC A FAIRE
     public void selected() {
     	HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
+    	HashMap<Hexagone, String> action = actionPossible();
         //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
         Jeu.setDeplacementPossibleHash(deplacementPossible);
+        Jeu.setActionPossibleHash(action);
         Jeu.jeRepaint2();
     	System.out.println(this.toString()+" A votre service!\n");
     	Point hexagone = new Point(-2, -2);
@@ -226,7 +228,7 @@ public class Unite {
 			System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
 			this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
 			System.out.println("JE SUIS EN " + x + " " + y);
-			}else if(!acted){
+			}else {
 				tests : for (Joueur j : Jeu.getListeJoueurs()) {
 	                for (Unite u : j.getListeUnite()) {
 	
@@ -237,16 +239,17 @@ public class Unite {
 	                        if (u.getTeamUnite() == this.getTeamUnite()) {
 	                            // L'unité est alliée
 	                            System.out.println("UNITE ALLIEE");
-	                            if (typeUnite == Jeu.PRETRE && 
+	                            if (typeUnite == Jeu.PRETRE && acted == false &&
 	                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                System.out.println("SOIN");
 	                                ((Pretre)(this)).soigner(u);
 	                            } else {
+	                            	System.out.println("Changement d'unité");
 	                                u.selected();
 	                            }
 	                        } else {
 	                            System.out.println("UNITE ENNEMIE");
-	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte && acted == false) {
 	                                System.out.println("TAPER");
 	                                // L'unité est à porté d'attaque
 	                                attaquer(u);
@@ -385,40 +388,46 @@ public class Unite {
     // JAVADOC A FAIRE
     /**
      * Retourne tous les hexagones à portée d'une case pour une unité.
-     * @param x
-     *      Numéro de ligne de la case.
-     * @param y
-     *      Numéro de colonne de la case.
      * @return
-     *      Une liste d'hexagones à portée d'une case entrée.
+     *      Une liste d'hexagones avec lesquels une interaction est possible.
      */
-    public ArrayList<Hexagone> aPorte(final int x, final int y) { // donne tout les hexagones visibles par l'unité
+    public MyHashMap<Hexagone,String> actionPossible() { // donne tout les hexagones avec lesquels l'unité peut interagir
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
-        ArrayList<Hexagone> aPorte = new ArrayList<Hexagone>();
+        MyHashMap<Hexagone, String> actionPossible = new MyHashMap<Hexagone,String>();
         MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
                                                                                      // deplacement restant
 
         Hexagone hexagoneCourant = h;
-        aPorte.add(hexagoneCourant);
         aExplorer.put(hexagoneCourant, 0);
 
         while (!aExplorer.isEmpty()) {
 
             hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupére le premier element de la liste
             for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (!aPorte.contains(v) && !aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= porte) {
+                if (!actionPossible.containsKey(v) && !aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= porte) {
                     aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
                 }
 
             } // fin du parcours des voisins
-            if (!aPorte.contains(hexagoneCourant)) {
-                aPorte.add(hexagoneCourant);
+            if (!actionPossible.containsKey(hexagoneCourant)) {
+            	for(Joueur j : Jeu.getListeJoueurs()) {
+            		for(Unite u : j.getListeUnite()) {
+            			if(u.getX() == hexagoneCourant.getX() && u.getY() == hexagoneCourant.getY()) {
+            				if(u.getTeamUnite() == this.getTeamUnite()) {
+            					if(this.getTypeUnite()==Jeu.PRETRE && u!=this && acted == false)
+                					actionPossible.put(hexagoneCourant, "allie");
+            				}else if(acted == false){
+            					actionPossible.put(hexagoneCourant, "ennemi");
+            				}
+            			}
+            		}
+            	}
             }
             aExplorer.remove(hexagoneCourant);
 
         } // fin de la boucle principal
 
-        return aPorte;
+        return actionPossible;
 
     }
 
