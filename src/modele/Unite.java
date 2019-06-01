@@ -212,7 +212,8 @@ public class Unite {
 
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
         //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
-        
+        Jeu.setDeplacementPossibleHash(deplacementPossible);
+        Jeu.jeRepaint();
 		Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
 		Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
 		
