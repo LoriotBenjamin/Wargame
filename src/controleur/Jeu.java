@@ -334,7 +334,7 @@ public class Jeu {
 	       		int refX = 30 + 45*ligne;
 	       		int refY = 25*(ligne & 1) + colonne*50;
 	       		if(Y >= refY && Y < refY+50) {
-	       			int dX = (int)(15 + 15.0 / 25.0 * (Math.abs(refY+25-Y)));
+	       			int dX = (int)(30 - 15.0 / 25.0 * (Math.abs(refY+25-Y)));
 	       			if(X >= refX-dX && X <= refX+dX) {
 			       		System.out.println("\n\nX: "+(refX+30)+" Y: "+(refY+25));
 			       		System.out.println("X: "+(refX+15)+" Y: "+refY);
