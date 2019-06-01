@@ -308,6 +308,13 @@ public class Jeu {
     
     public static void jeRepaint() {
     	controlAffichageUnite();
+    	deplacementPossible.clear();
+    	//controlSurligne(deplacementPossibleHash);
+    	plateau.repaint();
+    }
+    
+    public static void jeRepaint2() {
+    	controlAffichageUnite();
     	controlSurligne(deplacementPossibleHash);
     	plateau.repaint();
     }
