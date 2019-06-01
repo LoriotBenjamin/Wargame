@@ -248,7 +248,7 @@ public class Unite {
 	                            System.out.println("UNITE ENNEMIE");
 	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                System.out.println("TAPER");
-	                                // L'unité est à porté
+	                                // L'unité est à porté d'attaque
 	                                attaquer(u);
 	                                break tests;
 	                            }
