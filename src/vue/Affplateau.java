@@ -182,7 +182,7 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 					poly=getPolygon(deplacementPossible.get(1)*r.width+r.width/2,(int)(deplacementPossible.get(0)*cote*1.5+0.5),cote);
 				}
 				if(poly!=null) {
-					g2d.setColor(Color.PINK);
+					g2d.setColor(Color.RED);
 					g2d.draw(poly);
 				}
 			}
