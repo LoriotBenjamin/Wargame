@@ -1,4 +1,4 @@
-package vue;
+package controleur;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -11,8 +11,6 @@ import modele.Hexagone;
 import modele.IA;
 import modele.Joueur; // à retirer d'ici 
 import modele.Mage;
-import controleur.Jeu;
-import controleur.MainJFrame;
 
 public class MainOfGame {
 
