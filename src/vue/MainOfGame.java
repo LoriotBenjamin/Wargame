@@ -34,10 +34,6 @@ public class MainOfGame {
 		Jeu.getListeJoueurs().add(j1);
 		IA j2 = new IA(2, "IA2"); // juste pour tester
 		Jeu.getListeJoueurs().add(j2);
-		IA j3 = new IA(3, "IA3"); // juste pour tester
-        Jeu.getListeJoueurs().add(j3);
-        IA j4 = new IA(4, "IA4"); // juste pour tester
-        Jeu.getListeJoueurs().add(j4);
 		//Jeu.chargerPartie("save");
 		Jeu.controlAffichageUnite();
 		
