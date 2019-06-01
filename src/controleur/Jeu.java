@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -117,6 +118,9 @@ public class Jeu {
     private static Affplateau plateau= new Affplateau();
     
     private static ArrayList<ArrayList<Integer>> infoUnite =new ArrayList<ArrayList<Integer>>();
+    
+    private static HashMap<Hexagone,Integer>deplacementPossibleHash=new HashMap<Hexagone,Integer>();
+    private static ArrayList<ArrayList<Integer>> deplacementPossible=new ArrayList<ArrayList<Integer>>();
 
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types d'hexagone.
@@ -253,7 +257,24 @@ public class Jeu {
             }
         }
     }
+    
+    
+    /**
+     * Récupère la HashMap contenant les déplacement possible de l'unité sélection,
+     * et envoie deux integers x et y à la vue pour surligné les cases où le déplacement est possible.
+     */
+    public static void controlSurligne(HashMap<Hexagone,Integer>deplacementPossible2) {
+    	deplacementPossible.clear();
+    	
+    	for(Hexagone i:deplacementPossible2.keySet()) {
+    		ArrayList<Integer> deplacementP=new ArrayList<Integer>();
+    		deplacementP.add(i.getX());
+    		deplacementP.add(i.getY());
+    		deplacementPossible.add(deplacementP);
+    	}
+    }
 
+    
     //JAVADOC A FAIRE + DEPLACER DANS LA CLASSE JOUEUR (JE PENSE) + A SUPPRIMER EN FIN DE PROJET SI NON UTILISEE
     /*
      * compare la position de toutes les unites avec les coordonees rentrees si une
@@ -287,6 +308,7 @@ public class Jeu {
     
     public static void jeRepaint() {
     	controlAffichageUnite();
+    	controlSurligne(deplacementPossibleHash);
     	plateau.repaint();
     }
     
@@ -569,5 +591,23 @@ public class Jeu {
 	public static void setInfoUnite(ArrayList<ArrayList<Integer>> infoUnite) {
 		Jeu.infoUnite = infoUnite;
 	}
+
+	public static ArrayList<ArrayList<Integer>> getDeplacementPossible() {
+		return deplacementPossible;
+	}
+
+	public static void setDeplacementPossible(ArrayList<ArrayList<Integer>> deplacementPossible) {
+		Jeu.deplacementPossible = deplacementPossible;
+	}
+
+	public static HashMap<Hexagone, Integer> getDeplacementPossibleHash() {
+		return deplacementPossibleHash;
+	}
+
+	public static void setDeplacementPossibleHash(HashMap<Hexagone, Integer> deplacementPossibleHash) {
+		Jeu.deplacementPossibleHash = deplacementPossibleHash;
+	}
+
+	
 
 }
