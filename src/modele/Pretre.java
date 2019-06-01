@@ -58,10 +58,14 @@ public class Pretre extends Unite {
     public Pretre(final int equipe, final int x, final int y) {
         super(Jeu.PRETRE, ATTAQUE, DEFENSE, PV, DEPLACEMENT, VISION, PORTEE, x, y, equipe);
     }
-    
+
     @Override
-    public void soigner(Unite unite) {
-    	unite.pv += (int) unite.pvMax * SOIN;
+    /**
+     * Applique le soin du prêtre.
+     * @param unite Unité qui reçoit le soin
+     */
+    public void soigner(final Unite unite) {
+        unite.pv += (int) unite.pvMax * SOIN;
         if (unite.pv > unite.pvMax) {
             unite.pv = unite.pvMax;
         }
