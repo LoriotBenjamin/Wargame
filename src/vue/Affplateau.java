@@ -30,6 +30,8 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 	Rectangle r;
 	Graphics graph;
 	
+	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
+	
 	
 	public static Polygon getPolygon(int x,int y,int cote){
 		int haut=cote/2;
@@ -60,25 +62,25 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 				try {
 					switch(Jeu.getMap()[l][c].getType()) {
 					case 10:
-						bim=ImageIO.read(new File("plaine3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"plaine3.png"));
 						break;
 					case 11:
-						bim=ImageIO.read(new File("foret3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"foret3.png"));
 						break;
 					case 12:
-						bim=ImageIO.read(new File("village3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"village3.png"));
 						break;
 					case 13:
-						bim=ImageIO.read(new File("riviere3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"riviere3.png"));
 						break;
 					case 14:
-						bim=ImageIO.read(new File("motagne3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"motagne3.png"));
 						break;
 					case 15:
-						bim=ImageIO.read(new File("mer3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"mer3.png"));
 						break;
 					case 16:
-						bim=ImageIO.read(new File("desert3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"desert3.png"));
 					}
 					} catch(IOException e) {
 						// TODO Auto-generated catch block
@@ -97,25 +99,25 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 				try {
 					switch(Jeu.getMap()[l][c].getType()) {
 					case 10:
-						bim=ImageIO.read(new File("plaine3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"plaine3.png"));
 						break;
 					case 11:
-						bim=ImageIO.read(new File("foret3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"foret3.png"));
 						break;
 					case 12:
-						bim=ImageIO.read(new File("village3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"village3.png"));
 						break;
 					case 13:
-						bim=ImageIO.read(new File("riviere3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"riviere3.png"));
 						break;
 					case 14:
-						bim=ImageIO.read(new File("motagne3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"motagne3.png"));
 						break;
 					case 15:
-						bim=ImageIO.read(new File("mer3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"mer3.png"));
 						break;
 					case 16:
-						bim=ImageIO.read(new File("desert3.png"));
+						bim=ImageIO.read(new File("images"+separateur+"desert3.png"));
 					}
 					} catch(IOException e) {
 						// TODO Auto-generated catch block
@@ -130,19 +132,19 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 			try {
 				switch(listeUnite.get(1)) {
 					case 1:
-						bim=ImageIO.read(new File("guerrier"+listeUnite.get(0)+".png"));
+						bim=ImageIO.read(new File("images"+separateur+"guerrier"+listeUnite.get(0)+".png"));
 						break;
 					case 2:
-						bim=ImageIO.read(new File("mage"+listeUnite.get(0)+".png"));
+						bim=ImageIO.read(new File("images"+separateur+"mage"+listeUnite.get(0)+".png"));
 						break;
 					case 3:
-						bim=ImageIO.read(new File("archer"+listeUnite.get(0)+".png"));
+						bim=ImageIO.read(new File("images"+separateur+"archer"+listeUnite.get(0)+".png"));
 						break;
 					case 4:
-						bim=ImageIO.read(new File("pretre"+listeUnite.get(0)+".png"));
+						bim=ImageIO.read(new File("images"+separateur+"pretre"+listeUnite.get(0)+".png"));
 						break;
 					case 5:
-						bim=ImageIO.read(new File("chevalier"+listeUnite.get(0)+".png"));
+						bim=ImageIO.read(new File("images"+separateur+"chevalier"+listeUnite.get(0)+".png"));
 						break;
 					
 				}

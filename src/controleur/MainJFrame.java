@@ -36,7 +36,10 @@ public class MainJFrame {
 	private boolean state = false;
 	private Point mouse = new Point(-1,-1);
 	private ArrayList <JLabel> listeCaractAffichage = new ArrayList<JLabel>();
-	private PaintImage image = new PaintImage("ptInterrogation.png");
+	
+	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
+	
+	private PaintImage image = new PaintImage("images"+separateur+"ptInterrogation.png");
 
 	/**
 	 * Create the application.
@@ -74,19 +77,19 @@ public class MainJFrame {
 					
 					switch(uniteSelec.getTypeUnite()) {
 					case Jeu.ARCHER:
-						image =new PaintImage("GrandArcher.png");
+						image =new PaintImage("images"+separateur+"GrandArcher.png");
 						break;
 					case  Jeu.CHEVALIER:
-						image =new PaintImage("GrandChevalier.png");
+						image =new PaintImage("images"+separateur+"GrandChevalier.png");
 						break;
 					case  Jeu.GUERRIER:
-						image =new PaintImage("GrandGuerrier.png");
+						image =new PaintImage("images"+separateur+"GrandGuerrier.png");
 						break;
 					case  Jeu.PRETRE:
-						image =new PaintImage("GrandPretre.png");
+						image =new PaintImage("images"+separateur+"GrandPretre.png");
 						break;
 					case  Jeu.MAGE:
-						image =new PaintImage("GrandMage.png");
+						image =new PaintImage("images"+separateur+"GrandMage.png");
 						break;
 					
 					}
