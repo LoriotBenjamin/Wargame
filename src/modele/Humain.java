@@ -52,11 +52,7 @@ public class Humain extends Joueur {
 		    	for(Unite u : listeUnite) {
 	        		if(u.getX() == hexagone.x && u.getY() == hexagone.y) {
 	        			System.out.println("UNITE TROUVEE");
-	        			HashMap<Hexagone, Integer> deplacementPossible = u.calculDeplacementPossible();
-	        	        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
-	        	        Jeu.setDeplacementPossibleHash(deplacementPossible);
-	        	        Jeu.jeRepaint2();
-	        			u.selected(deplacementPossible);
+	        			u.selected();
 	        			selected = true;
 	        		}
 	        		int mindep = 10;

@@ -178,7 +178,11 @@ public class Unite {
     }
 
     // JAVADOC A FAIRE
-    public void selected(HashMap<Hexagone, Integer> deplacementPossible) {
+    public void selected() {
+    	HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
+        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
+        Jeu.setDeplacementPossibleHash(deplacementPossible);
+        Jeu.jeRepaint2();
     	System.out.println(this.toString()+" A votre service!\n");
     	Point hexagone = new Point(-2, -2);
         do {
@@ -238,7 +242,7 @@ public class Unite {
 	                                System.out.println("SOIN");
 	                                ((Pretre)(this)).soigner(u);
 	                            } else {
-	                                u.selected(deplacementPossible);
+	                                u.selected();
 	                            }
 	                        } else {
 	                            System.out.println("UNITE ENNEMIE");
