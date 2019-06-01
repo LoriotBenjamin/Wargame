@@ -126,6 +126,15 @@ public final class Jeu {
      * Liste contenant les coordonnées des hexagones où il est possible de se déplacer.
      */
     private static ArrayList<ArrayList<Integer>> deplacementPossible = new ArrayList<ArrayList<Integer>>();
+    /**
+     * Liste contentant les hexagones avec lesquels il est possible d'interagir.
+     */
+    private static HashMap<Hexagone, String> actionPossibleHash = new HashMap<Hexagone, String>();
+    /**
+     * Liste contenant les coordonnées des hexagones où il est possible de se déplacer.
+     */
+    private static ArrayList<ArrayList<Object>> actionPossible = new ArrayList<ArrayList<Object>>();
+
 
     /**
      * Constructeur jeu.
@@ -133,7 +142,6 @@ public final class Jeu {
     private Jeu() {
 
     }
-    private static ArrayList<ArrayList<Object>> actionPossible=new ArrayList<ArrayList<Object>>();
 
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types
@@ -283,20 +291,6 @@ public final class Jeu {
      * déplacement est possible.
      * @param deplacementPossible2 HashMap contenant les hexagones où il est possible de se déplacer.
      */
-    public static void controlSurligne(final HashMap<Hexagone, Integer> deplacementPossible2) {
-        deplacementPossible.clear();
-
-        for (Hexagone i : deplacementPossible2.keySet()) {
-            ArrayList<Integer> deplacementP = new ArrayList<Integer>();
-            deplacementP.add(i.getX());
-            deplacementP.add(i.getY());
-            deplacementPossible.add(deplacementP);
-        }
-    }
-
-    /**
-     * Envoie les coordonnées des unités à la vue pour les afficher.
-     */
     public static void controlSurligne(HashMap<Hexagone,Integer>deplacementPossible2, HashMap<Hexagone,String>actionPossible2) {
     	deplacementPossible.clear();
     	actionPossible.clear();
@@ -322,7 +316,7 @@ public final class Jeu {
      */
     public static void affichageDeplacementPossible() {
         controlAffichageUnite();
-        controlSurligne(deplacementPossibleHash);
+        controlSurligne(deplacementPossibleHash, actionPossibleHash);
         plateau.repaint();
     }
 
@@ -626,6 +620,14 @@ public final class Jeu {
     public static ArrayList<ArrayList<Integer>> getDeplacementPossible() {
 		return deplacementPossible;
 	}
+    
+    /**
+     * Retroune la liste des coordonnées des actions possibles.
+     * @return la liste des coordonnées des actions possibles.
+     */
+    public static ArrayList<ArrayList<Object>> getActionPossible() {
+		return actionPossible;
+	}
 
     /**
      * Met à jour la liste des hexagones où il est possible de se déplacer.
@@ -635,6 +637,10 @@ public final class Jeu {
 		Jeu.deplacementPossibleHash = deplacementPossibleHash;
 	}
 	
+	/**
+     * Met à jour la liste des hexagones avec lesquels il est possible d'interagir.
+     * @param deplacementPossibleHash la liste des hexagones avec lesquels il est possible d'interagir.
+     */
 	public static void setActionPossibleHash(HashMap<Hexagone, String> actionPossibleHash) {
 		Jeu.actionPossibleHash = actionPossibleHash;
 	}
