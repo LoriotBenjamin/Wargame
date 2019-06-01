@@ -312,7 +312,7 @@ public class Jeu {
             if (u.getX() == x && u.getY() == y)
                 return u;
         }
-        return null;
+        return null; 
     }
     
     public static void jeRepaint() {
