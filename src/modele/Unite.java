@@ -469,6 +469,7 @@ public class Unite {
         	y = unite.getY();
         }
         acted = true;
+        ptDeDeplacement = 0;
     }
 
     /**
