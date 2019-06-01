@@ -2,6 +2,7 @@ package modele;
 
 import controleur.Jeu;
 import java.awt.Point;
+import java.util.HashMap;
 
 /**
  * Humain est la classe repr�sentant un joueur humain.
@@ -51,7 +52,11 @@ public class Humain extends Joueur {
 		    	for(Unite u : listeUnite) {
 	        		if(u.getX() == hexagone.x && u.getY() == hexagone.y) {
 	        			System.out.println("UNITE TROUVEE");
-	        			u.selected();
+	        			HashMap<Hexagone, Integer> deplacementPossible = u.calculDeplacementPossible();
+	        	        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
+	        	        Jeu.setDeplacementPossibleHash(deplacementPossible);
+	        	        Jeu.jeRepaint2();
+	        			u.selected(deplacementPossible);
 	        			selected = true;
 	        		}
 	        		int mindep = 10;

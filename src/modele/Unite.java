@@ -178,7 +178,7 @@ public class Unite {
     }
 
     // JAVADOC A FAIRE
-    public void selected() {
+    public void selected(HashMap<Hexagone, Integer> deplacementPossible) {
     	System.out.println(this.toString()+" A votre service!\n");
     	Point hexagone = new Point(-1, -1);
         do {
@@ -193,7 +193,8 @@ public class Unite {
         	}
         }while(hexagone.x == -1 || hexagone.y == -1);
     	System.out.println("CASE CLIQUEE LIGNE: "+hexagone.x+" COLONNE: "+hexagone.y);
-        secondClic(hexagone.x, hexagone.y);
+    	
+        secondClic(hexagone.x, hexagone.y,deplacementPossible);
     }
 
     /**
@@ -207,13 +208,10 @@ public class Unite {
      * @param _x
      * @param _y
      */
-    public void secondClic(int _x, int _y) { // avertir la vue si la position de l'unite change
+    public void secondClic(int _x, int _y,HashMap<Hexagone,Integer>deplacementPossible) { // avertir la vue si la position de l'unite change
         System.out.println("Test : X: " + _x + " Y: " + _y);
 
-        HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
-        Jeu.setDeplacementPossibleHash(deplacementPossible);
-        Jeu.jeRepaint();
+        
 		Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
 		Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
 		
@@ -240,7 +238,7 @@ public class Unite {
                                 System.out.println("SOIN");
                                 ((Pretre)(this)).soigner(u);
                             } else {
-                                u.selected();
+                                u.selected(deplacementPossible);
                             }
                         } else {
                             System.out.println("UNITE ENNEMIE");
