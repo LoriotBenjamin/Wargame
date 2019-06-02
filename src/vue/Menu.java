@@ -20,7 +20,11 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
-
+/**
+ * Menu est un classe surlequel on choisi les paramètre de jeu (JvJ, JvIA, Règles, Charger une partie).
+ * @author Stefano
+ *
+ */
 import modele.Humain;
 import modele.IA;
 
