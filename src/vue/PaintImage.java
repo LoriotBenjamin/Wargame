@@ -5,11 +5,19 @@ import java.io.*;
 import java.awt.*; 
 import java.awt.image.*; 
 import javax.imageio.*; 
-
+/**
+ * PaintImage qui peint une image de l'unité selectionnée.
+ * @author Stefano
+ *
+ */
 public class PaintImage extends JPanel {
-	
+	/**
+	 * Image que l'on veut peindre.
+	 */
   public static BufferedImage image; 
-  
+  /**
+	 * Image que l'on veut peindre.
+	 */
   public PaintImage (String path) { 
     super(); 
     try{
@@ -21,7 +29,9 @@ public class PaintImage extends JPanel {
       //Not handled. 
     } 
   } 
-
+  /**
+	 * Lit l'image du fichier.
+	 */
   public void setImage(String path){
 	  try {
 		image = ImageIO.read(new File(path));
@@ -30,6 +40,9 @@ public class PaintImage extends JPanel {
 		e.printStackTrace();
 	}
   }
+  /**
+	 * Fonction appellé automatiquement à la création de l'objet.
+	 */
   public void paintComponent(Graphics g) 
   { 
 	  Color coul = new Color(255,255,255);
