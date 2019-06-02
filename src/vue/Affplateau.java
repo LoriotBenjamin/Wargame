@@ -31,27 +31,27 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 	/**
      * Polygone de la forme d'une hexagone.
      */
-	Polygon pol;
+	private Polygon pol;
 	/**
      * Graphics2D dans lequel on dessine les différents éléments.
      */
-	Graphics2D g2d;
+	private Graphics2D g2d;
 	/**
      * Buffered Image qui aura l'image charger depuis un fichier png.
      */
-	BufferedImage bim;
+	private BufferedImage bim;
 	/**
      * Rectangle le plus petit dans un hexagone.
      */
-	Rectangle r;
+	private Rectangle r;
 	/**
      * Graphic pris en paramètre de le fonction paint.
      */
-	Graphics graph;
+	private Graphics graph;
 	/**
      * String pour représenter le séparteur de fichier que ce sois sur linux ou windows.
      */
-	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
+	private String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 	
 	
 	public static Polygon getPolygon(int x,int y,int cote){

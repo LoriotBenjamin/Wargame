@@ -189,7 +189,7 @@ public class Unite {
     	Point hexagone = new Point(-2, -2);
         do {
         	System.out.print("");//ABSOLUMENT NECESSAIRE!!
-        	if(Jeu.getSkipFlag()) {
+        	if(Jeu.getSkipFlag()||!Jeu.hasStarted()) {
         		Jeu.setSkipFlag(false);
             	return true;
         	}
@@ -244,9 +244,7 @@ public class Unite {
 	                            if (typeUnite == Jeu.PRETRE && acted == false &&
 	                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                System.out.println("SOIN");
-	                                int pdvAvSoin= u.getPv();
 	                                ((Pretre)(this)).soigner(u);
-	                                Jeu.setLastAttaque("Le prêtre à soigné de: "+(pdvAvSoin-u.getPv()));
 	                            } else {
 	                            	System.out.println("Changement d'unité");
 	                                return u.selected();
@@ -256,9 +254,7 @@ public class Unite {
 	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte && acted == false) {
 	                                System.out.println("TAPER");
 	                                // L'unité est à porté d'attaque
-	                                int pdvAvAtt= u.getPv();
 	                                attaquer(u);
-	                                Jeu.setLastAttaque("L'unité du joueur: "+j.getPseudo()+" à subi: "+(pdvAvAtt-u.getPv())+" \n de dégat(s)");
 	                                break tests;
 	                            }
 	                        }
@@ -446,7 +442,8 @@ public class Unite {
     public ArrayList<Hexagone> vision() { // donne tout les hexagones visibles par l'unité
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         ArrayList<Hexagone> nofog = new ArrayList<Hexagone>();
-        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ distance à l'unité
+        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
+                                                                                     // deplacement restant
 
         Hexagone hexagoneCourant = h;
         aExplorer.put(hexagoneCourant, 0);
@@ -455,11 +452,8 @@ public class Unite {
 
             hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupére le premier element de la liste
             for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (aExplorer.containsKey(v)) {
-                	if(aExplorer.get(hexagoneCourant) + 1 <= aExplorer.get(v))
-                		aExplorer.replace(v, aExplorer.get(hexagoneCourant) + 1);
-                }else if(aExplorer.get(hexagoneCourant) + 1 <= vision){
-                	aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
+                if (!aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= vision) {
+                    aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
                 }
 
             } // fin du parcours des voisins
@@ -481,7 +475,7 @@ public class Unite {
      */
     public void attaquer(final Unite unite) {
         // si attaque possible
-        if(unite.calculDegats(attaque) && porte == 1) {
+        if(unite.calculDegats(attaque) && porte > 1) {
         	x = unite.getX();
         	y = unite.getY();
         }
@@ -498,19 +492,17 @@ public class Unite {
         final double borneSup = 1.5;
         double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
-        if(degats > 0) {
-            pv -= (int) degats;
-            if (pv <= 0) {
-                for (Joueur joueur : Jeu.getListeJoueurs()) {
-                    if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
-                    	System.out.println("JE SUIS MORTE!");
-                        return true;
-                    }
+        pv -= (int) degats;
+        if (pv <= 0) {
+            for (Joueur joueur : Jeu.getListeJoueurs()) {
+                if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
+                	System.out.println("JE SUIS MORTE!");
+                    return true;
                 }
             }
-            
         }
         return false;
+
     }
 
     /**

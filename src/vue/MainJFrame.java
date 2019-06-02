@@ -150,7 +150,6 @@ public class MainJFrame {
 		mntmRetourMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Jeu.kill();
-				Menu menu = new Menu(); 
 			}
 		});
 		mnFichier.add(mntmRetourMenu);

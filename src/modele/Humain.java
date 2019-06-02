@@ -38,7 +38,7 @@ public class Humain extends Joueur {
                 System.out.println("\nJ'attends");
                 do {
                     System.out.print(""); // ABSOLUMENT NECESSAIRE!!
-                    if (Jeu.getSkipFlag()) {
+                    if (Jeu.getSkipFlag()||!Jeu.hasStarted()) {
                         Jeu.setSkipFlag(false);
                         break totality;
                     }

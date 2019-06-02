@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import controleur.Jeu;
+import vue.Affplateau;
+
 /**
  * Joueur est la classe représentant un joueur du jeu. Un joueur est caractérisé par :
  * <ul>
@@ -109,6 +112,14 @@ public class Joueur {
      */
     public String getPseudo() {
         return pseudo;
+    }
+    
+    /**
+     * Met à jour la liste des unités du joueur.
+     * @param listeUnite La nouvelle liste des unités du joueur.
+     */
+    public void setListeUnite(final ArrayList<Unite> listeUnite) {
+        this.listeUnite = listeUnite;
     }
 
     /**

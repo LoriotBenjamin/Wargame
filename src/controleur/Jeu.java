@@ -157,9 +157,6 @@ public final class Jeu {
 
     }
     
-    /**
-     * Initialise les voisins de chaque hexagone.
-     */
     public static void start(int nbJoueur, int nbIA) { //nouvelle partie
         for(int i=1;i<=nbJoueur;i++) {
             Humain joueur = new Humain(i,"J"+i);
@@ -171,23 +168,34 @@ public final class Jeu {
         }
     	frame = new MainJFrame();
     	plateau = new Affplateau();
-    	started = true;
+		Jeu.initMap(); // pour test
         frame.getFrame().setVisible(true);
+		Jeu.affichageUnite();
+    	started = true;
     }
     
     public static void start() { //reprise partie
         frame = new MainJFrame();
         plateau = new Affplateau();
-        started = true;
         frame.getFrame().setVisible(true);
+        Jeu.initVoisins();
+		Jeu.affichageUnite();
+        started = true;
     }
-    /**
-     * Initialise les voisins de chaque hexagone.
-     */
+
     public static void kill() {
-        frame.getFrame().setVisible(false);
         started = false;
-        listeJoueurs.clear();
+        frame.getFrame().dispose();
+        for(Joueur j : Jeu.listeJoueurs) {
+        	j.getListeUnite().clear();
+        }
+        Jeu.listeJoueurs.clear();
+        infoUnite.clear();
+        deplacementPossibleHash.clear();
+        deplacementPossible.clear();
+        actionPossibleHash.clear();
+        actionPossible.clear();
+        brouillard.clear();
     	frame = null;
     	plateau = null;
     }
@@ -499,107 +507,120 @@ public final class Jeu {
      * @param fichier Nom du fichier à charger.
      */
     public static void chargerPartie(final String fichier) {
-        final File saveFile = new File("./" + fichier);
-        try {
-            final FileReader save = new FileReader(saveFile);
-            try {
-                int ligne, colonne;
-                for (ligne = 0; ligne < MAPLIGNE; ligne++) {
-                    for (colonne = 0; colonne < MAPCOLONNE; colonne++) {
-                        switch (save.read()) {
-                        case PLAINE:
-                            map[ligne][colonne] = new Plaine(ligne, colonne);
-                            break;
-                        case FORET:
-                            map[ligne][colonne] = new Foret(ligne, colonne);
-                            break;
-                        case VILLAGE:
-                            map[ligne][colonne] = new Village(ligne, colonne);
-                            break;
-                        case RIVIERE:
-                            map[ligne][colonne] = new Riviere(ligne, colonne);
-                            break;
-                        case MONTAGNE:
-                            map[ligne][colonne] = new Montagne(ligne, colonne);
-                            break;
-                        case MER:
-                            map[ligne][colonne] = new Mer(ligne, colonne);
-                            break;
-                        case DESERT:
-                            map[ligne][colonne] = new Desert(ligne, colonne);
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
-                int playerCount = save.read();
-                for (int p = 1; p <= playerCount; p++) {
-                    int namelength = save.read();
-                    String nom = "";
-                    for (int c = 0; c < namelength; c++) {
-                        char carac = (char) save.read();
-                        nom = nom + String.valueOf(carac);
-                    }
-                    Joueur joueur;
-                    if (nom.matches("(.*)IA(.*)")) {
-                        System.out.println("IA");
-                        joueur = new IA(p, nom);
-                    } else {
-                        System.out.println("Humain");
-                        joueur = new Humain(p, nom);
-                    }
-                    listeJoueurs.add(joueur);
-                    int uniteCount = save.read();
-                    System.out.println("Count: " + uniteCount);
-                    for (int u = 0; u < uniteCount; u++) {
-                        int typeUnite = save.read();
-                        System.out.println("Type: " + typeUnite);
-                        switch (typeUnite) {
-                        case GUERRIER:
-                            joueur.getListeUnite()
-                                    .add(new Unite(GUERRIER, save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), p));
-                            break;
-                        case PRETRE:
-                            joueur.getListeUnite()
-                                    .add(new Unite(PRETRE, save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), p));
-                            break;
-                        case MAGE:
-                            joueur.getListeUnite()
-                                    .add(new Unite(MAGE, save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), p));
-                            break;
-                        case ARCHER:
-                            joueur.getListeUnite()
-                                    .add(new Unite(ARCHER, save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), p));
-                            break;
-                        case CHEVALIER:
-                            joueur.getListeUnite()
-                                    .add(new Unite(CHEVALIER, save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-                                            save.read(), p));
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
-            } finally {
-                save.close();
-            }
-        } catch (IOException e) {
-            System.out.println("Impossible de creer le fichier");
+    	listeJoueurs.clear();
+    	for(Joueur j : Jeu.listeJoueurs) {
+            System.out.println("Joueur: "+j.getNumeroJoueur());
+        	for(Unite u  : j.getListeUnite()) {
+                System.out.println("Unite: "+u.toString());
+        	}
         }
-        Jeu.start();
-        Jeu.setStarted(true);
+        System.out.println("\n\n\nDEBUT DE CHARGEMENT\n\n");
+        final File saveFile = new File("./" + fichier);
+        if(saveFile.exists()) {
+	        try {
+	            final FileReader save = new FileReader(saveFile);
+	            try {
+	                int ligne, colonne;
+	                for (ligne = 0; ligne < MAPLIGNE; ligne++) {
+	                    for (colonne = 0; colonne < MAPCOLONNE; colonne++) {
+	                        switch (save.read()) {
+	                        case PLAINE:
+	                            map[ligne][colonne] = new Plaine(ligne, colonne);
+	                            break;
+	                        case FORET:
+	                            map[ligne][colonne] = new Foret(ligne, colonne);
+	                            break;
+	                        case VILLAGE:
+	                            map[ligne][colonne] = new Village(ligne, colonne);
+	                            break;
+	                        case RIVIERE:
+	                            map[ligne][colonne] = new Riviere(ligne, colonne);
+	                            break;
+	                        case MONTAGNE:
+	                            map[ligne][colonne] = new Montagne(ligne, colonne);
+	                            break;
+	                        case MER:
+	                            map[ligne][colonne] = new Mer(ligne, colonne);
+	                            break;
+	                        case DESERT:
+	                            map[ligne][colonne] = new Desert(ligne, colonne);
+	                            break;
+	                        default:
+	                            break;
+	                        }
+	                    }
+	                }
+	                int playerCount = save.read();
+	                for (int p = 1; p <= playerCount; p++) {
+	                	System.out.println("Joueur: "+p);
+	                    int namelength = save.read();
+	                    String nom = "";
+	                    for (int c = 0; c < namelength; c++) {
+	                        char carac = (char) save.read();
+	                        nom = nom + String.valueOf(carac);
+	                    }
+	                    Joueur joueur;
+	                    if (nom.matches("(.*)IA(.*)")) {
+	                        System.out.println("IA");
+	                        joueur = new IA(p, nom);
+	                    } else {
+	                        System.out.println("Humain");
+	                        joueur = new Humain(p, nom);
+	                    }
+	                    joueur.setListeUnite(new ArrayList<Unite>());
+	                    listeJoueurs.add(joueur);
+	                    int uniteCount = save.read();
+	                    System.out.println("Count: " + uniteCount);
+	                    for (int u = 0; u < uniteCount; u++) {
+	                        int typeUnite = save.read();
+	                        System.out.println("Type: " + typeUnite);
+	                        switch (typeUnite) {
+	                        case GUERRIER:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(GUERRIER, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
+	                        case PRETRE:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(PRETRE, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
+	                        case MAGE:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(MAGE, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
+	                        case ARCHER:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(ARCHER, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
+	                        case CHEVALIER:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(CHEVALIER, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
+	                        default:
+	                            break;
+	                        }
+	                        System.out.println(joueur.getListeUnite().get(joueur.getListeUnite().size()-1));
+	                    }
+	                }
+	            } finally {
+	                save.close();
+	            }
+	        } catch (IOException e) {
+	            System.out.println("Impossible de creer le fichier");
+	        }
+	        Jeu.start();
+        }
     }
+    
 	public static ArrayList<String> getCaractUniteEnMouvement(Point hexa){
 		  
 		  	ArrayList<String> listeCaractAffichage= new ArrayList<String>();
