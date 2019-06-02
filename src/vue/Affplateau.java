@@ -20,16 +20,37 @@ import javax.swing.JPanel;
 
 import controleur.Jeu;
 
-
+/**
+ * Affplateau est la classe fil de JPanel, il affiche le plateau de jeu et son contenu.
+ * @author Stefano
+ *
+ */
 public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une grile hexagonale.
 	final static int cote=30; // Ceci dï¿½finit la taille du cï¿½tï¿½ d'un polygone
 	//int numero=0; // Retien le nï¿½ du polygone sur lequel est la souris
+	/**
+     * Polygone de la forme d'une hexagone.
+     */
 	Polygon pol;
+	/**
+     * Graphics2D dans lequel on dessine les différents éléments.
+     */
 	Graphics2D g2d;
+	/**
+     * Buffered Image qui aura l'image charger depuis un fichier png.
+     */
 	BufferedImage bim;
+	/**
+     * Rectangle le plus petit dans un hexagone.
+     */
 	Rectangle r;
+	/**
+     * Graphic pris en paramètre de le fonction paint.
+     */
 	Graphics graph;
-	
+	/**
+     * String pour représenter le séparteur de fichier que ce sois sur linux ou windows.
+     */
 	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 	
 	
@@ -44,8 +65,11 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 		p.addPoint(x+larg,y+2*cote);
 		p.addPoint(x,y+(int)(1.5*cote));
 		return p;
-	}		
+	}	
 	
+	/**
+     * paint dessine dans le JPanel les éléments du jeu (plateau, unitées, deplacement possible, brouillard.
+     */
 	 public void paint(Graphics graph) {
 		Polygon hexagone=getPolygon(0, 0, cote); // Crï¿½e un hexagone
 		r=hexagone.getBounds(); // Rï¿½cupï¿½re le plus petit rectangle // aux bord de la fenï¿½tre dans lequel l'hexagone peut s'inscrire
