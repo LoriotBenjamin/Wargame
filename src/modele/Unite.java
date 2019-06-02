@@ -194,7 +194,7 @@ public class Unite {
             	return true;
         	}
         	if(Jeu.getClicFlag()) {
-            	hexagone = Jeu.getHexagonClicked();
+            	hexagone = Jeu.getCoordHexaClicked();
             	Jeu.setClicFlag(false);
         	}
         }while(hexagone.x == -2 || hexagone.y == -2);

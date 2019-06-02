@@ -412,7 +412,7 @@ public final class Jeu {
      * Renvoie les coordonnées de l'hexagone cliqué.
      * @return les coordonnées de l'hexagone cliqué
      */
-    public static Point getHexagonClicked() {
+    public static Point getCoordHexaClicked() {
         System.out.println("HOY");
         Point mouse = new Point(-1, -1);
         int hX = -1;

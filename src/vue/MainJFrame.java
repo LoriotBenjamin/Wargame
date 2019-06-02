@@ -86,7 +86,7 @@ public class MainJFrame {
 				mouse = e.getPoint();
 				Jeu.setClicFlag(true);
 				System.out.println();
-				ArrayList <String> caracteristiquesUnite = Jeu.getCaractUniteEnMouvement(Jeu.getHexagonClicked());
+				ArrayList <String> caracteristiquesUnite = Jeu.getCaractUniteEnMouvement(Jeu.getCoordHexaClicked());
 				if(!caracteristiquesUnite.isEmpty()){
 					listeCaractAffichage.get(0).setText(caracteristiquesUnite.get(0));
 					listeCaractAffichage.get(1).setText(caracteristiquesUnite.get(1));

@@ -43,7 +43,7 @@ public class Humain extends Joueur {
                         break totality;
                     }
                     if (Jeu.getClicFlag()) {
-                        hexagone = Jeu.getHexagonClicked();
+                        hexagone = Jeu.getCoordHexaClicked();
                         System.out.println("CLIC");
                         Jeu.setClicFlag(false);
                     }
