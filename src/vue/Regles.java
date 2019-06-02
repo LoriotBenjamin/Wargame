@@ -75,73 +75,69 @@ public class Regles {
 		
 		label.setText("<html><body><font size=\"+1\">Wargame est une succession de tours de jeu. Chaque tour permet successivement aux </font><p><b> " +
 	            "<font size=\"+1\">adversaires d'effectuer diverses actions. Un joueur peut jouer tant qu'une de ses unités   </font>" +
-	            "</b><p>possèdent  des points de déplacement. Quand un adversaire a terminé ses déplacements,  il "+  "</b><p> passe la main au joueur suivant. Eventuellement, "
-	            		+ "il peut rester des points de déplacement  "+"</b><p>à certaines de ces unités. "+"</b><p>Dans un scénario, "
-	            	+ "chaque adversaire peut avoir des conditions de victoire différentes." + 
-	            		  "</b><p>Deux conditions de victoire sont possibles :Destruction complète de l'armée adverse : cela  "+ "</b><p>représente la réussite de l'attaque d'un objectif"
-	            		  		+ ", ou Atteindre un numéro de tour sans avoir été "+  
-	                  		  "</b><p>détruit, et après un nombre donné de tours,si un joueur possède encore au moins une unité : cela "+
-	                  		"</b><p>correspond à la réussite de la défense d'un objectif"+
-	                     " "+  "</body></html>" );
+	            "</b><p>possède des points de déplacement. Quand un adversaire a terminé ses déplacements,  il "+  "</b><p> passe la main au joueur suivant. Eventuellement, "
+	            		+ "il peut rester des points de déplacement  "+"</b><p>à certaines de ces unités. "+
+	            		  "</b><p>La partie se termine lors de la destruction complète de l'armée adverse"  
+	                     +  "</body></html>" );
 		label.setFont(new Font("Serif",Font.BOLD,17));
 		label.setForeground(Color.white);
-		labelP1.setText("<html><body><font size=\"+1\">Le Guerrier dispose d'un potentiel d'attaque égale à 18 points </font><p><b> " +
-	            "<font size=\"+1\">Un potentiel de défense égale à 10 points   </font>" +
-	            "</b><p>Des points de vie égaux à 46, une vitesse de déplacement égale à 3 "
-	            		 +"</b><p>vision est égale à 2 et portée est égale à 1 points"+
+		labelP1.setText("<html><body><font size=\"+1\">Le Guerrier dispose d'un potentiel d'attaque égal à 18 points </font><p><b> " +
+	            "<font size=\"+1\">Un potentiel de défense égal à 10 points   </font>" +
+	            "</b><p>Des points de vie égaux à 46, une vitesse de déplacement égale à 3, "
+	            		 +"</b><p>la vision est égale à 2 et la portée est égale à 1 point"+
 	                     " "+  "</body></html>" );
 		
 		
 		 labelP1.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP1.setForeground(Color.white);
 		 
-		 labelP2.setText("<html><body><font size=\"+1\">Le Mage dispose d'un potentiel d'attaque égale à 16 points </font><p><b> " +
-		            "<font size=\"+1\">Un potentiel de défense égale à 4 points   </font>" +
-		            "</b><p>Des points de vie égaux à 34, une vitesse de déplacement égale à 3 "
-		            		 +"</b><p>vision est égale à 3 et portée est égale à 2 points"+
+		 labelP2.setText("<html><body><font size=\"+1\">Le Mage dispose d'un potentiel d'attaque égal à 16 points </font><p><b> " +
+		            "<font size=\"+1\">Un potentiel de défense égal à 4 points   </font>" +
+		            "</b><p>Des points de vie égaux à 34, une vitesse de déplacement égale à 3, "
+		            		 +"</b><p>la vision est égale à 3 et la portée est égale à 2 points"+
 		                     " "+  "</body></html>" );
 			
 			
 		 labelP2.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP2.setForeground(Color.white);
 		 
-		 labelP3.setText("<html><body><font size=\"+1\">Le Archer dispose d'un potentiel d'attaque égale à 14 points </font><p><b> " +
-		            "<font size=\"+1\">Un potentiel de défense égale à 6 points   </font>" +
-		            "</b><p>Des points de vie égaux à 38, une vitesse de déplacement égale à 4 "
-		            		 +"</b><p>Une vision égale à 4 et portée est égale à 3 points"+
+		 labelP3.setText("<html><body><font size=\"+1\">L'Archer dispose d'un potentiel d'attaque égal à 14 points </font><p><b> " +
+		            "<font size=\"+1\">Un potentiel de défense égal à 6 points   </font>" +
+		            "</b><p>Des points de vie égaux à 38, une vitesse de déplacement égale à 4. "
+		            		 +"</b><p>Une vision égale à 4 et la portée est égale à 3 points"+
 		                     " "+  "</body></html>" );
 			
 			
 		 labelP3.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP3.setForeground(Color.white);
 		 
-		 labelP4.setText("<html><body><font size=\"+1\">Le Prêtre dispose d'un potentiel d'attaque égale à 6 points </font><p><b> " +
-		            "<font size=\"+1\">Un potentiel de défense égale à 4 points   </font>" +
-		            "</b><p>Des points de vie égaux à 40, une vitesse de déplacement est égale à 4 "
-		            		 +"</b><p>Une vision égale à 2 et portée est égale à 1 points"+
+		 labelP4.setText("<html><body><font size=\"+1\">Le Prêtre dispose d'un potentiel d'attaque égal à 6 points </font><p><b> " +
+		            "<font size=\"+1\">Un potentiel de défense égal à 4 points   </font>" +
+		            "</b><p>Des points de vie égaux à 40, une vitesse de déplacement égale à 4. "
+		            		 +"</b><p>Une vision égale à 2 et la portée est égale à 1 point"+
 		                     " "+  "</body></html>" );
 			
 			
 		 labelP4.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP4.setForeground(Color.white);
 		 
-		 labelP5.setText("<html><body><font size=\"+1\">Le Chevalier dispose d'un potentiel d'attaque égale à 20 points </font><p><b> " +
-		            "<font size=\"+1\">Un potentiel de défense égale à 8 points   </font>" +
-		            "</b><p>Des points de vie est égale à 50, une vitesse de déplacement est égale à 6 "
-		            		 +"</b><p>Une vision égale à 2 et portée est égale à 1 points"+
+		 labelP5.setText("<html><body><font size=\"+1\">Le Chevalier dispose d'un potentiel d'attaque égal à 20 points </font><p><b> " +
+		            "<font size=\"+1\">Un potentiel de défense égal à 8 points   </font>" +
+		            "</b><p>Des points de vie égaux à 50, une vitesse de déplacement égale à 6."
+		            		 +"</b><p>Une vision égale à 2 et la portée est égale à 1 point"+
 		                     " "+  "</body></html>" );
 			
 			
 		 labelP5.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP5.setForeground(Color.white);
 		 
-		 labelTerrain.setText("<html><body><font size=\"+1\">La forêt utilise 2 points de déplacement et octroit 50% de défense.</font><p><b>"+
-				 "<font size=\"+1\">La montagne utilise 3 points de déplacement et octroit 70% de défense.</font></b><p>"+
-				 "<font size=\"+1\">La plaine utilise 1 point de déplacement et octroit 10% de défense.</font></b><p>"+
-				 "<font size=\"+1\">La désert utilise 2 point de déplacement et octroit 10% de défense.</font></b><p>"+
-				 "<font size=\"+1\">La rivière utilise 2 point de déplacement et octroit 10% de défense.</font></b><p>"+
-				 "<font size=\"+1\">La mer utilise 0 point de déplacement et octroit 0% de défense.</font></b><p>"+
-				 "<font size=\"+1\">La Ville/village utilise 1 point de déplacement et octroit 30% de défense.</font>"+" "+  "</body></html>");
+		 labelTerrain.setText("<html><body><font size=\"+1\">La Forêt utilise 2 points de déplacement et octroit 50% de défense.</font><p><b>"+
+				 "<font size=\"+1\">La Montagne utilise 3 points de déplacement et octroit 70% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La Plaine utilise 1 point de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La Désert utilise 2 points de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La Rivière utilise 2 points de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La Mer est une zone où il est impossible de se déplacer.</font></b><p>"+
+				 "<font size=\"+1\">Le Village utilise 1 point de déplacement et octroit 30% de défense.</font>"+" "+  "</body></html>");
 		 labelTerrain.setFont(new Font("Serif",Font.BOLD,17));
 		 labelTerrain.setForeground(Color.white);
 	
