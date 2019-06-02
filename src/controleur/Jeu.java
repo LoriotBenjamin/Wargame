@@ -145,7 +145,11 @@ public final class Jeu {
      * Liste contenant les coordonnées des hexagones embrumés.
      */
     private static ArrayList<ArrayList<Integer>> brouillard = new ArrayList<ArrayList<Integer>>();
-
+    
+    /**
+     * derniere attaque
+     */
+    private String lastAttaque = new String(); 
     /**
      * Constructeur jeu.
      */
