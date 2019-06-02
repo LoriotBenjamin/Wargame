@@ -168,16 +168,16 @@ public class Regles {
 		sl_panel.putConstraint(SpringLayout.WEST, labelP1, 100, SpringLayout.WEST, label);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP1, 360, SpringLayout.NORTH, label);
 		
-		sl_panel.putConstraint(SpringLayout.WEST, labelP2, 4, SpringLayout.WEST, labelP1);
+		sl_panel.putConstraint(SpringLayout.WEST, labelP2, 0, SpringLayout.WEST, labelP1);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP2, 200, SpringLayout.NORTH, labelP1);
 		
 		sl_panel.putConstraint(SpringLayout.WEST, labelP3, 4, SpringLayout.WEST, labelP2);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP3, 200, SpringLayout.NORTH, labelP2);
 		
-		sl_panel.putConstraint(SpringLayout.WEST, labelP4, 4, SpringLayout.WEST, labelP3);
+		sl_panel.putConstraint(SpringLayout.WEST, labelP4, 0, SpringLayout.WEST, labelP3);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP4, 200, SpringLayout.NORTH, labelP3);
 		
-		sl_panel.putConstraint(SpringLayout.WEST, labelP5, 4, SpringLayout.WEST, labelP4);
+		sl_panel.putConstraint(SpringLayout.WEST, labelP5, 0, SpringLayout.WEST, labelP4);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP5, 200, SpringLayout.NORTH, labelP4);
 	
 		sl_panel.putConstraint(SpringLayout.WEST, exit, 0, SpringLayout.WEST, labelP5);
