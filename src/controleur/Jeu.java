@@ -148,6 +148,34 @@ public final class Jeu {
 
     }
 
+    public static void init(int nbJoueur,int nbIA) {
+        for(int i=1;i<=nbJoueur;i++) {
+            Humain joueur = new Humain(i,"J"+i);
+            listeJoueurs.add(joueur);
+        }
+        for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
+            IA ia = new IA(i,"IA"+i);
+            listeJoueurs.add(ia);
+        }
+        initMap();
+        initVoisins();
+        controlAffichageUnite();
+        
+       do {
+            ArrayList<Joueur> perdant = new ArrayList<Joueur>();
+            for (Joueur joueur : listeJoueurs) { //tour des joueurs chacun leur tour
+                joueur.jouerTour();
+                if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
+                    perdant.add(joueur);
+                }
+            }
+            if(!perdant.isEmpty()) {//on enlève les perdants de la liste
+                listeJoueurs.removeAll(perdant);
+            }
+        }while(listeJoueurs.size() > 1);
+        
+        System.out.println("Un joueur a gagné");
+    }
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types
      * d'hexagone.
@@ -244,7 +272,6 @@ public final class Jeu {
                 }
             }
         }
-        initVoisins();
     }
 
     /**
