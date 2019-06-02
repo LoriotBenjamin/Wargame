@@ -70,6 +70,7 @@ public class Regles {
 		JLabel labelP3=new JLabel();
 		JLabel labelP4=new JLabel();
 		JLabel labelP5=new JLabel();
+		JLabel labelTerrain=new JLabel();
 	
 		
 		label.setText("<html><body><font size=\"+1\">Wargame est une succession de tours de jeu. Chaque tour permet successivement aux </font><p><b> " +
@@ -134,7 +135,15 @@ public class Regles {
 		 labelP5.setFont(new Font("Serif",Font.BOLD,17));
 		 labelP5.setForeground(Color.white);
 		 
-		 
+		 labelTerrain.setText("<html><body><font size=\"+1\">La forêt utilise 2 points de déplacement et octroit 50% de défense.</font><p><b>"+
+				 "<font size=\"+1\">La montagne utilise 3 points de déplacement et octroit 70% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La plaine utilise 1 point de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La désert utilise 2 point de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La rivière utilise 2 point de déplacement et octroit 10% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La mer utilise 0 point de déplacement et octroit 0% de défense.</font></b><p>"+
+				 "<font size=\"+1\">La Ville/village utilise 1 point de déplacement et octroit 30% de défense.</font>"+" "+  "</body></html>");
+		 labelTerrain.setFont(new Font("Serif",Font.BOLD,17));
+		 labelTerrain.setForeground(Color.white);
 	
 	
 		Image imagefond = null;
@@ -157,7 +166,7 @@ public class Regles {
 		CustomPanel panel = new CustomPanel(imagefond);
 		
 		SpringLayout sl_panel = new SpringLayout();
-		panel.setPreferredSize(new Dimension(1250,1000));
+		panel.setPreferredSize(new Dimension(1250,1300));
 		panel.setLayout(sl_panel);
 		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -171,7 +180,7 @@ public class Regles {
 		sl_panel.putConstraint(SpringLayout.WEST, labelP2, 0, SpringLayout.WEST, labelP1);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP2, 200, SpringLayout.NORTH, labelP1);
 		
-		sl_panel.putConstraint(SpringLayout.WEST, labelP3, 4, SpringLayout.WEST, labelP2);
+		sl_panel.putConstraint(SpringLayout.WEST, labelP3, 0, SpringLayout.WEST, labelP2);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP3, 200, SpringLayout.NORTH, labelP2);
 		
 		sl_panel.putConstraint(SpringLayout.WEST, labelP4, 0, SpringLayout.WEST, labelP3);
@@ -179,9 +188,12 @@ public class Regles {
 		
 		sl_panel.putConstraint(SpringLayout.WEST, labelP5, 0, SpringLayout.WEST, labelP4);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP5, 200, SpringLayout.NORTH, labelP4);
+		
+		sl_panel.putConstraint(SpringLayout.WEST, labelTerrain, 0, SpringLayout.WEST, labelP5);
+		sl_panel.putConstraint(SpringLayout.SOUTH, labelTerrain, 300, SpringLayout.NORTH, labelP5);
 	
-		sl_panel.putConstraint(SpringLayout.WEST, exit, 100, SpringLayout.WEST, labelP5);
-		sl_panel.putConstraint(SpringLayout.SOUTH, exit, 150, SpringLayout.NORTH, labelP5);
+		sl_panel.putConstraint(SpringLayout.WEST, exit, 100, SpringLayout.WEST, labelTerrain);
+		sl_panel.putConstraint(SpringLayout.SOUTH, exit, 250, SpringLayout.NORTH, labelTerrain);
 	   
 		panel.add(label);
 		panel.add(labelP1);
@@ -189,6 +201,7 @@ public class Regles {
 		panel.add(labelP3);
 		panel.add(labelP4);
 		panel.add(labelP5);
+		panel.add(labelTerrain);
 		panel.add(exit);
 	
 	   JScrollPane sp = new JScrollPane();
