@@ -31,7 +31,7 @@ import modele.IA;
 public class Menu {
 		
 	private JFrame frame;
-	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
+	private String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 
 	/**
 	 * Create the application.
