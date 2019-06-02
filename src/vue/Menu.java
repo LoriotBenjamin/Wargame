@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
-import controleur.MainJFrame;
 
 public class Menu {
 		

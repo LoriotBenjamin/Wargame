@@ -21,6 +21,7 @@ import modele.Riviere;
 import modele.Unite;
 import modele.Village;
 import vue.Affplateau;
+import vue.MainJFrame;
 import modele.IA;
 import modele.Humain;
 
@@ -572,7 +573,30 @@ public final class Jeu {
         }
         initVoisins();
     }
-
+	public static ArrayList<String> getCaractUniteEnMouvement(Point hexa){
+		  
+		  	ArrayList<String> listeCaractAffichage= new ArrayList<String>();
+		  	listeCaractAffichage.clear();
+	    	int px=(int)hexa.getX();
+			int py=(int)hexa.getY();
+			
+	    	for(Joueur j: Jeu.getListeJoueurs() ){
+	    		for(Unite u : j.getListeUnite()){
+	    			if(px == u.getX() && py == u.getY()){
+	    				listeCaractAffichage.add(String.valueOf(u.getPv()));
+						listeCaractAffichage.add(String.valueOf(u.getPvMax()));
+						listeCaractAffichage.add(String.valueOf(u.getDefense()));
+						listeCaractAffichage.add(String.valueOf(u.getAttaque()));
+						listeCaractAffichage.add(String.valueOf(u.getVision()));
+						listeCaractAffichage.add(String.valueOf(u.getPtDeDeplacement()));
+						listeCaractAffichage.add(String.valueOf(u.getTypeUnite()));
+						break; 
+	    		}
+	    	}	    			
+	    }
+	    	return listeCaractAffichage;
+	    
+	}
     //////////// GETTERS AND SETTERS /////////////////
     /**
      * Retourne l'indicateur de clic.

@@ -1,4 +1,4 @@
-package controleur;
+package vue;
 
 import java.awt.EventQueue;
 import java.awt.Point;
@@ -10,8 +10,7 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 
-import vue.Affplateau;
-import vue.PaintImage;
+import controleur.Jeu;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -66,16 +65,16 @@ public class MainJFrame {
 			public void mousePressed(MouseEvent e) {
 				mouse = e.getPoint();
 				Jeu.setClicFlag(true);
-				Unite uniteSelec = getUniteEnMouvement(Jeu.getHexagonClicked());
-				if(uniteSelec != null){
-					listeCaractAffichage.get(0).setText(String.valueOf(uniteSelec.getPv()));
-					listeCaractAffichage.get(1).setText(String.valueOf(uniteSelec.getPvMax()));
-					listeCaractAffichage.get(2).setText(String.valueOf(uniteSelec.getDefense()));
-					listeCaractAffichage.get(3).setText(String.valueOf(uniteSelec.getAttaque()));
-					listeCaractAffichage.get(4).setText(String.valueOf(uniteSelec.getVision()));
-					listeCaractAffichage.get(5).setText(String.valueOf(uniteSelec.getPtDeDeplacement()));
+				ArrayList <String> caracteristiquesUnite = Jeu.getCaractUniteEnMouvement(Jeu.getHexagonClicked());
+				if(!caracteristiquesUnite.isEmpty()){
+					listeCaractAffichage.get(0).setText(caracteristiquesUnite.get(0));
+					listeCaractAffichage.get(1).setText(caracteristiquesUnite.get(1));
+					listeCaractAffichage.get(2).setText(caracteristiquesUnite.get(2));
+					listeCaractAffichage.get(3).setText(caracteristiquesUnite.get(3));
+					listeCaractAffichage.get(4).setText(caracteristiquesUnite.get(4));
+					listeCaractAffichage.get(5).setText(caracteristiquesUnite.get(5));
 					
-					switch(uniteSelec.getTypeUnite()) {
+					switch(Integer.parseInt(caracteristiquesUnite.get(6))) {
 					case Jeu.ARCHER:
 						image =new PaintImage("images"+separateur+"GrandArcher.png");
 						break;
@@ -199,21 +198,7 @@ public class MainJFrame {
 		return frame;
 	}
 	
-	  public static Unite getUniteEnMouvement(Point hexa){
-			
-	    	int px=(int)hexa.getX();
-			int py=(int)hexa.getY();
-			
-	    	for(Joueur j: Jeu.getListeJoueurs() ){
-	    		for(Unite u : j.getListeUnite()){
-	    			if(px == u.getX() && py == u.getY())
-	    				return u; 
-	    		}
-	    			    			
-	    	}
-	    	return null;
-	    	
-	    }
+
 	
 	public Point getClicPos() {
 		System.out.println(mouse);
