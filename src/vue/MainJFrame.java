@@ -16,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -141,9 +142,13 @@ public class MainJFrame {
 		JMenuItem mntmEnregistrer = new JMenuItem("Enregistrer");
 		mntmEnregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("SAVE");
-				 JOptionPane.showMessageDialog(null, "Partie enregistrée", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
-				Jeu.sauvegarderPartie("save");
+				JFileChooser choix = new JFileChooser();
+        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")));
+    			int retour = choix.showSaveDialog(frame);
+    			if(retour==JFileChooser.APPROVE_OPTION){
+               	Jeu.sauvegarderPartie("./"+choix.getSelectedFile().getName());
+				JOptionPane.showMessageDialog(null, "Partie enregistrée", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
+    			}
 			}
 		});
 		mnFichier.add(mntmEnregistrer);

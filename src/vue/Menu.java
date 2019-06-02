@@ -14,6 +14,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -81,7 +82,7 @@ public class Menu {
 		jvj.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_1.getSelectedItem();
-                frame.setVisible(false);
+                frame.dispose();
                 Jeu.start(nbJoueur,0);
                 Jeu.setStarted(true);
             }
@@ -110,7 +111,7 @@ public class Menu {
                 if(nbJoueur + nbIA < 2 || nbJoueur + nbIA > 4) {
                     JOptionPane.showMessageDialog(null, "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.", "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    frame.setVisible(false);
+                    frame.dispose();
                     Jeu.start(nbJoueur,nbIA);
                     Jeu.setStarted(true);
                     
@@ -126,7 +127,14 @@ public class Menu {
 		cp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		cp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	Jeu.chargerPartie("save");
+        		JFileChooser choix = new JFileChooser();
+        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")));
+    			int retour = choix.showOpenDialog(frame);
+    			if(retour==JFileChooser.APPROVE_OPTION){
+    			   System.out.println(choix.getSelectedFile().getName());
+               	frame.dispose();
+               	Jeu.chargerPartie("./"+choix.getSelectedFile().getName());
+    			}
             }
 		});
 		
