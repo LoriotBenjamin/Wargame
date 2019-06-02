@@ -244,7 +244,9 @@ public class Unite {
 	                            if (typeUnite == Jeu.PRETRE && acted == false &&
 	                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
 	                                System.out.println("SOIN");
+	                                int pdvAvSoin= u.getPv();
 	                                ((Pretre)(this)).soigner(u);
+	                                Jeu.setLastAttaque("Le prêtre à soigné de: "+(pdvAvSoin-u.getPv()));
 	                            } else {
 	                            	System.out.println("Changement d'unité");
 	                                return u.selected();
