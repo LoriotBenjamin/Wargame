@@ -17,6 +17,7 @@ import javax.swing.JMenu;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 
 import modele.Joueur;
@@ -141,6 +142,7 @@ public class MainJFrame {
 		mntmEnregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("SAVE");
+				 JOptionPane.showMessageDialog(null, "Partie enregistrée", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
 				Jeu.sauvegarderPartie("save");
 			}
 		});
