@@ -139,7 +139,7 @@ public class Regles {
 	
 		Image imagefond = null;
 		try {
-			imagefond = ImageIO.read(new File("images"+separateur+"back.png"));
+			imagefond = ImageIO.read(new File("images"+separateur+"regles.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -162,7 +162,7 @@ public class Regles {
 		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		sl_panel.putConstraint(SpringLayout.NORTH, label, 120, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.NORTH, label, 150, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, label, 290, SpringLayout.WEST, panel);
 		
 		sl_panel.putConstraint(SpringLayout.WEST, labelP1, 100, SpringLayout.WEST, label);
@@ -180,10 +180,9 @@ public class Regles {
 		sl_panel.putConstraint(SpringLayout.WEST, labelP5, 0, SpringLayout.WEST, labelP4);
 		sl_panel.putConstraint(SpringLayout.SOUTH, labelP5, 200, SpringLayout.NORTH, labelP4);
 	
-		sl_panel.putConstraint(SpringLayout.WEST, exit, 0, SpringLayout.WEST, labelP5);
+		sl_panel.putConstraint(SpringLayout.WEST, exit, 100, SpringLayout.WEST, labelP5);
 		sl_panel.putConstraint(SpringLayout.SOUTH, exit, 150, SpringLayout.NORTH, labelP5);
-	   // panel.setLayout(new GridBagLayout());
-	    //panel.setBorder(LineBorder.createBlackLineBorder());
+	   
 		panel.add(label);
 		panel.add(labelP1);
 		panel.add(labelP2);
@@ -193,27 +192,11 @@ public class Regles {
 		panel.add(exit);
 	
 	   JScrollPane sp = new JScrollPane();
-	   /*sp.addMouseWheelListener(new MouseWheelListener() {
-			
-			@Override
-			public void mouseWheelMoved(MouseWheelEvent e) {
-				if (sp.getVerticalScrollBar().isShowing()) {
-	               if (e.getSource() != sp) {
-	                   e.setSource(sp);
-	                   sp.dispatchEvent(e);
-	               }
-	           } else {
-	               sp.getParent().dispatchEvent(e);
-	           }
-			}
-		});*/
+	   
 	   sp.setVerticalScrollBarPolicy(sp.VERTICAL_SCROLLBAR_ALWAYS);
 	   sp.setViewportView(panel);
 	   sp.setPreferredSize(new Dimension(1300, 650));
-	    // Add panel to frame
-	    //frame.gridx = 0;
-	   // frameConstraints.gridy = 1;
-	    //frameConstraints.weighty = 1;
+	    
 	  frame.add(sp); // add acrollpane to frame
 		
 	  
