@@ -20,10 +20,19 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
-
+/**
+ * Menu est un classe surlequel on choisi les paramètre de jeu (JvJ, JvIA, Règles, Charger une partie).
+ * @author Stefano
+ *
+ */
 public class Menu {
-		
+	/**
+	 * Fenêtre du Menu.
+	 */	
 	private JFrame frame;
+	/**
+	 * String pour représenter le séparteur de fichier que ce sois sur linux ou windows..
+	 */
 	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 
 	/**
