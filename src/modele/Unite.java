@@ -477,7 +477,7 @@ public class Unite {
      */
     public void attaquer(final Unite unite) {
         // si attaque possible
-        if(unite.calculDegats(attaque) && porte > 1) {
+        if(unite.calculDegats(attaque) && porte == 1) {
         	x = unite.getX();
         	y = unite.getY();
         }
