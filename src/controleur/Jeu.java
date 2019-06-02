@@ -52,6 +52,10 @@ public final class Jeu {
      */
     public static final int CHEVALIER = 5;
     /**
+     * Entier représentant le type d'unité Dragon.
+     */
+    public static final int DRAGON = 6;
+    /**
      * Entier représentant le type d'hexagone Plaine.
      */
     public static final int PLAINE = 10;
@@ -108,6 +112,10 @@ public final class Jeu {
      */
     private static boolean started = false;
     /**
+     * Numéro du joueur dont c'est le tour.
+     */
+    private static int turn = 1;
+    /**
      * Plateau de jeu.
      */
     private static Hexagone[][] map = new Hexagone[MAPLIGNE][MAPCOLONNE];
@@ -158,6 +166,7 @@ public final class Jeu {
     }
     
     public static void start(int nbJoueur, int nbIA) { //nouvelle partie
+    	turn = 1;
         for(int i=1;i<=nbJoueur;i++) {
             Humain joueur = new Humain(i,"J"+i);
             listeJoueurs.add(joueur);
@@ -494,6 +503,7 @@ public final class Jeu {
                         save.write(unite.getY());
                     }
                 }
+                save.write(turn);
             } finally {
                 save.close();
             }
@@ -605,12 +615,19 @@ public final class Jeu {
 	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
 	                                            save.read(), p));
 	                            break;
+	                        case DRAGON:
+	                            joueur.getListeUnite()
+	                                    .add(new Unite(DRAGON, save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
+	                                            save.read(), p));
+	                            break;
 	                        default:
 	                            break;
 	                        }
 	                        System.out.println(joueur.getListeUnite().get(joueur.getListeUnite().size()-1));
 	                    }
 	                }
+	                Jeu.turn = save.read();
 	            } finally {
 	                save.close();
 	            }
@@ -646,6 +663,20 @@ public final class Jeu {
 	    
 	}
     //////////// GETTERS AND SETTERS /////////////////
+	/**
+     * Retourne le numéro du joueur dont c'est le tour.
+     * @return l'indicateur de clic.
+     */
+    public static int getTurn() {
+        return turn;
+    }
+
+    /**
+     * Met à jour le numéro du joueur dont c'est le tour.
+     */
+    public static void nextTurn() {
+        turn = turn%listeJoueurs.size()+1;
+    }
     /**
      * Retourne l'indicateur de clic.
      * @return l'indicateur de clic.

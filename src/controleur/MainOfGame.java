@@ -21,18 +21,18 @@ public class MainOfGame {
     			Jeu.affichageUnite();
     			
     			do {
-    			    ArrayList<Joueur> perdant = new ArrayList<Joueur>();
-    			    for (Joueur joueur : Jeu.getListeJoueurs()) { //tour des joueurs chacun leur tour
-    			        joueur.jouerTour();
-    			        if(!Jeu.hasStarted())
-    			        	continue totality;
-    			        if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
-    			            perdant.add(joueur);
-    			        }
+    				ArrayList<Joueur> perdant = new ArrayList<Joueur>();
+    				Joueur joueur = Jeu.getListeJoueurs().get(Jeu.getTurn()-1); //tour des joueurs chacun leur tour
+    			    joueur.jouerTour();
+    			    if(!Jeu.hasStarted())
+    			    	continue totality;
+    			    if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
+    			        perdant.add(joueur);
     			    }
     			    if(!perdant.isEmpty()) {//on enlève les perdants de la liste
     			        Jeu.getListeJoueurs().removeAll(perdant);
     			    }
+    			    Jeu.nextTurn();
     			}while(Jeu.getListeJoueurs().size() > 1 && Jeu.hasStarted());
     			Jeu.affichageUnite();
     			winner = Jeu.getListeJoueurs().get(0);
