@@ -29,47 +29,32 @@ public class MainOfGame {
 		}); */
 		//Interface I =new Interface();
 		Menu menu = new Menu();
-		int joueurs = 0;
-		int ias = 0;
-		System.out.println("HELLO");
+		Joueur winner = null;
 		do {
-			System.out.print("");
-			joueurs = Jeu.getHumains();
-			ias = Jeu.getIAs();
-		}while(joueurs == 0 && ias == 0);
-		System.out.println("YOHOHOHO");
-		for(int i=1;i<=joueurs;i++) {
-            Humain joueur = new Humain(i,"J"+i);
-            Jeu.getListeJoueurs().add(joueur);
-        }
-        for(int i=joueurs+1;i<=joueurs+ias;i++) {
-            IA ia = new IA(i,"IA"+i);
-            Jeu.getListeJoueurs().add(ia);
-        }
-        Jeu.start();
-		Jeu.initMap(); // pour test
-        System.out.println(Jeu.getListeJoueurs());
-        Jeu.getFrame().getFrame().setVisible(true);
-		//Jeu.chargerPartie("save");
-		Jeu.controlAffichageUnite();
-		Jeu.affichageUnite();
-		
-		do {
-		    ArrayList<Joueur> perdant = new ArrayList<Joueur>();
-		    for (Joueur joueur : Jeu.getListeJoueurs()) { //tour des joueurs chacun leur tour
-		        joueur.jouerTour();
-		        if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
-		            perdant.add(joueur);
-		        }
-		    }
-		    if(!perdant.isEmpty()) {//on enlève les perdants de la liste
-		        Jeu.getListeJoueurs().removeAll(perdant);
-		    }
-		}while(Jeu.getListeJoueurs().size() > 1);
-		
-		System.out.println("Un joueur a gagné");
-	
-		//Jeu.sauvegarderPartie("save");
+			System.out.println("HELLO");
+			do {System.out.print("");}while(Jeu.hasStarted() == false);
+			System.out.println("YOHOHOHO");
+			Jeu.initMap(); // pour test
+	        System.out.println(Jeu.getListeJoueurs());
+	        Jeu.getFrame().getFrame().setVisible(true);
+			//Jeu.chargerPartie("save");
+			Jeu.affichageUnite();
+			
+			do {
+			    ArrayList<Joueur> perdant = new ArrayList<Joueur>();
+			    for (Joueur joueur : Jeu.getListeJoueurs()) { //tour des joueurs chacun leur tour
+			        joueur.jouerTour();
+			        if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
+			            perdant.add(joueur);
+			        }
+			    }
+			    if(!perdant.isEmpty()) {//on enlève les perdants de la liste
+			        Jeu.getListeJoueurs().removeAll(perdant);
+			    }
+			}while(Jeu.getListeJoueurs().size() > 1 && Jeu.hasStarted());
+			Jeu.affichageUnite();
+			winner = Jeu.getListeJoueurs().get(0);
+		}while(winner == null);
 		
 	}
 

@@ -20,6 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
+import controleur.MainJFrame;
+import modele.Humain;
+import modele.IA;
 
 public class Menu {
 		
@@ -75,10 +78,12 @@ public class Menu {
             public void actionPerformed(ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_1.getSelectedItem();
                 frame.setVisible(false);
-                Jeu.setHumains(nbJoueur);
-                Jeu.setIAs(0);
-                
-                
+                for(int i=1;i<=nbJoueur;i++) {
+                    Humain joueur = new Humain(i,"J"+i);
+                    Jeu.getListeJoueurs().add(joueur);
+                }
+                Jeu.start();
+                Jeu.setStarted(true);
             }
 		});
 		
@@ -107,8 +112,16 @@ public class Menu {
                     JOptionPane.showMessageDialog(null, "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.", "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
                 } else {
                     frame.setVisible(false);
-                    Jeu.setHumains(nbJoueur);
-                    Jeu.setIAs(nbIA);
+                    for(int i=1;i<=nbJoueur;i++) {
+                        Humain joueur = new Humain(i,"J"+i);
+                        Jeu.getListeJoueurs().add(joueur);
+                    }
+                    for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
+                        IA ia = new IA(i,"IA"+i);
+                        Jeu.getListeJoueurs().add(ia);
+                    }
+                    Jeu.start();
+                    Jeu.setStarted(true);
                     
                 }
             }
@@ -120,6 +133,11 @@ public class Menu {
 		cp.setBounds(145,161,272,36);
 		cp.setPreferredSize(new Dimension(200,40));
 		cp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		cp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	Jeu.chargerPartie("save");
+            }
+		});
 		
 		JButton r = new JButton("Règles");
 		r.setBounds(145,161,272,36);

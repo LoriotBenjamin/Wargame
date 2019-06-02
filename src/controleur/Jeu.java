@@ -104,13 +104,9 @@ public final class Jeu {
      */
     private static boolean skipFlag = false;
     /**
-     * Nombre de joueurs humains.
+     * Indicateur de début de jeu.
      */
-    private static int nbJoueur = 0;
-    /**
-     * Nombre d'IA.
-     */
-    private static int nbIA = 0;
+    private static boolean started = false;
     /**
      * Plateau de jeu.
      */
@@ -164,6 +160,15 @@ public final class Jeu {
     	frame = new MainJFrame();
     	plateau = new Affplateau();
         frame.getFrame().setVisible(true);
+    }
+    /**
+     * Initialise les voisins de chaque hexagone.
+     */
+    public static void kill() {
+        frame.getFrame().setVisible(false);
+        listeJoueurs.clear();
+    	frame = null;
+    	plateau = null;
     }
 
     /**
@@ -571,7 +576,8 @@ public final class Jeu {
         } catch (IOException e) {
             System.out.println("Impossible de creer le fichier");
         }
-        initVoisins();
+        Jeu.start();
+        Jeu.setStarted(true);
     }
 	public static ArrayList<String> getCaractUniteEnMouvement(Point hexa){
 		  
@@ -631,35 +637,19 @@ public final class Jeu {
     }
 
     /**
-     * Met à jour le nombre de joueurs humains.
-     * @param nbJoueur le nouveau nombre de joueurs humains
+     * Met à jour l'état du jeu.
+     * @param started l'état du jeu
      */
-    public static void setHumains(final int nbJoueur) {
-        Jeu.nbJoueur = nbJoueur;
+    public static void setStarted(final boolean started) {
+        Jeu.started = started;
     }
 
     /**
-     * Retourne le nombre de joueurs humains.
-     * @return le nombre de joueurs humains.
+     * Retourne l'état du jeu.
+     * @return l'état du jeu.
      */
-    public static int getHumains() {
-        return nbJoueur;
-    }
-
-    /**
-     * Met à jour le nombre de joueurs humains.
-     * @param nbJoueur le nouveau nombre de joueurs humains
-     */
-    public static void setIAs(final int nbIA) {
-        Jeu.nbIA = nbIA;
-    }
-
-    /**
-     * Retourne le nombre d'IA.
-     * @return le nombre d'IA.
-     */
-    public static int getIAs() {
-        return nbIA;
+    public static boolean hasStarted() {
+        return started;
     }
 
     /**

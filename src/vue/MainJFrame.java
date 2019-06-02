@@ -111,12 +111,25 @@ public class MainJFrame {
 		frame.getContentPane().add(menuBar);
 		
 		JMenu mnFichier = new JMenu("Fichier");
+		
 		menuBar.add(mnFichier);
 		
 		JMenuItem mntmEnregistrer = new JMenuItem("Enregistrer");
+		mntmEnregistrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("SAVE");
+				Jeu.sauvegarderPartie("save");
+			}
+		});
 		mnFichier.add(mntmEnregistrer);
 		
 		JMenuItem mntmRetourMenu = new JMenuItem("Retour Menu");
+		mntmRetourMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Jeu.kill();
+				Menu menu = new Menu(); 
+			}
+		});
 		mnFichier.add(mntmRetourMenu);
 		
 		JPanel panel = new JPanel();
