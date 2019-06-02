@@ -149,7 +149,7 @@ public final class Jeu {
     /**
      * derniere attaque
      */
-    private String lastAttaque = new String(); 
+    private static String lastAttaque = new String(); 
     /**
      * Constructeur jeu.
      */
@@ -762,5 +762,19 @@ public final class Jeu {
     public static void setActionPossibleHash(final HashMap<Hexagone, String> actionPossibleHash) {
         Jeu.actionPossibleHash = actionPossibleHash;
     }
+    /**
+     * retourne la derniere attaque
+     * @return String
+     */
+	public static String getLastAttaque() {
+		return lastAttaque;
+	}
+	/**
+	 * permet de changer la derniere attaque
+	 * @param lastAttaque
+	 */
+	public static void setLastAttaque(String lastAttaque) {
+		Jeu.lastAttaque = lastAttaque;
+	}
 
 }

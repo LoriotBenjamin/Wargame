@@ -254,7 +254,9 @@ public class Unite {
 	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte && acted == false) {
 	                                System.out.println("TAPER");
 	                                // L'unité est à porté d'attaque
+	                                int pdvAvAtt= u.getPv();
 	                                attaquer(u);
+	                                Jeu.setLastAttaque("L'unité du joueur: "+j.getPseudo()+" à subi: "+(pdvAvAtt-u.getPv())+" \n de dégat(s)");
 	                                break tests;
 	                            }
 	                        }

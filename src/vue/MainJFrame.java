@@ -50,12 +50,16 @@ public class MainJFrame {
 	/**
      * String pour représenter le séparteur de fichier que ce sois sur linux ou windows.
      */
-	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
+	private String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 	/**
      * Image de l'unité séléctionnée.
      */
 	private PaintImage image = new PaintImage("images"+separateur+"ptInterrogation.png");
 
+	/**
+	 * Derniere attaque 
+	 */
+	private JLabel labelLastAtt;
 	/**
 	 * Create the application.
 	 */
@@ -111,6 +115,9 @@ public class MainJFrame {
 					}
 				}else
 					System.out.println("Trouve pas unite");
+				
+				labelLastAtt.setText(Jeu.getLastAttaque());
+				
 			}
 			
 			public void mouseReleased(MouseEvent e) {}
@@ -153,7 +160,7 @@ public class MainJFrame {
 		frame.getContentPane().add(panel);
 		
 		JButton btnNewButton = new JButton("Fin de tour");
-		btnNewButton.setBounds(73, 486, 116, 23);
+		btnNewButton.setBounds(61, 486, 116, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Jeu.setSkipFlag(true);
@@ -221,10 +228,14 @@ public class MainJFrame {
 		image.setBounds(10, 11, 216, 270);
 		panel.add(image);
 		
+		labelLastAtt = new JLabel("New label");
+		labelLastAtt.setBounds(10, 520, 216, 60);
+		panel.add(labelLastAtt);
+		
 		
 	}
 	/**
-	 * Renvoie la fenetre principale.
+	 * Renvoie la fenêtre principale.
 	 */
 	public JFrame getFrame() {
 		return frame;

@@ -21,6 +21,9 @@ import javax.swing.SpringLayout;
 
 import controleur.Jeu;
 
+import modele.Humain;
+import modele.IA;
+
 public class Menu {
 		
 	private JFrame frame;
