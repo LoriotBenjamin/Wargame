@@ -128,12 +128,12 @@ public class Menu {
 		cp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
         		JFileChooser choix = new JFileChooser();
-        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")));
+        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")));
     			int retour = choix.showOpenDialog(frame);
     			if(retour==JFileChooser.APPROVE_OPTION){
     			   System.out.println(choix.getSelectedFile().getName());
                	frame.dispose();
-               	Jeu.chargerPartie("./"+choix.getSelectedFile().getName());
+               	Jeu.chargerPartie("."+ System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")+choix.getSelectedFile().getName());
     			}
             }
 		});

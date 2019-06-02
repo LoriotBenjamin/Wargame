@@ -143,10 +143,10 @@ public class MainJFrame {
 		mntmEnregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser choix = new JFileChooser();
-        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")));
+        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")));
     			int retour = choix.showSaveDialog(frame);
     			if(retour==JFileChooser.APPROVE_OPTION){
-               	Jeu.sauvegarderPartie("./"+choix.getSelectedFile().getName());
+               	Jeu.sauvegarderPartie("."+System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")+choix.getSelectedFile().getName());
 				JOptionPane.showMessageDialog(null, "Partie enregistrée", "Sauvegarde", JOptionPane.INFORMATION_MESSAGE);
     			}
 			}
