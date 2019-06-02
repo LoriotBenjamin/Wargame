@@ -442,8 +442,7 @@ public class Unite {
     public ArrayList<Hexagone> vision() { // donne tout les hexagones visibles par l'unité
         Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         ArrayList<Hexagone> nofog = new ArrayList<Hexagone>();
-        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
-                                                                                     // deplacement restant
+        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ distance à l'unité
 
         Hexagone hexagoneCourant = h;
         aExplorer.put(hexagoneCourant, 0);
@@ -452,8 +451,11 @@ public class Unite {
 
             hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupére le premier element de la liste
             for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (!aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= vision) {
-                    aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
+                if (aExplorer.containsKey(v)) {
+                	if(aExplorer.get(hexagoneCourant) + 1 <= aExplorer.get(v))
+                		aExplorer.replace(v, aExplorer.get(hexagoneCourant) + 1);
+                }else if(aExplorer.get(hexagoneCourant) + 1 <= vision){
+                	aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
                 }
 
             } // fin du parcours des voisins
