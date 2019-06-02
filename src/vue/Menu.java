@@ -133,6 +133,13 @@ public class Menu {
 		JButton r = new JButton("Règles");
 		r.setBounds(145,161,272,36);
 		r.setPreferredSize(new Dimension(200,40));
+		r.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Regles regle=new Regles();
+			}
+		});
 		r.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		

@@ -1,5 +1,6 @@
 package vue;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -41,6 +42,7 @@ public class CustomPanel extends JPanel {
      */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		setBackground(new Color(0,128,128));
 		if (image != null) {
 			int x = this.getParent().getWidth() / 2 - width;
 			int y = this.getParent().getHeight() / 2 - height;
