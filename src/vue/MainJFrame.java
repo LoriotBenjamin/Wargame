@@ -28,16 +28,32 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
+/**
+ * PaintImage qui peint une image de l'unité selectionnée.
+ * @author Stefano
+ *
+ */
 public class MainJFrame {
-
+	/**
+     * Fenetre principale du jeu.
+     */
 	private JFrame frame;
-	private boolean state = false;
+	
+	/**
+     * Coordonnées de la souris.
+     */
 	private Point mouse = new Point(-1,-1);
+	/**
+     * Caractéristique de l'unité séléctionée.
+     */
 	private ArrayList <JLabel> listeCaractAffichage = new ArrayList<JLabel>();
-	
+	/**
+     * String pour représenter le séparteur de fichier que ce sois sur linux ou windows.
+     */
 	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
-	
+	/**
+     * Image de l'unité séléctionnée.
+     */
 	private PaintImage image = new PaintImage("images"+separateur+"ptInterrogation.png");
 
 	/**
@@ -207,13 +223,17 @@ public class MainJFrame {
 		
 		
 	}
-
+	/**
+	 * Renvoie la fenetre principale.
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
 
-	
+	/**
+	 * Renvoie la position du clic.
+	 */
 	public Point getClicPos() {
 		System.out.println(mouse);
 		return mouse;
