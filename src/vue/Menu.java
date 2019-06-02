@@ -28,13 +28,6 @@ public class Menu {
 	String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		Menu menu = new Menu();
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public Menu() {
@@ -82,8 +75,9 @@ public class Menu {
 		jvj.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_1.getSelectedItem();
-                //frame.setVisible(false);
-                Jeu.init(nbJoueur, 0);
+                frame.setVisible(false);
+                Jeu.setHumains(nbJoueur);
+                Jeu.setIAs(0);
                 
                 
             }
@@ -114,7 +108,8 @@ public class Menu {
                     JOptionPane.showMessageDialog(null, "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.", "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
                 } else {
                     frame.setVisible(false);
-                    Jeu.init(nbJoueur, nbIA);
+                    Jeu.setHumains(nbJoueur);
+                    Jeu.setIAs(nbIA);
                     
                 }
             }

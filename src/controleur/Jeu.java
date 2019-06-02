@@ -103,17 +103,25 @@ public final class Jeu {
      */
     private static boolean skipFlag = false;
     /**
+     * Nombre de joueurs humains.
+     */
+    private static int nbJoueur = 0;
+    /**
+     * Nombre d'IA.
+     */
+    private static int nbIA = 0;
+    /**
      * Plateau de jeu.
      */
     private static Hexagone[][] map = new Hexagone[MAPLIGNE][MAPCOLONNE];
     /**
      * Fenêtre de jeu.
      */
-    private static MainJFrame frame = new MainJFrame();
+    private static MainJFrame frame;
     /**
      * Plateau visuel de la vue.
      */
-    private static Affplateau plateau = new Affplateau();
+    private static Affplateau plateau;
     /**
      * Liste des informations des unités en jeu pour la vue.
      */
@@ -147,35 +155,16 @@ public final class Jeu {
     private Jeu() {
 
     }
-
-    public static void init(int nbJoueur,int nbIA) {
-        for(int i=1;i<=nbJoueur;i++) {
-            Humain joueur = new Humain(i,"J"+i);
-            listeJoueurs.add(joueur);
-        }
-        for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
-            IA ia = new IA(i,"IA"+i);
-            listeJoueurs.add(ia);
-        }
-        initMap();
-        initVoisins();
-        controlAffichageUnite();
-        
-       do {
-            ArrayList<Joueur> perdant = new ArrayList<Joueur>();
-            for (Joueur joueur : listeJoueurs) { //tour des joueurs chacun leur tour
-                joueur.jouerTour();
-                if(joueur.getListeUnite().size() == 0) { //mise en mémoire des perdants
-                    perdant.add(joueur);
-                }
-            }
-            if(!perdant.isEmpty()) {//on enlève les perdants de la liste
-                listeJoueurs.removeAll(perdant);
-            }
-        }while(listeJoueurs.size() > 1);
-        
-        System.out.println("Un joueur a gagné");
+    
+    /**
+     * Initialise les voisins de chaque hexagone.
+     */
+    public static void start() {
+    	frame = new MainJFrame();
+    	plateau = new Affplateau();
+        frame.getFrame().setVisible(true);
     }
+
     /**
      * Initialise un plateau aléatoirement en faisant des regroupements de types
      * d'hexagone.
@@ -272,13 +261,13 @@ public final class Jeu {
                 }
             }
         }
+        initVoisins();
     }
 
     /**
      * Initialise les voisins de chaque hexagone.
      */
     public static void initVoisins() {
-        frame.getFrame().setVisible(true);
         for (int i = 0; i < MAPLIGNE; i++) {
             for (int j = 0; j < MAPCOLONNE; j++) {
                 map[i][j].initListeVoisin();
@@ -594,6 +583,14 @@ public final class Jeu {
     }
 
     /**
+     * Met à jour l'indicateur de clic.
+     * @param clicFlag le nouvel indicateur de clic
+     */
+    public static void setClicFlag(final boolean clicFlag) {
+        Jeu.clicFlag = clicFlag;
+    }
+
+    /**
      * Met à jour l'indicateur de passage de tour.
      * @param skipFlag le nouvel indicateur de passage de tour
      */
@@ -610,11 +607,35 @@ public final class Jeu {
     }
 
     /**
-     * Met à jour l'indicateur de clic.
-     * @param clicFlag le nouvel indicateur de clic
+     * Met à jour le nombre de joueurs humains.
+     * @param nbJoueur le nouveau nombre de joueurs humains
      */
-    public static void setClicFlag(final boolean clicFlag) {
-        Jeu.clicFlag = clicFlag;
+    public static void setHumains(final int nbJoueur) {
+        Jeu.nbJoueur = nbJoueur;
+    }
+
+    /**
+     * Retourne le nombre de joueurs humains.
+     * @return le nombre de joueurs humains.
+     */
+    public static int getHumains() {
+        return nbJoueur;
+    }
+
+    /**
+     * Met à jour le nombre de joueurs humains.
+     * @param nbJoueur le nouveau nombre de joueurs humains
+     */
+    public static void setIAs(final int nbIA) {
+        Jeu.nbIA = nbIA;
+    }
+
+    /**
+     * Retourne le nombre d'IA.
+     * @return le nombre d'IA.
+     */
+    public static int getIAs() {
+        return nbIA;
     }
 
     /**

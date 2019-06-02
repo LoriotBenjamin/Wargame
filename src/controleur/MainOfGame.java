@@ -11,6 +11,7 @@ import modele.Hexagone;
 import modele.IA;
 import modele.Joueur; // à retirer d'ici 
 import modele.Mage;
+import vue.Menu;
 
 public class MainOfGame {
 
@@ -27,14 +28,31 @@ public class MainOfGame {
 			}
 		}); */
 		//Interface I =new Interface();
+		Menu menu = new Menu();
+		int joueurs = 0;
+		int ias = 0;
+		System.out.println("HELLO");
+		do {
+			System.out.print("");
+			joueurs = Jeu.getHumains();
+			ias = Jeu.getIAs();
+		}while(joueurs == 0 && ias == 0);
+		System.out.println("YOHOHOHO");
+		for(int i=1;i<=joueurs;i++) {
+            Humain joueur = new Humain(i,"J"+i);
+            Jeu.getListeJoueurs().add(joueur);
+        }
+        for(int i=joueurs+1;i<=joueurs+ias;i++) {
+            IA ia = new IA(i,"IA"+i);
+            Jeu.getListeJoueurs().add(ia);
+        }
+        Jeu.start();
 		Jeu.initMap(); // pour test
-		Jeu.initVoisins();
-		Humain j1 = new Humain(1, "IA1"); // juste pour tester
-		Jeu.getListeJoueurs().add(j1);
-		IA j2 = new IA(2, "IA2"); // juste pour tester
-		Jeu.getListeJoueurs().add(j2);
+        System.out.println(Jeu.getListeJoueurs());
+        Jeu.getFrame().getFrame().setVisible(true);
 		//Jeu.chargerPartie("save");
 		Jeu.controlAffichageUnite();
+		Jeu.affichageUnite();
 		
 		do {
 		    ArrayList<Joueur> perdant = new ArrayList<Joueur>();
@@ -56,5 +74,3 @@ public class MainOfGame {
 	}
 
 	}
-
-

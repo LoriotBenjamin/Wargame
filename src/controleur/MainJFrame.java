@@ -56,7 +56,6 @@ public class MainJFrame {
 		frame.setBounds(100, 100, 1300, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
 		
 		Jeu.setPlateau(new Affplateau());
 		Jeu.getPlateau().setBounds(0, 21, 1048, 591);
