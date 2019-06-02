@@ -27,6 +27,7 @@ public class Humain extends Joueur {
         int deplacable = 0;
 
         totality: do {
+            Jeu.afficheBrouillard(sansBrouillard());
             // Attente de l'impossibilité pour le joueur de continuer son tour
             boolean selected = false;
             do {
@@ -51,7 +52,8 @@ public class Humain extends Joueur {
                 for (Unite u : listeUnite) {
                     if (u.getX() == hexagone.x && u.getY() == hexagone.y) {
                         System.out.println("UNITE TROUVEE");
-                        u.selected();
+                        if(u.selected())
+                        	break totality;
                         selected = true;
                     }
                     int mindep = 10;
@@ -67,6 +69,7 @@ public class Humain extends Joueur {
         } while (deplacable > 0);
 
         for (Unite unite : this.getListeUnite()) {
+        	System.out.println("INIDNUIS?DOQNIOZJODOOPQZN?DFIPQZBYEDUQTZVUUNZUDJOSNQZDFIUZEYGRDFQZDOZN");
             unite.preparerPourProchainTour();
         }
     }

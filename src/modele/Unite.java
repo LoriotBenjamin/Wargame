@@ -3,6 +3,8 @@ package modele;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import controleur.Jeu;
 
@@ -30,21 +32,26 @@ public class Unite {
     /**
      * Type de l'unité représenté par un entier entre 1 et 5.
      * @see Unite#getTypeUnite()
+     * @see Unite#setTypeUnite(int)
      */
-    protected int typeUnite;
+    protected int typeUnite; // peut etre remplace par un .getClass() supprimant cette variable mais un peu
+    // plus long dans les tests que des comparaisons avec un int je pense
     /**
      * Points d'attaque de l'unité.
      * @see Unite#getAttaque()
+     * @see Unite#setAttaque(int)
      */
     protected int attaque;
     /**
      * Points de défense de l'unité.
      * @see Unite#getDefense()
+     * @see Unite#setDefense(int)
      */
     protected int defense;
     /**
      * Points de vie restant de l'unité.
      * @see Unite#getPv()
+     * @see Unite#setPv(int)
      */
     protected int pv;
     /**
@@ -66,11 +73,13 @@ public class Unite {
     /**
      * Points de vision de l'unité.
      * @see Unite#getVision()
+     * @see Unite#setVision(int)
      */
     protected int vision;
     /**
      * Portée des attaques de l'unité.
      * @see Unite#getPorte()
+     * @see Unite#setPorte(int)
      */
     protected int porte;
     /**
@@ -86,12 +95,18 @@ public class Unite {
      */
     protected int y;
     /**
+     * Liste des ennemis attaquables par l'unité.
+     * @see Unite#getEnnemiAttaquable()
+     * @see Unite#setEnnemiAttaquable(ArrayList)
+     */
+    protected ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
+    /**
      * Numéro de l'équipe de l'unite.
-     * @see Unite#getTeamUnite()
+     * @see Unite#setEquipe(int)
      */
     protected int equipe;
     /**
-     * Droit d'action de l'unité.
+     * Droit d'action de l'unitér.
      */
     protected boolean acted;
 
@@ -156,126 +171,143 @@ public class Unite {
         this.equipe = equipe;
     }
 
-    /**
-     * Est appelée quand une unité est sélectionnée, en attendant le 2e clic.
-     */
-    public void selected() {
-        HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
-        HashMap<Hexagone, String> action = actionPossible();
-        // ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
+    // EN ATTENDANT LA VUE
+    public String toString() {
+        return "Type: " + typeUnite + " PV: " + pv + " / " + pvMax + " PtDepl: " + ptDeDeplacement + " / "
+                + ptDeDeplacementMax + " position: " + x + " " + y;
+    }
+
+    // JAVADOC A FAIRE
+    public boolean selected() {
+    	HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
+    	HashMap<Hexagone, String> action = actionPossible();
+        //ArrayList<Hexagone> aPorteDAttaque = aPorte(this.x, this.y);
         Jeu.setDeplacementPossibleHash(deplacementPossible);
         Jeu.setActionPossibleHash(action);
         Jeu.affichageDeplacementPossible();
-        System.out.println(this.toString() + " A votre service!\n");
-
-        final int ligneHorsPlateau = -2;
-        final int colonneHorsPlateau = -2;
-
-        Point hexagone = new Point(ligneHorsPlateau, colonneHorsPlateau);
+    	System.out.println(this.toString()+" A votre service!\n");
+    	Point hexagone = new Point(-2, -2);
         do {
-            System.out.print(""); // ABSOLUMENT NECESSAIRE!!
-            if (Jeu.getSkipFlag()) {
-                Jeu.setSkipFlag(false);
-                break;
-            }
-            if (Jeu.getClicFlag()) {
-                hexagone = Jeu.getHexagonClicked();
-                Jeu.setClicFlag(false);
-            }
-        } while (hexagone.x == ligneHorsPlateau || hexagone.y == colonneHorsPlateau);
-        System.out.println("CASE CLIQUEE LIGNE: " + hexagone.x + " COLONNE: " + hexagone.y);
-
-        secondClic(hexagone.x, hexagone.y, deplacementPossible);
+        	System.out.print("");//ABSOLUMENT NECESSAIRE!!
+        	if(Jeu.getSkipFlag()) {
+        		Jeu.setSkipFlag(false);
+            	return true;
+        	}
+        	if(Jeu.getClicFlag()) {
+            	hexagone = Jeu.getHexagonClicked();
+            	Jeu.setClicFlag(false);
+        	}
+        }while(hexagone.x == -2 || hexagone.y == -2);
+    	System.out.println("CASE CLIQUEE LIGNE: "+hexagone.x+" COLONNE: "+hexagone.y);
+    	
+        if(secondClic(hexagone.x, hexagone.y,deplacementPossible))
+        	return true;
+        return false;
     }
 
     /**
-     * Prend en paramètres les coordoonées du second clic et trouve l'hexagone
-     * cliqué. Elle cherche si c'est une unité ennemie, si c'est le cas alors elle
-     * déclenche l'attaque. Si c'est une unité alliée, elle vérifie que l'ordre ne
-     * vient pas d'un prêtre, si c'est le cas elle soigne l'allié. Sinon, si la case
-     * est vide alors elle déplace l'unité.
-     * @param xHexa Numéro de ligne de l'hexagone cliqué.
-     * @param yHexa Numéro de colonne de l'hexagone cliqué.
-     * @param deplacementPossible Hashmap des déplacements possibles de l'unité.
+     * Prend en parametre les coordoonees du seocnd clic et 
+     * trouve l'hexagone sur lequelle le second clic a ete effectué,
+     * cherche si c'est une unite ennemie, si c'est le cas alors declenche l'attaque ,
+     * si c'est une unite allie verifie que l'ordre ne vient pas d'un pretre pour soigner
+     * si c'est le cas soigne l'allie sinon si la case est vide alors deplace l'unite
+     * 
+     * 
+     * @param _x
+     * @param _y
      */
-    public void secondClic(final int xHexa, final int yHexa, final HashMap<Hexagone, Integer> deplacementPossible) {
-        System.out.println("Test : X: " + xHexa + " Y: " + yHexa);
+    public boolean secondClic(int _x, int _y,HashMap<Hexagone,Integer>deplacementPossible) { // avertir la vue si la position de l'unite change
+        System.out.println("Test : X: " + _x + " Y: " + _y);
 
-        if (xHexa >= 0 && yHexa >= 0) {
-            Hexagone hexaVisee = Jeu.getMap()[xHexa][yHexa];
-            Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
-
-            if (deplacementPossible.containsKey(Jeu.getMap()[xHexa][yHexa])) {
-                System.out.println("CASE VIDE");
-                this.x = xHexa;
-                this.y = yHexa;
-                System.out.println("pm restant: " + deplacementPossible.get(hexaVisee));
-                this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
-                System.out.println("JE SUIS EN " + x + " " + y);
-            } else {
-                tests: for (Joueur j : Jeu.getListeJoueurs()) {
-                    for (Unite u : j.getListeUnite()) {
-
-                        if (hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
-
-                            // Une unité est sur la case
-                            System.out.println("CASE OCCUPEE");
-                            if (u.getTeamUnite() == this.getTeamUnite()) {
-                                // L'unité est alliée
-                                System.out.println("UNITE ALLIEE");
-                                if (typeUnite == Jeu.PRETRE && !acted
-                                        && hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
-                                    System.out.println("SOIN");
-                                    ((Pretre) (this)).soigner(u);
-                                } else {
-                                    System.out.println("Changement d'unité");
-                                    u.selected();
-                                }
-                            } else {
-                                System.out.println("UNITE ENNEMIE");
-                                if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte
-                                        && !acted) {
-                                    System.out.println("TAPER");
-                                    // L'unité est à portée d'attaque
-                                    attaquer(u);
-                                    break tests;
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-
-            }
+        if(_x >= 0 && _y >= 0) {
+			Hexagone hexaVisee = Jeu.getMap()[_x][_y] ; 
+			Hexagone hexaDeLunite = Jeu.getMap()[this.x][this.y];
+			
+			if (deplacementPossible.containsKey(Jeu.getMap()[_x][_y])){
+			System.out.println("CASE VIDE");
+			this.x = _x;
+			this.y = _y;
+			System.out.println("pm restant: "+deplacementPossible.get(hexaVisee));
+			this.ptDeDeplacement = deplacementPossible.get(hexaVisee);
+			System.out.println("JE SUIS EN " + x + " " + y);
+			}else {
+				tests : for (Joueur j : Jeu.getListeJoueurs()) {
+	                for (Unite u : j.getListeUnite()) {
+	
+	                    if ( hexaVisee.getX() == u.getX() && hexaVisee.getY() == u.getY()) {
+	                    	
+	                        // Une unité est sur la case
+	                        System.out.println("CASE OCCUPEE");
+	                        if (u.getTeamUnite() == this.getTeamUnite()) {
+	                            // L'unité est alliée
+	                            System.out.println("UNITE ALLIEE");
+	                            if (typeUnite == Jeu.PRETRE && acted == false &&
+	                            		hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte) {
+	                                System.out.println("SOIN");
+	                                ((Pretre)(this)).soigner(u);
+	                            } else {
+	                            	System.out.println("Changement d'unité");
+	                                return u.selected();
+	                            }
+	                        } else {
+	                            System.out.println("UNITE ENNEMIE");
+	                            if (hexaDeLunite.getDistanceBetweenTwoPosition(hexaVisee) <= this.porte && acted == false) {
+	                                System.out.println("TAPER");
+	                                // L'unité est à porté d'attaque
+	                                attaquer(u);
+	                                break tests;
+	                            }
+	                        }
+	                        
+	                    }
+	                    
+	                }
+	            }
+				
+			}
         }
-        Jeu.affichageUnite();
+		Jeu.affichageUnite();
+		return false;
     }
 
     /**
-     * Retourne la liste des déplacements possibles avec les points de mouvement
-     * restant une fois la case atteinte.
+     * Retourne la liste des déplacements possible avec les points de mouvement
+     * restant une fois la case atteinte. Elle remplit aussi la liste des ennemis
+     * attaquables.
+     * 
      * @return la liste des déplacements possibles associés aux points de mouvement
      *         restants
      * @see MyHashMap
      */
-    public MyHashMap<Hexagone, Integer> calculDeplacementPossible() {
-        Hexagone h = Jeu.getMap()[x][y]; // hexagone où se situe l'unité
+    public MyHashMap<Hexagone, Integer> calculDeplacementPossible() { // donne tout les hexagones possible dans la range
+                                                                      // de l'unite et les
+        // points de deplacement restant si elle s'y dirige
+        Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         MyHashMap<Hexagone, Integer> deplacementPossible = new MyHashMap<Hexagone, Integer>();
-        MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); /*couple hexagone/ point de
-                                                                                           *deplacement restant
-                                                                                           **/
+        MyHashMap<Hexagone, Integer> pointAExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
+                                                                                          // deplacement restant
+
+        this.ennemiAttaquable.clear();
+
         Joueur joueurCourant = this.getPlayerWhoControlMe();
         ArrayList<Hexagone> caseVisible = joueurCourant.sansBrouillard();
+        // ArrayList<Unite> ennemiAttaquable = new ArrayList<Unite>();
 
+        /*
+         * for(Hexagone hex : caseVisible){ System.out.println("coord en x: "+hex.x);
+         * System.out.println("coord en y: "+hex.y); }
+         */
         Hexagone hexagoneCourant = h;
+        // deplacementPossible.put(hexagoneCourant, ptDeDeplacement);
         pointAExplorer.put(hexagoneCourant, ptDeDeplacement);
 
-        if (ptDeDeplacement != 0) { /* si jamais un jour on donne la possibilité d'enlever des points de
-                                     * déplacement évite les tours de boucle inutile */
+        if (ptDeDeplacement != 0) { // si jamais un jour on donne la possibilité d'enlever des points de
+            // déplacement évite les tours de boucle inutile
+
             while (!pointAExplorer.isEmpty()) {
 
-                hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on récupére le premier element de la liste
+                hexagoneCourant = (Hexagone) pointAExplorer.getFirstKey(); // on récupére le premier element de la
+                // liste
 
                 for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
 
@@ -283,22 +315,23 @@ public class Unite {
                     test: for (Joueur j : Jeu.getListeJoueurs()) {
                         for (Unite u : j.getListeUnite()) {
                             if (u.getX() == v.getX() && u.getY() == v.getY()) {
-                                libre = false;
+                                libre = false;                             
                                 break test;
                             }
                         }
                     }
 
                     if (v.getType() != Jeu.MER && caseVisible.contains(v) && libre) {
-                        if (deplacementPossible.containsKey(v)) { /*si il est déjà dans la liste
-                                                                   *des déplacements possibles */
+
+                        if (deplacementPossible.containsKey(v)) { // si il est déja dans la liste des déplacements
+                            // possible
+
                             if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > deplacementPossible
                                     .get(v)) {
-                                // si le coût actuel est moins grand que l'ancien coût.
+                                // si le cout actuel est moins grand que l'ancien coût.
 
                                 deplacementPossible.replace(v,
                                         pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
-
                                 if (pointAExplorer.containsKey(v)) {
                                     pointAExplorer.replace(v,
                                             pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
@@ -307,36 +340,46 @@ public class Unite {
                                             pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
                                 }
                             }
-                        } else if (pointAExplorer.containsKey(v)) { // si il est déjà en attente d'exploration
+                        } else if (pointAExplorer.containsKey(v)) { // si il est déja en attente d'exploration
 
                             if (pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement() > pointAExplorer
                                     .get(v)) {
-                                // si le coût actuel est moins grand que l'ancien coût.
+                                // si le cout actuel est moins grand que l'ancien coût.
                                 pointAExplorer.replace(v,
                                         pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+
                             }
                         } else if (v.getCoutDeDeplacement() <= pointAExplorer.get(hexagoneCourant)) {
-                            // si le coût de déplacement est inférieur ou égal à la distance restante et
-                            // qu'il n'est pas déjà dans une des listes
+                            // si le cout de deplacement est inferieur ou egal à la distance restante et
+                            // qu'il n'est pas déja dans une des listes
                             pointAExplorer.put(v, pointAExplorer.get(hexagoneCourant) - v.getCoutDeDeplacement());
+
                         }
+
                     }
                 } // fin du parcours des voisins
                 if (!deplacementPossible.containsKey(hexagoneCourant)) {
                     deplacementPossible.put(hexagoneCourant, pointAExplorer.get(hexagoneCourant));
                 }
                 pointAExplorer.remove(hexagoneCourant);
-            } // fin de la boucle principale
+
+            } // fin de la boucle principal
+        } else {
+            System.out.println("Pas de point de deplacement");
         }
+
         return deplacementPossible;
+
     }
 
-
+   
     /**
      * Retourne le joueur propriétaire de l'unité.
+     * 
      * @return le joueur propriétaire de l'unité.
      */
     public Joueur getPlayerWhoControlMe() {
+
         for (Joueur j : Jeu.getListeJoueurs()) {
             if (j.getNumeroJoueur() == this.equipe) {
                 return j;
@@ -345,45 +388,50 @@ public class Unite {
         return null;
     }
 
+    // JAVADOC A FAIRE
     /**
-     * Retourne tous les hexagones avec lesquels une interaction est possible.
-     * @return Une liste d'hexagones avec lesquels une interaction est possible.
+     * Retourne tous les hexagones à portée d'une case pour une unité.
+     * @return
+     *      Une liste d'hexagones avec lesquels une interaction est possible.
      */
-    public MyHashMap<Hexagone, String> actionPossible() {
-        Hexagone h = Jeu.getMap()[x][y]; // hexagone où se situe l'unite
-        MyHashMap<Hexagone, String> actionPossible = new MyHashMap<Hexagone, String>();
-        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone / point de
-                                                                                     // déplacement restant
+    public MyHashMap<Hexagone,String> actionPossible() { // donne tout les hexagones avec lesquels l'unité peut interagir
+        Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
+        MyHashMap<Hexagone, String> actionPossible = new MyHashMap<Hexagone,String>();
+        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
+                                                                                     // deplacement restant
+
         Hexagone hexagoneCourant = h;
         aExplorer.put(hexagoneCourant, 0);
 
         while (!aExplorer.isEmpty()) {
 
-            hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupère le premier élément de la liste
+            hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupére le premier element de la liste
             for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (!actionPossible.containsKey(v) && !aExplorer.containsKey(v)
-                        && aExplorer.get(hexagoneCourant) + 1 <= porte) {
+                if (!actionPossible.containsKey(v) && !aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= porte) {
                     aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
                 }
+
             } // fin du parcours des voisins
             if (!actionPossible.containsKey(hexagoneCourant)) {
-                for (Joueur j : Jeu.getListeJoueurs()) {
-                    for (Unite u : j.getListeUnite()) {
-                        if (u.getX() == hexagoneCourant.getX() && u.getY() == hexagoneCourant.getY()) {
-                            if (u.getTeamUnite() == this.getTeamUnite()) {
-                                if (this.getTypeUnite() == Jeu.PRETRE && u != this && !acted) {
-                                    actionPossible.put(hexagoneCourant, "allie");
-                                }
-                            } else if (!acted) {
-                                actionPossible.put(hexagoneCourant, "ennemi");
-                            }
-                        }
-                    }
-                }
+            	for(Joueur j : Jeu.getListeJoueurs()) {
+            		for(Unite u : j.getListeUnite()) {
+            			if(u.getX() == hexagoneCourant.getX() && u.getY() == hexagoneCourant.getY()) {
+            				if(u.getTeamUnite() == this.getTeamUnite()) {
+            					if(this.getTypeUnite()==Jeu.PRETRE && u!=this && acted == false)
+                					actionPossible.put(hexagoneCourant, "allie");
+            				}else if(acted == false){
+            					actionPossible.put(hexagoneCourant, "ennemi");
+            				}
+            			}
+            		}
+            	}
             }
             aExplorer.remove(hexagoneCourant);
+
         } // fin de la boucle principal
+
         return actionPossible;
+
     }
 
     /**
@@ -392,28 +440,32 @@ public class Unite {
      *      Une liste d'hexagones dans le champ de vision d'une unité.
      */
     public ArrayList<Hexagone> vision() { // donne tout les hexagones visibles par l'unité
-        Hexagone h = Jeu.getMap()[x][y]; // hexagone où se situe l'unite
+        Hexagone h = Jeu.getMap()[x][y]; // hexagone ou se situe l'unite
         ArrayList<Hexagone> nofog = new ArrayList<Hexagone>();
-        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone / point de
-                                                                                     // déplacement restant
+        MyHashMap<Hexagone, Integer> aExplorer = new MyHashMap<Hexagone, Integer>(); // couple hexagone/ point de
+                                                                                     // deplacement restant
+
         Hexagone hexagoneCourant = h;
-        nofog.add(hexagoneCourant);
         aExplorer.put(hexagoneCourant, 0);
 
         while (!aExplorer.isEmpty()) {
 
-            hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupère le premier élément de la liste
+            hexagoneCourant = (Hexagone) aExplorer.getFirstKey(); // on récupére le premier element de la liste
             for (Hexagone v : hexagoneCourant.getListeVoisin()) { // on parcourt la liste de ses voisins
-                if (!nofog.contains(v) && !aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= vision) {
+                if (!aExplorer.containsKey(v) && aExplorer.get(hexagoneCourant) + 1 <= vision) {
                     aExplorer.put(v, aExplorer.get(hexagoneCourant) + 1);
                 }
+
             } // fin du parcours des voisins
             if (!nofog.contains(hexagoneCourant)) {
                 nofog.add(hexagoneCourant);
             }
             aExplorer.remove(hexagoneCourant);
+
         } // fin de la boucle principal
+
         return nofog;
+
     }
 
     /**
@@ -422,38 +474,35 @@ public class Unite {
      * @see Unite#calculDegats(int)
      */
     public void attaquer(final Unite unite) {
-        if (unite.calculDegats(attaque) && porte > 1) {
-            x = unite.getX();
-            y = unite.getY();
+        // si attaque possible
+        if(unite.calculDegats(attaque) && porte > 1) {
+        	x = unite.getX();
+        	y = unite.getY();
         }
         acted = true;
         ptDeDeplacement = 0;
     }
 
     /**
-     * Calcule les dégâts sur l'unité attaquée et les applique sur les PV.
-     * 
+     * Calcul les dégâts sur l'unité attaquée et les applique sur les PV.
      * @param attaque Points d'attaque de l'unité qui attaque.
-     * @return true si l'unité adverse est morte, false sinon.
      */
     public boolean calculDegats(final int attaque) {
         final double borneInf = 0.5;
         final double borneSup = 1.5;
-
         double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
-        if (degats > 0) {
-            pv -= (int) degats;
-            if (pv <= 0) {
-                for (Joueur joueur : Jeu.getListeJoueurs()) {
-                    if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
-                        System.out.println("JE SUIS MORTE!");
-                        return true;
-                    }
+        pv -= (int) degats;
+        if (pv <= 0) {
+            for (Joueur joueur : Jeu.getListeJoueurs()) {
+                if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
+                	System.out.println("JE SUIS MORTE!");
+                    return true;
                 }
             }
         }
         return false;
+
     }
 
     /**
@@ -479,14 +528,11 @@ public class Unite {
         double res = (Math.random() * ((max - min) + 1)) + min;
         return res;
     }
-
-    /**
-     * Applique le soin du prêtre.
-     * @param unite Unité qui reçoit le soin
-     */
-    public void soigner(final Unite unite) {
+    
+    public void soigner(Unite unite) {
+        
     }
-
+    
     /**
      * Redonne à l'unité tous ses points de déplacement et son droit d'action et la soigne.
      */
@@ -507,11 +553,27 @@ public class Unite {
     }
 
     /**
+     * Met à jour les points de défense de l'unité.
+     * @param defense Les nouveaux points de défense de l'unité.
+     */
+    public void setDefense(final int defense) {
+        this.defense = defense;
+    }
+
+    /**
      * Retourne les points de vie restants de l'unité.
      * @return les points de vie restants de l'unité.
      */
     public int getPv() {
         return pv;
+    }
+
+    /**
+     * Met à jour les points de vie restants de l'unité.
+     * @param pv Les nouveaux points de vie restants de l'unité.
+     */
+    public void setPv(final int pv) {
+        this.pv = pv;
     }
 
     /**
@@ -588,11 +650,27 @@ public class Unite {
     }
 
     /**
+     * Met à jour les points d'attaque de l'unité.
+     * @param attaque Les nouveaux points d'attaque de l'unité.
+     */
+    public void setAttaque(final int attaque) {
+        this.attaque = attaque;
+    }
+
+    /**
      * Retourne la vision de l'unité.
      * @return la vision de l'unité.
      */
     public int getVision() {
         return vision;
+    }
+
+    /**
+     * Met à jour la vision de l'unité.
+     * @param vision La nouvelle vision de l'unité.
+     */
+    public void setVision(final int vision) {
+        this.vision = vision;
     }
 
     /**
@@ -604,6 +682,14 @@ public class Unite {
     }
 
     /**
+     * Met à jour la portée de tir de l'unité.
+     * @param porte La nouvelle portée de tir de l'unité.
+     */
+    public void setPorte(final int porte) {
+        this.porte = porte;
+    }
+
+    /**
      * Retourne le type de l'unité.
      * @return le type de l'unité.
      */
@@ -612,10 +698,43 @@ public class Unite {
     }
 
     /**
-     * Retourne l'équipe de l'unité.
-     * @return l'équipe de l'unité.
+     * Met à jour le type de l'unité.
+     * @param typeUnite Le nouveau type de l'unité.
+     */
+    public void setTypeUnite(final int typeUnite) {
+        this.typeUnite = typeUnite;
+    }
+
+    /**
+     * Retourne la liste d'ennemis attaquables.
+     * @return la liste d'ennemis attaquables.
+     */
+    public ArrayList<Unite> getEnnemiAttaquable() {
+        return ennemiAttaquable;
+    }
+
+    /**
+     * Met à jour la liste d'ennemis attaquables.
+     * @param ennemiAttaquable  La nouvelle liste d'ennemis attaquables.
+     */
+    public void setEnnemiAttaquable(ArrayList<Unite> ennemiAttaquable) {
+        this.ennemiAttaquable = ennemiAttaquable;
+    }
+
+    /**
+     * Retourne le type de l'unité.
+     * @return le type de l'unité.
      */
     public int getTeamUnite() {
         return equipe;
     }
+
+    /**
+     * Met à jour l'équipe de l'unité.
+     * @param equipe La nouvelle équipe de l'unité.
+     */
+    public void setEquipe(final int equipe) {
+        this.equipe = equipe;
+    }
+
 }

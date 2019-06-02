@@ -136,6 +136,10 @@ public final class Jeu {
      * d'interagir.
      */
     private static ArrayList<ArrayList<Object>> actionPossible = new ArrayList<ArrayList<Object>>();
+    /**
+     * Liste contenant les coordonnées des hexagones embrumés.
+     */
+    private static ArrayList<ArrayList<Integer>> brouillard = new ArrayList<ArrayList<Integer>>();
 
     /**
      * Constructeur jeu.
@@ -335,6 +339,28 @@ public final class Jeu {
         // controlSurligne(deplacementPossibleHash);
         plateau.repaint();
     }
+    
+    /**
+     * Récupère l'arraylist contenant les hexagones non enfumés,
+     * et envoie les coordonnées des hexagones à la vue pour surligner les cases où le
+     * déplacement est possible.
+     * @param deplacementPossible2 HashMap contenant les hexagones où il est possible de se déplacer.
+     */
+    public static void afficheBrouillard(ArrayList<Hexagone> clair) {
+    	brouillard.clear();
+    	
+    	for(int ligne = 0;ligne < MAPLIGNE;ligne++) {
+    		for(int colonne = 0;colonne < MAPCOLONNE;colonne++) {
+    			if(!(clair.contains(map[ligne][colonne]))) {
+        	    	ArrayList<Integer> embrume=new ArrayList<Integer>();
+        	    	embrume.add(map[ligne][colonne].getX());
+        	    	embrume.add(map[ligne][colonne].getY());
+        	    	brouillard.add(embrume);
+    			}
+        	}
+    	}
+    }
+    	
 
     // TODO changement des variables X et Y en un nom de variable commençant par une
     // majuscule
@@ -627,6 +653,14 @@ public final class Jeu {
     public static ArrayList<ArrayList<Object>> getActionPossible() {
         return actionPossible;
     }
+    
+    /**
+     * Retroune la liste des coordonnées des cases embrumées.
+     * @return la liste des coordonnées des cases embruméess.
+     */
+    public static ArrayList<ArrayList<Integer>> getBrouillard() {
+		return brouillard;
+	}
 
     /**
      * Met à jour la liste des hexagones où il est possible de se déplacer.

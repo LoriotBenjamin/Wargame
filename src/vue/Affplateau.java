@@ -175,6 +175,28 @@ public class Affplateau extends JPanel{ // Classe personnelle qui crï¿½e une 
 			}
 		}
 		Polygon poly = null;
+		
+		if(Jeu.getBrouillard()!=null) {
+			try {
+				g2d =(Graphics2D) graph;
+				bim=ImageIO.read(new File("images"+separateur+"brouillard.png"));
+				for(ArrayList<Integer>brouillard:Jeu.getBrouillard()) {
+					int l = brouillard.get(0);
+					int c = brouillard.get(1);
+					if (l%2==0) {
+						g2d.drawImage(bim,c*r.width ,(int)(l*cote*1.5),this);
+					}
+					else {
+						g2d.drawImage(bim, c*r.width+r.width/2,(int)(l*cote*1.5+0.5),this);
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 		if(Jeu.getDeplacementPossible()!=null) {
 			for(ArrayList<Integer>deplacementPossible:Jeu.getDeplacementPossible()) {
 				if (deplacementPossible.get(0)%2==0) {
