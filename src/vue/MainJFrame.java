@@ -227,7 +227,7 @@ public class MainJFrame {
 		image.setBounds(10, 11, 216, 270);
 		panel.add(image);
 		
-		labelLastAtt = new JLabel("New label");
+		labelLastAtt = new JLabel("");
 		labelLastAtt.setBounds(10, 520, 216, 60);
 		panel.add(labelLastAtt);
 		
