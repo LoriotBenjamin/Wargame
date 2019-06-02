@@ -20,9 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
-import controleur.MainJFrame;
-import modele.Humain;
-import modele.IA;
 
 public class Menu {
 		
@@ -78,11 +75,7 @@ public class Menu {
             public void actionPerformed(ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_1.getSelectedItem();
                 frame.setVisible(false);
-                for(int i=1;i<=nbJoueur;i++) {
-                    Humain joueur = new Humain(i,"J"+i);
-                    Jeu.getListeJoueurs().add(joueur);
-                }
-                Jeu.start();
+                Jeu.start(nbJoueur,0);
                 Jeu.setStarted(true);
             }
 		});
@@ -93,7 +86,7 @@ public class Menu {
         liste_2.setPreferredSize(new Dimension(80,40));
         liste_2.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        Integer[] items3= {0,1,2,3,4};
+        Integer[] items3= {1,2,3,4};
         JComboBox<Integer> liste_3=new JComboBox<Integer>(items3);
         liste_3.setBounds(145,161,272,36);
         liste_3.setPreferredSize(new Dimension(80,40));
@@ -108,19 +101,10 @@ public class Menu {
                 Integer nbJoueur = (Integer) liste_2.getSelectedItem();
                 Integer nbIA = (Integer) liste_3.getSelectedItem();
                 if(nbJoueur + nbIA < 2 || nbJoueur + nbIA > 4) {
-                    JOptionPane erreur = new JOptionPane();
                     JOptionPane.showMessageDialog(null, "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.", "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
                 } else {
                     frame.setVisible(false);
-                    for(int i=1;i<=nbJoueur;i++) {
-                        Humain joueur = new Humain(i,"J"+i);
-                        Jeu.getListeJoueurs().add(joueur);
-                    }
-                    for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
-                        IA ia = new IA(i,"IA"+i);
-                        Jeu.getListeJoueurs().add(ia);
-                    }
-                    Jeu.start();
+                    Jeu.start(nbJoueur,nbIA);
                     Jeu.setStarted(true);
                     
                 }

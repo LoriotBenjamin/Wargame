@@ -160,9 +160,25 @@ public final class Jeu {
     /**
      * Initialise les voisins de chaque hexagone.
      */
-    public static void start() {
+    public static void start(int nbJoueur, int nbIA) { //nouvelle partie
+        for(int i=1;i<=nbJoueur;i++) {
+            Humain joueur = new Humain(i,"J"+i);
+            listeJoueurs.add(joueur);
+        }
+        for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
+            IA ia = new IA(i,"IA"+i);
+            listeJoueurs.add(ia);
+        }
     	frame = new MainJFrame();
     	plateau = new Affplateau();
+    	started = true;
+        frame.getFrame().setVisible(true);
+    }
+    
+    public static void start() { //reprise partie
+        frame = new MainJFrame();
+        plateau = new Affplateau();
+        started = true;
         frame.getFrame().setVisible(true);
     }
     /**
@@ -170,6 +186,7 @@ public final class Jeu {
      */
     public static void kill() {
         frame.getFrame().setVisible(false);
+        started = false;
         listeJoueurs.clear();
     	frame = null;
     	plateau = null;
