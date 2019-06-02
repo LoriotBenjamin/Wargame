@@ -6,8 +6,8 @@ import controleur.Jeu;
  * Mage est la classe représentant une unité de Mage. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 16</li>
- * <li>Défense : 2</li>
- * <li>PV : 24</li>
+ * <li>Défense : 4</li>
+ * <li>PV : 34</li>
  * <li>Déplacement : 3</li>
  * <li>Vision : 3</li>
  * <li>Portée : 2</li>
@@ -24,11 +24,11 @@ public class Mage extends Unite {
     /**
      * Valeur de la défense du Mage.
      */
-    private static final int DEFENSE = 2;
+    private static final int DEFENSE = 4;
     /**
      * Valeur des PV du Mage.
      */
-    private static final int PV = 24;
+    private static final int PV = 34;
     /**
      * Valeur du déplacement du Mage.
      */

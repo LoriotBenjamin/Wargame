@@ -6,8 +6,8 @@ import controleur.Jeu;
  * Guerrier est la classe représentant une unité de Guerrier. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 18</li>
- * <li>Défense : 8</li>
- * <li>PV : 36</li>
+ * <li>Défense : 10</li>
+ * <li>PV : 46</li>
  * <li>Déplacement : 3</li>
  * <li>Vision : 2</li>
  * <li>Portée : 1</li>
@@ -24,11 +24,11 @@ public class Guerrier extends Unite {
     /**
      * Valeur de la défense du Guerrier.
      */
-    private static final int DEFENSE = 8;
+    private static final int DEFENSE = 10;
     /**
      * Valeur des PV du Guerrier.
      */
-    private static final int PV = 36;
+    private static final int PV = 46;
     /**
      * Valeur du déplacement du Guerrier.
      */

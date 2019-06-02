@@ -6,8 +6,8 @@ import controleur.Jeu;
  * Chevalier est la classe représentant une unité de Chevalier. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 20</li>
- * <li>Défense : 6</li>
- * <li>PV : 40</li>
+ * <li>Défense : 8</li>
+ * <li>PV : 50</li>
  * <li>Déplacement : 6</li>
  * <li>Vision : 2</li>
  * <li>Portée : 1</li>
@@ -24,11 +24,11 @@ public class Chevalier extends Unite {
     /**
      * Valeur de la défense du Chevalier.
      */
-    private static final int DEFENSE = 6;
+    private static final int DEFENSE = 8;
     /**
      * Valeur des PV du Chevalier.
      */
-    private static final int PV = 40;
+    private static final int PV = 50;
     /**
      * Valeur du déplacement du Chevalier.
      */

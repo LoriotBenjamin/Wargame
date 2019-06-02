@@ -494,17 +494,19 @@ public class Unite {
         final double borneSup = 1.5;
         double bonusDefense = Jeu.getMap()[x][y].getBonusDefense();
         double degats = (attaque - (defense * (1 + bonusDefense))) * getDoubleAleaBorne(borneInf, borneSup);
-        pv -= (int) degats;
-        if (pv <= 0) {
-            for (Joueur joueur : Jeu.getListeJoueurs()) {
-                if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
-                	System.out.println("JE SUIS MORTE!");
-                    return true;
+        if(degats > 0) {
+            pv -= (int) degats;
+            if (pv <= 0) {
+                for (Joueur joueur : Jeu.getListeJoueurs()) {
+                    if (joueur.getListeUnite().remove(this)) { // supprime l'unité morte
+                    	System.out.println("JE SUIS MORTE!");
+                        return true;
+                    }
                 }
             }
+            
         }
         return false;
-
     }
 
     /**

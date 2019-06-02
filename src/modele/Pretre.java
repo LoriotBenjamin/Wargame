@@ -6,8 +6,8 @@ import controleur.Jeu;
  * Prêtre est la classe représentant une unité de Prêtre. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 6</li>
- * <li>Défense : 2</li>
- * <li>PV : 30</li>
+ * <li>Défense : 4</li>
+ * <li>PV : 40</li>
  * <li>Déplacement : 4</li>
  * <li>Vision : 2</li>
  * <li>Portée : 1</li>
@@ -24,11 +24,11 @@ public class Pretre extends Unite {
     /**
      * Valeur de la défense du Prêtre.
      */
-    private static final int DEFENSE = 2;
+    private static final int DEFENSE = 4;
     /**
      * Valeur des PV du Prêtre.
      */
-    private static final int PV = 30;
+    private static final int PV = 40;
     /**
      * Valeur du déplacement du Prêtre.
      */

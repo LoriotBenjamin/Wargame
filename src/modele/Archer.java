@@ -6,8 +6,8 @@ import controleur.Jeu;
  * Archer est la classe représentant une unité d'Archer. Ses caractéristiques sont :
  * <ul>
  * <li>Attaque : 14</li>
- * <li>Défense : 4</li>
- * <li>PV : 28</li>
+ * <li>Défense : 6</li>
+ * <li>PV : 38</li>
  * <li>Déplacement : 4</li>
  * <li>Vision : 4</li>
  * <li>Portée : 3</li>
@@ -24,11 +24,11 @@ public class Archer extends Unite {
     /**
      * Valeur de la défense de l'Archer.
      */
-    private static final int DEFENSE = 4;
+    private static final int DEFENSE = 6;
     /**
      * Valeur des PV de l'Archer.
      */
-    private static final int PV = 28;
+    private static final int PV = 38;
     /**
      * Valeur du déplacement de l'Archer.
      */
