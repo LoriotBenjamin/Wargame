@@ -60,7 +60,7 @@ public class Humain extends Joueur {
                     for (Hexagone h : Jeu.getMap()[u.getX()][u.getY()].getListeVoisin()) {
                         mindep = Math.min(mindep, h.getCoutDeDeplacement());
                     }
-                    if (mindep <= u.getPtDeDeplacement()) {
+                    if (mindep <= u.getPtDeDeplacement() || !u.acted) {
                         deplacable++;
                     }
                 }
