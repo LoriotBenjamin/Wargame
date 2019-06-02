@@ -590,7 +590,7 @@ public final class Jeu {
 						listeCaractAffichage.add(String.valueOf(u.getVision()));
 						listeCaractAffichage.add(String.valueOf(u.getPtDeDeplacement()));
 						listeCaractAffichage.add(String.valueOf(u.getTypeUnite()));
-						break; 
+						break;  
 	    		}
 	    	}	    			
 	    }
