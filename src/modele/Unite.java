@@ -258,7 +258,7 @@ public class Unite {
 	                                // L'unité est à porté d'attaque
 	                                int pdvAvAtt = u.getPv();
 	                                attaquer(u);
-	                                Jeu.setLastAttaque("L'unité du joueur: "+j.getPseudo()+" a subi: "+(pdvAvAtt-u.getPv())+" \n de dégat(s)");
+	                                Jeu.setLastAttaque("L'unité du joueur: "+j.getPseudo()+" a subi: "+(pdvAvAtt-u.getPv()));
 	                                break tests;
 	                            }
 	                        }
