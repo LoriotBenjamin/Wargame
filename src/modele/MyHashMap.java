@@ -5,15 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
  * Classe héritant de HashMap , ajoute en fonctionnalité
- * la possibilitée de retourner le premier element de la
- * HashMap et de connaitre sa taille 
- * 
+ * la possibilité de retourner le premier élément de la
+ * HashMap et de connaitre sa taille.
  * @author Loriot Benjamin
  *
- * @param <K>
- * @param <V>
+ * @param <K> Clef de la HashMap.
+ * @param <V> Valeur de la HashMap.
  */
 
 public class MyHashMap<K, V> extends HashMap<K, V> {
@@ -23,13 +21,16 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
      */
     private static final long serialVersionUID = 3195739454305712213L;
 
+    /**
+     * Constructeur MyHashMap.
+     */
     public MyHashMap() {
         super();
 
     }
 /**
- * retourne le premier couple de clef/valeur
- * @return
+ * Retourne le premier couple de clef/valeur.
+ * @return le premier couple clef/valeur.
  */
     public Object getFirstKey() {
 
@@ -45,8 +46,8 @@ public class MyHashMap<K, V> extends HashMap<K, V> {
 
     }
 /**
- * retourne la taille de la hashMap 
- * @return int
+ * Retourne la taille de la HashMap.
+ * @return la taille de la HashMap.
  */
     public int getSize() {
         Iterator<Map.Entry<K, V>> iterator = this.entrySet().iterator();
