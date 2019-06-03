@@ -35,25 +35,22 @@ public class Humain extends Joueur {
                 // Attente d'un clic sur une unité alliée
                 selected = false;
                 Point hexagone = new Point(-1, -1);
-                System.out.println("\nJ'attends");
                 do {
                     System.out.print(""); // ABSOLUMENT NECESSAIRE!!
-                    if (Jeu.getSkipFlag()||!Jeu.hasStarted()) {
+                    if (Jeu.getSkipFlag() || !Jeu.hasStarted()) {
                         Jeu.setSkipFlag(false);
                         break totality;
                     }
                     if (Jeu.getClicFlag()) {
                         hexagone = Jeu.getCoordHexaClicked();
-                        System.out.println("CLIC");
                         Jeu.setClicFlag(false);
                     }
                 } while (hexagone.x == -1 || hexagone.y == -1);
-                System.out.println("CASE CLIQUEE LIGNE: " + hexagone.x + " COLONNE: " + hexagone.y);
                 for (Unite u : listeUnite) {
                     if (u.getX() == hexagone.x && u.getY() == hexagone.y) {
-                        System.out.println("UNITE TROUVEE");
-                        if(u.selected())
-                        	break totality;
+                        if (u.selected()) {
+                            break totality;
+                        }
                         selected = true;
                     }
                     int mindep = 10;
@@ -64,12 +61,10 @@ public class Humain extends Joueur {
                         deplacable++;
                     }
                 }
-                System.out.println(deplacable);
             } while (!selected);
         } while (deplacable > 0);
 
         for (Unite unite : this.getListeUnite()) {
-        	System.out.println("INIDNUIS?DOQNIOZJODOOPQZN?DFIPQZBYEDUQTZVUUNZUDJOSNQZDFIUZEYGRDFQZDOZN");
             unite.preparerPourProchainTour();
         }
     }
