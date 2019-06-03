@@ -52,10 +52,6 @@ public final class Jeu {
      */
     public static final int CHEVALIER = 5;
     /**
-     * Entier représentant le type d'unité Dragon.
-     */
-    public static final int DRAGON = 6;
-    /**
      * Entier représentant le type d'hexagone Plaine.
      */
     public static final int PLAINE = 10;
@@ -92,7 +88,7 @@ public final class Jeu {
      */
     public static final int MAPLIGNE = 12;
     /**
-     * Nombre de colonne du plateau.
+     * Nombre de colonnes du plateau.
      */
     public static final int MAPCOLONNE = 19;
     /**
@@ -153,50 +149,61 @@ public final class Jeu {
      * Liste contenant les coordonnées des hexagones embrumés.
      */
     private static ArrayList<ArrayList<Integer>> brouillard = new ArrayList<ArrayList<Integer>>();
-    
     /**
-     * derniere attaque
+     * Dernière attaque.
      */
-    private static String lastAttaque = new String(); 
+    private static String lastAttaque = new String();
     /**
      * Constructeur jeu.
      */
     private Jeu() {
 
     }
-    
-    public static void start(int nbJoueur, int nbIA) { //nouvelle partie
-    	turn = 1;
-        for(int i=1;i<=nbJoueur;i++) {
-            Humain joueur = new Humain(i,"J"+i);
+
+    /**
+     * Permet de lancer une nouvelle partie en initialisant les joueurs.
+     * @param nbJoueur Nombre de joueurs humains.
+     * @param nbIA     Nombre de joueurs IA.
+     */
+    public static void start(final int nbJoueur, final int nbIA) {
+        turn = 1;
+        for (int i = 1; i <= nbJoueur; i++) {
+            Humain joueur = new Humain(i, "J" + i);
             listeJoueurs.add(joueur);
         }
-        for(int i=nbJoueur+1;i<=nbJoueur+nbIA;i++) {
-            IA ia = new IA(i,"IA"+i);
+        for (int i = nbJoueur + 1; i <= nbJoueur + nbIA; i++) {
+            IA ia = new IA(i, "IA" + i);
             listeJoueurs.add(ia);
         }
-    	frame = new MainJFrame();
-    	plateau = new Affplateau();
-		Jeu.initMap(); // pour test
+        frame = new MainJFrame();
+        plateau = new Affplateau();
+        Jeu.initMap();
         frame.getFrame().setVisible(true);
-		Jeu.affichageUnite();
-    	started = true;
+        Jeu.affichageUnite();
+        started = true;
     }
-    
-    public static void start() { //reprise partie
+
+    /**
+     * Permet de reprendre une partie précédement sauvegardée (Joueurs déjà
+     * initialisés).
+     */
+    public static void start() {
         frame = new MainJFrame();
         plateau = new Affplateau();
         frame.getFrame().setVisible(true);
         Jeu.initVoisins();
-		Jeu.affichageUnite();
+        Jeu.affichageUnite();
         started = true;
     }
 
+    /**
+     * Permet de de vider toutes les listes et de fermer la fenêtre de jeu.
+     */
     public static void kill() {
         started = false;
         frame.getFrame().dispose();
-        for(Joueur j : Jeu.listeJoueurs) {
-        	j.getListeUnite().clear();
+        for (Joueur j : Jeu.listeJoueurs) {
+            j.getListeUnite().clear();
         }
         Jeu.listeJoueurs.clear();
         infoUnite.clear();
@@ -205,8 +212,8 @@ public final class Jeu {
         actionPossibleHash.clear();
         actionPossible.clear();
         brouillard.clear();
-    	frame = null;
-    	plateau = null;
+        frame = null;
+        plateau = null;
     }
 
     /**
@@ -315,9 +322,7 @@ public final class Jeu {
         for (int i = 0; i < MAPLIGNE; i++) {
             for (int j = 0; j < MAPCOLONNE; j++) {
                 map[i][j].initListeVoisin();
-                System.out.print(map[i][j]);
             }
-            System.out.println();
         }
     }
 
@@ -360,6 +365,7 @@ public final class Jeu {
      */
     public static void controlSurligne(final HashMap<Hexagone, Integer> deplacementPossibleHash,
             final HashMap<Hexagone, String> actionPossibleHash) {
+
         deplacementPossible.clear();
         actionPossible.clear();
 
@@ -396,47 +402,39 @@ public final class Jeu {
         controlAffichageUnite();
         deplacementPossible.clear();
         actionPossible.clear();
-        // controlSurligne(deplacementPossibleHash);
         plateau.repaint();
     }
-    
-    /**
-     * Récupère l'arraylist contenant les hexagones non enfumés,
-     * et envoie les coordonnées des hexagones à la vue pour surligner les cases où le
-     * déplacement est possible.
-     * @param deplacementPossible2 HashMap contenant les hexagones où il est possible de se déplacer.
-     */
-    public static void afficheBrouillard(ArrayList<Hexagone> clair) {
-    	brouillard.clear();
-    	
-    	for(int ligne = 0;ligne < MAPLIGNE;ligne++) {
-    		for(int colonne = 0;colonne < MAPCOLONNE;colonne++) {
-    			if(!(clair.contains(map[ligne][colonne]))) {
-        	    	ArrayList<Integer> embrume=new ArrayList<Integer>();
-        	    	embrume.add(map[ligne][colonne].getX());
-        	    	embrume.add(map[ligne][colonne].getY());
-        	    	brouillard.add(embrume);
-    			}
-        	}
-    	}
-    }
-    	
 
-    // TODO changement des variables X et Y en un nom de variable commençant par une
-    // majuscule
-    // TODO déclarer les constantes (à quoi elles correspondent ?)
+    /**
+     * Récupère l'arraylist contenant les hexagones non enfumés, et envoie les
+     * coordonnées des hexagones à la vue pour surligner les cases où le déplacement
+     * est possible.
+     * @param clair HashMap contenant les hexagones non enfumés.
+     */
+    public static void afficheBrouillard(final ArrayList<Hexagone> clair) {
+        brouillard.clear();
+
+        for (int ligne = 0; ligne < MAPLIGNE; ligne++) {
+            for (int colonne = 0; colonne < MAPCOLONNE; colonne++) {
+                if (!(clair.contains(map[ligne][colonne]))) {
+                    ArrayList<Integer> embrume = new ArrayList<Integer>();
+                    embrume.add(map[ligne][colonne].getX());
+                    embrume.add(map[ligne][colonne].getY());
+                    brouillard.add(embrume);
+                }
+            }
+        }
+    }
+
     /**
      * Renvoie les coordonnées de l'hexagone cliqué.
      * @return les coordonnées de l'hexagone cliqué
      */
     public static Point getCoordHexaClicked() {
-        System.out.println("HOY");
         Point mouse = new Point(-1, -1);
         int hX = -1;
         int hY = -1;
-        // System.out.print("");//ABSOLUMENT NECESSAIRE (Mais je sais pas pourquoi)
         mouse = Jeu.getFrame().getClicPos();
-        System.out.println("CLIC X: " + mouse.x + " Y: " + mouse.y);
         int X = mouse.y;
         int Y = mouse.x;
         find: for (int ligne = 0; ligne < Jeu.MAPLIGNE; ligne++) {
@@ -446,12 +444,6 @@ public final class Jeu {
                 if (Y >= refY && Y < refY + 50) {
                     int dX = (int) (30 - 15.0 / 25.0 * (Math.abs(refY + 25 - Y)));
                     if (X >= refX - dX && X <= refX + dX) {
-                        System.out.println("\n\nX: " + (refX + 30) + " Y: " + (refY + 25));
-                        System.out.println("X: " + (refX + 15) + " Y: " + refY);
-                        System.out.println("X: " + (refX + 15) + " Y: " + (refY + 50));
-                        System.out.println("X: " + (refX - 15) + " Y: " + refY);
-                        System.out.println("X: " + (refX - 15) + " Y: " + (refY + 50));
-                        System.out.println("X: " + (refX - 30) + " Y: " + (refY + 25));
                         hX = ligne;
                         hY = colonne;
                         break find;
@@ -459,7 +451,6 @@ public final class Jeu {
                 }
             }
         }
-        System.out.println(hX + " " + hY);
         return new Point(hX, hY);
     }
 
@@ -517,153 +508,142 @@ public final class Jeu {
      * @param fichier Nom du fichier à charger.
      */
     public static void chargerPartie(final String fichier) {
-    	listeJoueurs.clear();
-    	for(Joueur j : Jeu.listeJoueurs) {
-            System.out.println("Joueur: "+j.getNumeroJoueur());
-        	for(Unite u  : j.getListeUnite()) {
-                System.out.println("Unite: "+u.toString());
-        	}
-        }
-        System.out.println("\n\n\nDEBUT DE CHARGEMENT\n\n");
+        listeJoueurs.clear();
+
         final File saveFile = new File("./" + fichier);
-        if(saveFile.exists()) {
-	        try {
-	            final FileReader save = new FileReader(saveFile);
-	            try {
-	                int ligne, colonne;
-	                for (ligne = 0; ligne < MAPLIGNE; ligne++) {
-	                    for (colonne = 0; colonne < MAPCOLONNE; colonne++) {
-	                        switch (save.read()) {
-	                        case PLAINE:
-	                            map[ligne][colonne] = new Plaine(ligne, colonne);
-	                            break;
-	                        case FORET:
-	                            map[ligne][colonne] = new Foret(ligne, colonne);
-	                            break;
-	                        case VILLAGE:
-	                            map[ligne][colonne] = new Village(ligne, colonne);
-	                            break;
-	                        case RIVIERE:
-	                            map[ligne][colonne] = new Riviere(ligne, colonne);
-	                            break;
-	                        case MONTAGNE:
-	                            map[ligne][colonne] = new Montagne(ligne, colonne);
-	                            break;
-	                        case MER:
-	                            map[ligne][colonne] = new Mer(ligne, colonne);
-	                            break;
-	                        case DESERT:
-	                            map[ligne][colonne] = new Desert(ligne, colonne);
-	                            break;
-	                        default:
-	                            break;
-	                        }
-	                    }
-	                }
-	                int playerCount = save.read();
-	                for (int p = 1; p <= playerCount; p++) {
-	                	System.out.println("Joueur: "+p);
-	                    int namelength = save.read();
-	                    String nom = "";
-	                    for (int c = 0; c < namelength; c++) {
-	                        char carac = (char) save.read();
-	                        nom = nom + String.valueOf(carac);
-	                    }
-	                    Joueur joueur;
-	                    if (nom.matches("(.*)IA(.*)")) {
-	                        System.out.println("IA");
-	                        joueur = new IA(p, nom);
-	                    } else {
-	                        System.out.println("Humain");
-	                        joueur = new Humain(p, nom);
-	                    }
-	                    joueur.setListeUnite(new ArrayList<Unite>());
-	                    listeJoueurs.add(joueur);
-	                    int uniteCount = save.read();
-	                    System.out.println("Count: " + uniteCount);
-	                    for (int u = 0; u < uniteCount; u++) {
-	                        int typeUnite = save.read();
-	                        System.out.println("Type: " + typeUnite);
-	                        switch (typeUnite) {
-	                        case GUERRIER:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(GUERRIER, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        case PRETRE:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(PRETRE, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        case MAGE:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(MAGE, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        case ARCHER:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(ARCHER, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        case CHEVALIER:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(CHEVALIER, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        case DRAGON:
-	                            joueur.getListeUnite()
-	                                    .add(new Unite(DRAGON, save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), save.read(), save.read(), save.read(), save.read(),
-	                                            save.read(), p));
-	                            break;
-	                        default:
-	                            break;
-	                        }
-	                        System.out.println(joueur.getListeUnite().get(joueur.getListeUnite().size()-1));
-	                    }
-	                }
-	                Jeu.turn = save.read();
-	            } finally {
-	                save.close();
-	            }
-	        } catch (IOException e) {
-	            System.out.println("Impossible de creer le fichier");
-	        }
-	        Jeu.start();
+        if (saveFile.exists()) {
+            try {
+                final FileReader save = new FileReader(saveFile);
+                try {
+                    int ligne, colonne;
+                    for (ligne = 0; ligne < MAPLIGNE; ligne++) {
+                        for (colonne = 0; colonne < MAPCOLONNE; colonne++) {
+                            switch (save.read()) {
+                            case PLAINE:
+                                map[ligne][colonne] = new Plaine(ligne, colonne);
+                                break;
+                            case FORET:
+                                map[ligne][colonne] = new Foret(ligne, colonne);
+                                break;
+                            case VILLAGE:
+                                map[ligne][colonne] = new Village(ligne, colonne);
+                                break;
+                            case RIVIERE:
+                                map[ligne][colonne] = new Riviere(ligne, colonne);
+                                break;
+                            case MONTAGNE:
+                                map[ligne][colonne] = new Montagne(ligne, colonne);
+                                break;
+                            case MER:
+                                map[ligne][colonne] = new Mer(ligne, colonne);
+                                break;
+                            case DESERT:
+                                map[ligne][colonne] = new Desert(ligne, colonne);
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                    }
+                    int playerCount = save.read();
+                    for (int p = 1; p <= playerCount; p++) {
+                        int namelength = save.read();
+                        String nom = "";
+                        for (int c = 0; c < namelength; c++) {
+                            char carac = (char) save.read();
+                            nom = nom + String.valueOf(carac);
+                        }
+                        Joueur joueur;
+                        if (nom.matches("(.*)IA(.*)")) {
+                            joueur = new IA(p, nom);
+                        } else {
+                            joueur = new Humain(p, nom);
+                        }
+                        joueur.setListeUnite(new ArrayList<Unite>());
+                        listeJoueurs.add(joueur);
+                        int uniteCount = save.read();
+                        for (int u = 0; u < uniteCount; u++) {
+                            int typeUnite = save.read();
+                            System.out.println("Type: " + typeUnite);
+                            switch (typeUnite) {
+                            case GUERRIER:
+                                joueur.getListeUnite()
+                                        .add(new Unite(GUERRIER, save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), p));
+                                break;
+                            case PRETRE:
+                                joueur.getListeUnite()
+                                        .add(new Unite(PRETRE, save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), p));
+                                break;
+                            case MAGE:
+                                joueur.getListeUnite()
+                                        .add(new Unite(MAGE, save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), p));
+                                break;
+                            case ARCHER:
+                                joueur.getListeUnite()
+                                        .add(new Unite(ARCHER, save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), p));
+                                break;
+                            case CHEVALIER:
+                                joueur.getListeUnite()
+                                        .add(new Unite(CHEVALIER, save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), save.read(), save.read(), save.read(), save.read(),
+                                                save.read(), p));
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                    }
+                    Jeu.turn = save.read();
+                } finally {
+                    save.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Impossible de creer le fichier");
+            }
+            Jeu.start();
         }
     }
-    
-	public static ArrayList<String> getCaractUniteEnMouvement(Point hexa){
-		  
-		  	ArrayList<String> listeCaractAffichage= new ArrayList<String>();
-		  	listeCaractAffichage.clear();
-	    	int px=(int)hexa.getX();
-			int py=(int)hexa.getY();
-			
-	    	for(Joueur j: Jeu.getListeJoueurs() ){
-	    		for(Unite u : j.getListeUnite()){
-	    			if(px == u.getX() && py == u.getY()){
-	    				listeCaractAffichage.add(String.valueOf(u.getPv()));
-						listeCaractAffichage.add(String.valueOf(u.getPvMax()));
-						listeCaractAffichage.add(String.valueOf(u.getDefense()));
-						listeCaractAffichage.add(String.valueOf(u.getAttaque()));
-						listeCaractAffichage.add(String.valueOf(u.getVision()));
-						listeCaractAffichage.add(String.valueOf(u.getPtDeDeplacement()));
-						listeCaractAffichage.add(String.valueOf(u.getTypeUnite()));
-						break;  
-	    		}
-	    	}	    			
-	    }
-	    	return listeCaractAffichage;
-	    
-	}
+
+    /**
+     * Récupère les caractéristiques de l'unité en mouvement dans une liste.
+     * @param hexa Coordonnées de l'hexagone cliqué.
+     * @return Une liste contenant les caractériqtiques de l'unité en mouvement.
+     */
+    public static ArrayList<String> getCaractUniteEnMouvement(final Point hexa) {
+
+        ArrayList<String> listeCaractAffichage = new ArrayList<String>();
+        listeCaractAffichage.clear();
+        int px = (int) hexa.getX();
+        int py = (int) hexa.getY();
+
+        for (Joueur j : Jeu.getListeJoueurs()) {
+            for (Unite u : j.getListeUnite()) {
+                if (px == u.getX() && py == u.getY()) {
+                    listeCaractAffichage.add(String.valueOf(u.getPv()));
+                    listeCaractAffichage.add(String.valueOf(u.getPvMax()));
+                    listeCaractAffichage.add(String.valueOf(u.getDefense()));
+                    listeCaractAffichage.add(String.valueOf(u.getAttaque()));
+                    listeCaractAffichage.add(String.valueOf(u.getVision()));
+                    listeCaractAffichage.add(String.valueOf(u.getPtDeDeplacement()));
+                    listeCaractAffichage.add(String.valueOf(u.getTypeUnite()));
+                    break;
+                }
+            }
+        }
+        return listeCaractAffichage;
+
+    }
+
     //////////// GETTERS AND SETTERS /////////////////
-	/**
+    /**
      * Retourne le numéro du joueur dont c'est le tour.
      * @return l'indicateur de clic.
      */
@@ -675,8 +655,9 @@ public final class Jeu {
      * Met à jour le numéro du joueur dont c'est le tour.
      */
     public static void nextTurn() {
-        turn = turn%listeJoueurs.size()+1;
+        turn = turn % listeJoueurs.size() + 1;
     }
+
     /**
      * Retourne l'indicateur de clic.
      * @return l'indicateur de clic.
@@ -788,14 +769,14 @@ public final class Jeu {
     public static ArrayList<ArrayList<Object>> getActionPossible() {
         return actionPossible;
     }
-    
+
     /**
      * Retroune la liste des coordonnées des cases embrumées.
      * @return la liste des coordonnées des cases embruméess.
      */
     public static ArrayList<ArrayList<Integer>> getBrouillard() {
-		return brouillard;
-	}
+        return brouillard;
+    }
 
     /**
      * Met à jour la liste des hexagones où il est possible de se déplacer.
@@ -814,19 +795,21 @@ public final class Jeu {
     public static void setActionPossibleHash(final HashMap<Hexagone, String> actionPossibleHash) {
         Jeu.actionPossibleHash = actionPossibleHash;
     }
+
     /**
-     * retourne la derniere attaque
-     * @return String
+     * Retourne la dernière attaque.
+     * @return la dernière attaque3
      */
-	public static String getLastAttaque() {
-		return lastAttaque;
-	}
-	/**
-	 * permet de changer la derniere attaque
-	 * @param lastAttaque
-	 */
-	public static void setLastAttaque(String lastAttaque) {
-		Jeu.lastAttaque = lastAttaque;
-	}
+    public static String getLastAttaque() {
+        return lastAttaque;
+    }
+
+    /**
+     * Met à jour la dernière attaque.
+     * @param lastAttaque la nouvelle attaque.
+     */
+    public static void setLastAttaque(final String lastAttaque) {
+        Jeu.lastAttaque = lastAttaque;
+    }
 
 }
