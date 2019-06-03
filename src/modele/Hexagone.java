@@ -146,12 +146,10 @@ public class Hexagone {
         int resultat = 0;
 
         final double arrondi = 0.5;
-        
-        
-        
+
         if (((a == 0 && b == 0) && (a2 % 2 == 1 && b2 % 2 == 1))
-                || ((a % 2 == 1 && b % 2 == 1) && (a2 == 0 && b2 == 0)) 
-                || Math.abs(a-a2) == 1 && Math.abs(b-b2) == 1  ) { // si un des paramètres est 0,0 et que
+                || ((a % 2 == 1 && b % 2 == 1) && (a2 == 0 && b2 == 0))
+                || Math.abs(a - a2) == 1 && Math.abs(b - b2) == 1) { // si un des paramètres est 0,0 et que
                                                                            // l'autre a deux coordoonées impaires
             resultat = (int) Math.abs((m - arrondi)); // on arrondit à l'inférieur
         } else {
