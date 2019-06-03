@@ -21,198 +21,197 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 import controleur.Jeu;
+
 /**
- * Menu est un classe surlequel on choisi les paramètre de jeu (JvJ, JvIA, Règles, Charger une partie).
+ * Menu est une classe sur laquelle on choisit les paramètres de jeu (JvJ, JvIA,
+ * Règles, Charger une partie).
  * @author Stefano
  *
  */
-import modele.Humain;
-import modele.IA;
-
 public class Menu {
-		
-	private JFrame frame;
-	private String separateur = System.getProperty("file.separator"); //séparateur de fichier pour Linux ou Windows
 
-	/**
-	 * Create the application.
-	 */
-	public Menu() {
-		initialize();
-	}
+    /**
+     * Fenêtre du menu.
+     */
+    private JFrame frame;
+    /**
+     * Séparateur de fichier que ce soit sur Linux ou Windows.
+     */
+    private String separateur = System.getProperty("file.separator");
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+    /**
+     * Crée l'application.
+     */
+    public Menu() {
+        initialize();
+    }
 
-		Dimension size = new Dimension(1300, 650);
-		frame = new JFrame("Wargame");
-		frame.setLayout(new BorderLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setSize(size);
-		frame.setMaximumSize(size);
-		frame.setMinimumSize(size);
+    /**
+     * Initialise le contenu de la fenêtre.
+     */
+    private void initialize() {
 
-		Image imagefond = null;
-		try {
-			imagefond = ImageIO.read(new File("images"+separateur+"back.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		CustomPanel panel = new CustomPanel(imagefond);
-		SpringLayout sl_panel = new SpringLayout();
-		panel.setLayout(sl_panel);
-		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
-		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Dimension size = new Dimension(1300, 650);
+        frame = new JFrame("Wargame");
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setSize(size);
+        frame.setMaximumSize(size);
+        frame.setMinimumSize(size);
 
-		Integer[] items= {2,3,4};
-        JComboBox<Integer> liste_1=new JComboBox<Integer>(items);
-        liste_1.setBounds(145,161,272,36);
-        liste_1.setPreferredSize(new Dimension(80,40));
+        Image imagefond = null;
+        try {
+            imagefond = ImageIO.read(new File("images" + separateur + "back.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        CustomPanel panel = new CustomPanel(imagefond);
+        SpringLayout sl_panel = new SpringLayout();
+        panel.setLayout(sl_panel);
+        panel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        Integer[] items = {2, 3, 4 };
+        JComboBox<Integer> liste_1 = new JComboBox<Integer>(items);
+        liste_1.setBounds(145, 161, 272, 36);
+        liste_1.setPreferredSize(new Dimension(80, 40));
         liste_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		//Dimension buttonSize = new Dimension(125, 50);
-		JButton jvj = new JButton("Joueur VS Joueur");
-		jvj.setBounds(145,161,272,36);
-		jvj.setPreferredSize(new Dimension(200,40));
-		jvj.setAlignmentX(Component.CENTER_ALIGNMENT);
-		jvj.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+
+        // Dimension buttonSize = new Dimension(125, 50);
+        JButton jvj = new JButton("Joueur VS Joueur");
+        jvj.setBounds(145, 161, 272, 36);
+        jvj.setPreferredSize(new Dimension(200, 40));
+        jvj.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jvj.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_1.getSelectedItem();
                 frame.dispose();
-                Jeu.start(nbJoueur,0);
+                Jeu.start(nbJoueur, 0);
                 Jeu.setStarted(true);
             }
-		});
-		
-		Integer[] items2= {0,1,2,3,4};
-        JComboBox<Integer> liste_2=new JComboBox<Integer>(items2);
-        liste_2.setBounds(145,161,272,36);
-        liste_2.setPreferredSize(new Dimension(80,40));
+        });
+
+        Integer[] items2 = {0, 1, 2, 3, 4 };
+        JComboBox<Integer> liste_2 = new JComboBox<Integer>(items2);
+        liste_2.setBounds(145, 161, 272, 36);
+        liste_2.setPreferredSize(new Dimension(80, 40));
         liste_2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        Integer[] items3= {1,2,3,4};
-        JComboBox<Integer> liste_3=new JComboBox<Integer>(items3);
-        liste_3.setBounds(145,161,272,36);
-        liste_3.setPreferredSize(new Dimension(80,40));
+
+        Integer[] items3 = {1, 2, 3, 4 };
+        JComboBox<Integer> liste_3 = new JComboBox<Integer>(items3);
+        liste_3.setBounds(145, 161, 272, 36);
+        liste_3.setPreferredSize(new Dimension(80, 40));
         liste_3.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		JButton jva = new JButton("Joueur Vs IA");
-		jva.setBounds(145,161,272,36);
-		jva.setPreferredSize(new Dimension(200,40));
-		jva.setAlignmentX(Component.CENTER_ALIGNMENT);
-		jva.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        JButton jva = new JButton("Joueur Vs IA");
+        jva.setBounds(145, 161, 272, 36);
+        jva.setPreferredSize(new Dimension(200, 40));
+        jva.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jva.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent arg0) {
                 Integer nbJoueur = (Integer) liste_2.getSelectedItem();
                 Integer nbIA = (Integer) liste_3.getSelectedItem();
-                if(nbJoueur + nbIA < 2 || nbJoueur + nbIA > 4) {
-                    JOptionPane.showMessageDialog(null, "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.", "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
+                if (nbJoueur + nbIA < 2 || nbJoueur + nbIA > 4) {
+                    JOptionPane.showMessageDialog(null,
+                            "Merci de sélectionner un nombre total de joueurs compris entre 2 et 4.",
+                            "Mauvais nombre de joueur", JOptionPane.WARNING_MESSAGE);
                 } else {
                     frame.dispose();
-                    Jeu.start(nbJoueur,nbIA);
+                    Jeu.start(nbJoueur, nbIA);
                     Jeu.setStarted(true);
-                    
+
                 }
             }
         });
-		
-		
-		
-		JButton cp = new JButton("Charger une partie");
-		cp.setBounds(145,161,272,36);
-		cp.setPreferredSize(new Dimension(200,40));
-		cp.setAlignmentX(Component.CENTER_ALIGNMENT);
-		cp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-        		JFileChooser choix = new JFileChooser();
-        		choix.setCurrentDirectory(new File("."+ System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")));
-    			int retour = choix.showOpenDialog(frame);
-    			if(retour==JFileChooser.APPROVE_OPTION){
-    			   System.out.println(choix.getSelectedFile().getName());
-               	frame.dispose();
-               	Jeu.chargerPartie("."+ System.getProperty("file.separator")+"saves"+System.getProperty("file.separator")+choix.getSelectedFile().getName());
-    			}
+
+        JButton cp = new JButton("Charger une partie");
+        cp.setBounds(145, 161, 272, 36);
+        cp.setPreferredSize(new Dimension(200, 40));
+        cp.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cp.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent arg0) {
+                JFileChooser choix = new JFileChooser();
+                choix.setCurrentDirectory(new File(
+                        "." + System.getProperty("file.separator") + "saves" + System.getProperty("file.separator")));
+                int retour = choix.showOpenDialog(frame);
+                if (retour == JFileChooser.APPROVE_OPTION) {
+                    System.out.println(choix.getSelectedFile().getName());
+                    frame.dispose();
+                    Jeu.chargerPartie("." + System.getProperty("file.separator") + "saves"
+                            + System.getProperty("file.separator") + choix.getSelectedFile().getName());
+                }
             }
-		});
-		
-		JButton r = new JButton("Règles");
-		r.setBounds(145,161,272,36);
-		r.setPreferredSize(new Dimension(200,40));
-		r.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Regles regle=new Regles();
-			}
-		});
-		r.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		
-		JLabel label1 =new JLabel("Nb Joueur");
-		label1.setFont(new Font("Serif",Font.BOLD,17));
-		label1.setForeground(Color.white);
-		
-		JLabel label2 =new JLabel("Nb Joueur");
-		label2.setFont(new Font("Serif",Font.BOLD,17));
-		label2.setForeground(Color.white);
-		
-		JLabel label3=new JLabel("Nb IA");
-		label3.setFont(new Font("Serif",Font.BOLD,17));
-		label3.setForeground(Color.white);
-		
-		//jva.addActionListener((ActionEvent e) -> {
-			//System.exit(0);
-		//});
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, jvj, 230, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, jvj, 550, SpringLayout.WEST, panel);
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, liste_1, 230, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, liste_1, 780, SpringLayout.WEST, panel);
-	
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, label1, 230, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, label1, 879, SpringLayout.WEST, panel);
-		
-		
-		sl_panel.putConstraint(SpringLayout.WEST, jva, 0, SpringLayout.WEST, jvj);
-		sl_panel.putConstraint(SpringLayout.SOUTH, jva, 100, SpringLayout.NORTH, jvj);
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, liste_2, 0, SpringLayout.NORTH, jva);
-		sl_panel.putConstraint(SpringLayout.WEST, liste_2, 230, SpringLayout.WEST, jva);
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, label2, 0, SpringLayout.NORTH, jva);
-		sl_panel.putConstraint(SpringLayout.WEST, label2, 330, SpringLayout.WEST, jva);
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, liste_3, 0, SpringLayout.NORTH, jva);
-		sl_panel.putConstraint(SpringLayout.WEST, liste_3, 420, SpringLayout.WEST, jva);
-		
-		sl_panel.putConstraint(SpringLayout.NORTH, label3, 0, SpringLayout.NORTH, jva);
-		sl_panel.putConstraint(SpringLayout.WEST, label3, 510, SpringLayout.WEST, jva);
-		
-		sl_panel.putConstraint(SpringLayout.WEST, cp, 0, SpringLayout.WEST, jva);
-		sl_panel.putConstraint(SpringLayout.SOUTH, cp, 100, SpringLayout.NORTH, jva);
-		
-		sl_panel.putConstraint(SpringLayout.WEST, r, 0, SpringLayout.WEST,cp);
-		sl_panel.putConstraint(SpringLayout.SOUTH, r, 100, SpringLayout.NORTH, cp);
-		
-		panel.add(jva);
-		panel.add(jvj);
-		panel.add(cp);
-		panel.add(r);
-		panel.add(liste_1);
-		panel.add(liste_2);
-		panel.add(liste_3);
-		panel.add(label1);
-		panel.add(label2);
-		panel.add(label3);
+        });
 
-		frame.add(panel, BorderLayout.CENTER);
-		frame.pack();
-		frame.setVisible(true);
-	}
+        JButton r = new JButton("Règles");
+        r.setBounds(145, 161, 272, 36);
+        r.setPreferredSize(new Dimension(200, 40));
+        r.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                Regles regle = new Regles();
+            }
+        });
+        r.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel label1 = new JLabel("Nb Joueur");
+        label1.setFont(new Font("Serif", Font.BOLD, 17));
+        label1.setForeground(Color.white);
+
+        JLabel label2 = new JLabel("Nb Joueur");
+        label2.setFont(new Font("Serif", Font.BOLD, 17));
+        label2.setForeground(Color.white);
+
+        JLabel label3 = new JLabel("Nb IA");
+        label3.setFont(new Font("Serif", Font.BOLD, 17));
+        label3.setForeground(Color.white);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, jvj, 230, SpringLayout.NORTH, panel);
+        sl_panel.putConstraint(SpringLayout.WEST, jvj, 550, SpringLayout.WEST, panel);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, liste_1, 230, SpringLayout.NORTH, panel);
+        sl_panel.putConstraint(SpringLayout.WEST, liste_1, 780, SpringLayout.WEST, panel);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, label1, 230, SpringLayout.NORTH, panel);
+        sl_panel.putConstraint(SpringLayout.WEST, label1, 879, SpringLayout.WEST, panel);
+
+        sl_panel.putConstraint(SpringLayout.WEST, jva, 0, SpringLayout.WEST, jvj);
+        sl_panel.putConstraint(SpringLayout.SOUTH, jva, 100, SpringLayout.NORTH, jvj);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, liste_2, 0, SpringLayout.NORTH, jva);
+        sl_panel.putConstraint(SpringLayout.WEST, liste_2, 230, SpringLayout.WEST, jva);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, label2, 0, SpringLayout.NORTH, jva);
+        sl_panel.putConstraint(SpringLayout.WEST, label2, 330, SpringLayout.WEST, jva);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, liste_3, 0, SpringLayout.NORTH, jva);
+        sl_panel.putConstraint(SpringLayout.WEST, liste_3, 420, SpringLayout.WEST, jva);
+
+        sl_panel.putConstraint(SpringLayout.NORTH, label3, 0, SpringLayout.NORTH, jva);
+        sl_panel.putConstraint(SpringLayout.WEST, label3, 510, SpringLayout.WEST, jva);
+
+        sl_panel.putConstraint(SpringLayout.WEST, cp, 0, SpringLayout.WEST, jva);
+        sl_panel.putConstraint(SpringLayout.SOUTH, cp, 100, SpringLayout.NORTH, jva);
+
+        sl_panel.putConstraint(SpringLayout.WEST, r, 0, SpringLayout.WEST, cp);
+        sl_panel.putConstraint(SpringLayout.SOUTH, r, 100, SpringLayout.NORTH, cp);
+
+        panel.add(jva);
+        panel.add(jvj);
+        panel.add(cp);
+        panel.add(r);
+        panel.add(liste_1);
+        panel.add(liste_2);
+        panel.add(liste_3);
+        panel.add(label1);
+        panel.add(label2);
+        panel.add(label3);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

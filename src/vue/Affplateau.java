@@ -22,8 +22,14 @@ import controleur.Jeu;
  *
  */
 public class Affplateau extends JPanel {
-    final static int COTE = 30; // Ceci dï¿½finit la taille du cï¿½tï¿½ d'un polygone
-    // int numero=0; // Retien le nï¿½ du polygone sur lequel est la souris
+    /**
+     * Numéro de serial Version.
+     */
+    private static final long serialVersionUID = -2264167392249814615L;
+    /**
+     * Taille du côté d'un hexagone.
+     */
+    static final int COTE = 30;
     /**
      * Polygone de la forme d'une hexagone.
      */
@@ -33,7 +39,7 @@ public class Affplateau extends JPanel {
      */
     private Graphics2D g2d;
     /**
-     * Buffered Image qui aura l'image charger depuis un fichier png.
+     * Buffered Image qui aura l'image chargée depuis un fichier png.
      */
     private BufferedImage bim;
     /**
@@ -45,12 +51,19 @@ public class Affplateau extends JPanel {
      */
     private Graphics graph;
     /**
-     * String pour représenter le séparteur de fichier que ce sois sur linux ou
-     * windows.
+     * String pour représenter le séparateur de fichier que ce soit sur Linux ou
+     * Windows.
      */
-    private String separateur = System.getProperty("file.separator"); // séparateur de fichier pour Linux ou Windows
+    private String separateur = System.getProperty("file.separator");
 
-    public static Polygon getPolygon(int x, int y, int cote) {
+    /**
+     * Retourne un hexagone.
+     * @param x Coordonée x du point de départ.
+     * @param y Coordonnée y du point de départ.
+     * @param cote Longueur du côté de l'hexagone.
+     * @return un hexagone
+     */
+    public static Polygon getPolygon(final int x, final int y, final int cote) {
         int haut = cote / 2;
         int larg = (int) (cote * (Math.sqrt(3) / 2));
         Polygon p = new Polygon();
@@ -63,22 +76,23 @@ public class Affplateau extends JPanel {
         return p;
     }
 
+    @Override
     /**
-     * paint dessine dans le JPanel les éléments du jeu (plateau, unitées,
-     * deplacement possible, brouillard.
+     * Dessine dans le JPanel les éléments du jeu (plateau, unités,
+     * déplacement possible, brouillard).
+     * @param graph Graphic.
      */
-    public void paint(Graphics graph) {
-        Polygon hexagone = getPolygon(0, 0, COTE); // Crï¿½e un hexagone
-        r = hexagone.getBounds(); // Rï¿½cupï¿½re le plus petit rectangle // aux bord de la fenï¿½tre dans lequel
+    public void paint(final Graphics graph) {
+        Polygon hexagone = getPolygon(0, 0, COTE); // Crée un hexagone
+        r = hexagone.getBounds(); // Récupère le plus petit rectangle aux bord de la fenêtre dans lequel
                                   // l'hexagone peut s'inscrire
         graph.setColor(Color.BLACK);
         super.paint(graph);
         g2d = (Graphics2D) graph;
         this.graph = graph;
         bim = null;
-
-        for (int l = 0; l < Jeu.MAPLIGNE; l = l + 2) {// Remarquer le "+2" car la grille est constituï¿½e de 2 sous
-                                                      // grilles (les lignes impaires sont dï¿½callï¿½es)
+        for (int l = 0; l < Jeu.MAPLIGNE; l = l + 2) { // Remarquer le "+2" car la grille est constituées de 2 sous
+                                                      // grilles (les lignes impaires sont décallées)
             for (int c = 0; c < Jeu.MAPCOLONNE; c++) {
                 Polygon poly = getPolygon(c * r.width, (int) (l * COTE * 1.5), COTE);
 
@@ -104,13 +118,14 @@ public class Affplateau extends JPanel {
                         break;
                     case 16:
                         bim = ImageIO.read(new File("images" + separateur + "desert3.png"));
+                        break;
+                    default:
+                        break;
                     }
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 g2d.setColor(new Color(53, 196, 39));
-                // g2d.fillRect(c*r.width, (int)(l*cote*1.5), 52, 60);
                 g2d.draw(poly);
                 g2d.drawImage(bim, c * r.width, (int) (l * COTE * 1.5), this);
             }
@@ -140,9 +155,11 @@ public class Affplateau extends JPanel {
                         break;
                     case 16:
                         bim = ImageIO.read(new File("images" + separateur + "desert3.png"));
+                        break;
+                    default:
+                        break;
                     }
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 g2d.setColor(new Color(53, 196, 39));
@@ -168,10 +185,10 @@ public class Affplateau extends JPanel {
                 case 5:
                     bim = ImageIO.read(new File("images" + separateur + "chevalier" + listeUnite.get(0) + ".png"));
                     break;
-
+                default:
+                    break;
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             if (bim != null) {
@@ -212,7 +229,6 @@ public class Affplateau extends JPanel {
                     }
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -232,7 +248,6 @@ public class Affplateau extends JPanel {
                     g2d.draw(poly);
                 }
             }
-
         }
         if (Jeu.getActionPossible() != null) {
             for (ArrayList<Object> actionPossible : Jeu.getActionPossible()) {
@@ -253,9 +268,6 @@ public class Affplateau extends JPanel {
                     }
                 }
             }
-
         }
-
     }
-
 }

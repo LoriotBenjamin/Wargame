@@ -48,20 +48,11 @@ public class IA extends Joueur {
                                 unite.setPtDeDeplacement((Integer) mapEntry.getValue());
                                 Jeu.affichageUnite();
 
-                                System.out.println("Attaque de " + joueur.getPseudo());
-                                System.out.println(unite);
-                                System.out.println("sur " + uniteAdverse);
-
                                 unite.attaquer(uniteAdverse);
-
-                                System.out.println("Résultat :");
-                                System.out.println(unite);
-                                System.out.println(uniteAdverse);
 
                                 deplacementPossible = unite.calculDeplacementPossible();
 
                                 break recherche;
-
                             }
                         }
                     }
@@ -74,7 +65,6 @@ public class IA extends Joueur {
                             && Jeu.getMap()[unite.getX()][unite.getY()].getDistanceBetweenTwoPosition(
                                     Jeu.getMap()[uniteAlliee.getX()][uniteAlliee.getY()]) <= unite.getPorte()) {
                         // soigne unités alliées à portée
-                        System.out.println(unite + "\nsoigne" + "\n" + uniteAlliee);
                         unite.soigner(uniteAlliee);
                     }
                 }
@@ -92,9 +82,6 @@ public class IA extends Joueur {
                 unite.setY(hexagone.getY());
                 unite.setPtDeDeplacement((Integer) deplacementPossible.get(key));
                 Jeu.affichageUnite();
-
-                System.out.println("Déplacement sans attaquer:");
-                System.out.println(unite);
             }
 
         }
