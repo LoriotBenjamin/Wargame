@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * MainJFrame est la fenêtre du jeu.
- * @author Stefano
+ * @author Stefano ET Mariem
  *
  */
 public class MainJFrame {
