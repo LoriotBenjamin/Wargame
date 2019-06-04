@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 /**
  * CustomPanel est un classe fille de JPanel pour pouvoir mettre un fond au Menu.
- * @author Stefano
+ * @author Stefano et Mariem
  *
  */
 public class CustomPanel extends JPanel {
