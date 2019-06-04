@@ -18,7 +18,7 @@ import controleur.Jeu;
 /**
  * Affplateau est la classe fille de JPanel, elle affiche le plateau de jeu et
  * son contenu.
- * @author Stefano
+ * @author Stefano et Mariem
  *
  */
 public class Affplateau extends JPanel {
