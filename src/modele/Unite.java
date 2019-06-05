@@ -164,8 +164,7 @@ public class Unite {
 
     /**
      * Est appelée quand une unité est sélectionnée, en attendant le 2e clic.
-     * 
-     * @return
+     * @return un booleen qui indique si le joueur a passé son tour ou non.
      */
     public boolean selected() {
         HashMap<Hexagone, Integer> deplacementPossible = calculDeplacementPossible();
@@ -203,7 +202,7 @@ public class Unite {
      * @param xHexa               Numéro de ligne du second clic.
      * @param yHexa               Numéro de colonne du second clic.
      * @param deplacementPossible HashMap des déplacements possibles de l'unité.
-     * @return 
+     * @return un booleen qui indique si le joueur a passé son tour ou non.
      */
     public boolean secondClic(final int xHexa, final int yHexa, final HashMap<Hexagone, Integer> deplacementPossible) {
         if (xHexa >= 0 && yHexa >= 0) {
